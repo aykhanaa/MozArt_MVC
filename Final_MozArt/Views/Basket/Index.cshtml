@@ -1,0 +1,117 @@
+﻿@model List<BasketDetailVM>
+
+@{
+    decimal grandTotal = Model.Sum(m => m.Total);
+}
+
+@section css {
+    <link rel="stylesheet" href="~/assets/css/basket/basket.css">
+}
+
+<main>
+    <section id="basket-title-area">
+        <div class="page-title-size section" style="margin-bottom: 4pc;">
+            <div class="container">
+                <div class="row">
+                    <div class="col">
+                        <div class="page-title">
+                            <h1 class="title">Basket</h1>
+                            <ul class="breadcrumb">
+                                <li class="breadcrumb-item"><a asp-controller="Shop" asp-action="Index">Shop</a></li>
+                                <li class="breadcrumb-item active">Basket</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="basket-main-area">
+        <div class="basket-main-size section-padding">
+            <div class="container">
+
+                <!-- Always render empty message -->
+                <div id="empty-message" class="text-center @(Model.Count == 0 ? "" : "d-none")">
+                    <h4>Your basket is empty.</h4>
+                    <a href="/Shop/Index" class="btn btn-dark mt-3">Go to Shop</a>
+                </div>
+
+                @if (Model.Count > 0)
+                {
+                    <form class="cart-form" action="#">
+                        <table class="cart-wishlist-table table">
+                            <thead>
+                                <tr>
+                                    <th class="name" colspan="2">Product</th>
+                                    <th class="price">Price</th>
+                                    <th class="quantity">Quantity</th>
+                                    <th class="subtotal">Total</th>
+                                    <th class="remove">&nbsp;</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model)
+                                {
+                                    <tr>
+                                        <td class="thumbnail">
+                                            <img src="~/assets/img/product-details/@item.Image" alt="@item.Name" style="max-width: 80px;" />
+                                        </td>
+                                        <td class="name">@item.Name</td>
+                                        <td class="price"><span>$@item.Price.ToString("0.00")</span></td>
+                                        <td class="quantity">
+                                            <div class="product-quantity">
+                                                <button type="button" class="qty-btn minus" onclick="updateQuantity(@item.Id, 'minus')">
+                                                    <i class="fa-solid fa-minus"></i>
+                                                </button>
+                                                <input type="text" class="input-qty" value="@item.Count" readonly />
+                                                <button type="button" class="qty-btn plus" onclick="updateQuantity(@item.Id, 'plus')">
+                                                    <i class="fa-solid fa-plus"></i>
+                                                </button>
+                                            </div>
+                                        </td>
+                                        <td class="subtotal"><span>$@item.Total.ToString("0.00")</span></td>
+                                        <td class="remove">
+                                            <button type="button" class="btn" onclick="removeItem(@item.Id)">×</button>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+
+                        <div class="row justify-content-between mb-n3">
+                            <div class="col-auto mb-3">
+                                <div class="cart-coupon">
+                                    <input type="text" placeholder="Enter your coupon code">
+                                    <button class="btn"><i class="fas fa-gift"></i></button>
+                                </div>
+                            </div>
+                            <div class="col-auto">
+                                <a class="btn btn-light btn-hover-dark mr-3 mb-3" asp-controller="Shop" asp-action="Index">Continue Shopping</a>
+                            </div>
+                        </div>
+                    </form>
+
+                    <div class="cart-totals mt-5">
+                        <h2 class="title">Cart totals</h2>
+                        <table>
+                            <tbody>
+                                <tr class="subtotal">
+                                    <th>Total</th>
+                                    <td><strong><span class="amount">$@grandTotal.ToString("0.00")</span></strong></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <a asp-controller="payment" asp-action="CheckOut" class="btn btn-dark btn-outline-hover-dark">Proceed to checkout</a>
+                    </div>
+                }
+
+            </div>
+        </div>
+    </section>
+</main>
+
+@section scripts {
+    <script src="~/assets/js/basket/basket.js"></script>
+    <script src="~/assets/js/basket/cart.js"></script>
+}

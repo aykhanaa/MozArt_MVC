@@ -1,0 +1,461 @@
+﻿<!--<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <style>
+        @media screen {
+            @font-face {
+                font-family: 'Lato';
+                font-style: normal;
+                font-weight: 400;
+                src: local('Lato Regular'), local('Lato-Regular'), url(https://fonts.gstatic.com/s/lato/v11/qIIYRU-oROkIk8vfvxw6QvesZW2xOQ-xsNqO47m55DA.woff) format('woff');
+            }
+
+            @font-face {
+                font-family: 'Lato';
+                font-style: normal;
+                font-weight: 700;
+                src: local('Lato Bold'), local('Lato-Bold'), url(https://fonts.gstatic.com/s/lato/v11/qdgUG4U09HnJwhYI-uK18wLUuEpTyoUstqEm5AMlJo4.woff) format('woff');
+            }
+
+            @font-face {
+                font-family: 'Lato';
+                font-style: italic;
+                font-weight: 400;
+                src: local('Lato Italic'), local('Lato-Italic'), url(https://fonts.gstatic.com/s/lato/v11/RYyZNoeFgb0l7W3Vu1aSWOvvDin1pK8aKteLpeZ5c0A.woff) format('woff');
+            }
+
+            @font-face {
+                font-family: 'Lato';
+                font-style: italic;
+                font-weight: 700;
+                src: local('Lato Bold Italic'), local('Lato-BoldItalic'), url(https://fonts.gstatic.com/s/lato/v11/HkF_qI1x_noxlxhrhMQYELO3LdcAZYWl9Si6vvxL-qU.woff) format('woff');
+            }
+        }
+
+        /* CLIENT-SPECIFIC STYLES */
+        body,
+        table,
+        td,
+        a {
+            -webkit-text-size-adjust: 100%;
+            -ms-text-size-adjust: 100%;
+        }
+
+        table,
+        td {
+            mso-table-lspace: 0pt;
+            mso-table-rspace: 0pt;
+        }
+
+        img {
+            -ms-interpolation-mode: bicubic;
+        }
+
+        /* RESET STYLES */
+        img {
+            border: 0;
+            height: auto;
+            line-height: 100%;
+            outline: none;
+            text-decoration: none;
+        }
+
+        table {
+            border-collapse: collapse !important;
+        }
+
+        body {
+            height: 100% !important;
+            margin: 0 !important;
+            padding: 0 !important;
+            width: 100% !important;
+            background-color: #f4f4f4;
+        }
+
+        /* iOS BLUE LINKS */
+        a[x-apple-data-detectors] {
+            color: inherit !important;
+            text-decoration: none !important;
+            font-size: inherit !important;
+            font-family: inherit !important;
+            font-weight: inherit !important;
+            line-height: inherit !important;
+        }
+
+        /* MOBILE STYLES */
+        @media screen and (max-width:600px) {
+            h1 {
+                font-size: 32px !important;
+                line-height: 32px !important;
+            }
+        }
+
+        /* ANDROID CENTER FIX */
+        div[style*="margin: 16px 0;"] {
+            margin: 0 !important;
+        }
+    </style>
+</head>
+<body>
+    <div style="display: none; font-size: 1px; color: #fefefe; line-height: 1px; font-family: 'Lato', Helvetica, Arial, sans-serif; max-height: 0px; max-width: 0px; opacity: 0; overflow: hidden;"> We're thrilled to have you here! Get ready to dive into your new account. </div>
+    <table border="0" cellpadding="0" cellspacing="0" width="100%">-->
+<!-- LOGO -->
+<!--<tr>
+    <td bgcolor="#af7f66" align="center">
+        <table border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width: 600px;">
+            <tr>
+                <td align="center" valign="top" style="padding: 40px 10px 40px 10px;"> </td>
+            </tr>
+        </table>
+    </td>
+</tr>
+<tr>
+    <td bgcolor="#af7f66" align="center" style="padding: 0px 10px 0px 10px;">
+        <table border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width: 600px;">
+            <tr>
+                <td bgcolor="#ffffff" align="center" valign="top" style="padding: 40px 20px 20px 20px; border-radius: 4px 4px 0px 0px; color: #111111; font-family: 'Lato', Helvetica, Arial, sans-serif; font-size: 48px; font-weight: 400; letter-spacing: 4px; line-height: 48px;">
+                    <h1 style="font-size: 48px; font-weight: 400; margin: 2;">Welcome</h1>
+                    <h4>{{fullName}}</h4>
+                </td>
+            </tr>
+        </table>a
+    </td>
+</tr>
+<tr>
+    <td bgcolor="#f4f4f4" align="center" style="padding: 0px 10px 0px 10px;">
+        <table border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width: 600px;">
+            <tr>
+                <td bgcolor="#ffffff" align="left" style="padding: 20px 30px 40px 30px; color: #666666; font-family: 'Lato', Helvetica, Arial, sans-serif; font-size: 18px; font-weight: 400; line-height: 25px;">
+                    <p style="margin: 0;">We're excited to have you get started. First, you need to confirm your account. Just press the button below.</p>
+                </td>
+            </tr>
+            <tr>
+                <td bgcolor="#ffffff" align="left">
+                    <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                        <tr>
+                            <td bgcolor="#ffffff" align="center" style="padding: 20px 30px 60px 30px;">
+                                <table border="0" cellspacing="0" cellpadding="0">
+                                    <tr>
+                                        <td align="center" style="border-radius: 3px;" bgcolor="#af7f66"><a href="{{link}}" target="_blank" style="font-size: 20px; font-family: Helvetica, Arial, sans-serif; color: #ffffff; text-decoration: none; color: #ffffff; text-decoration: none; padding: 15px 25px; border-radius: 2px; border: 1px solid #af7f66; display: inline-block;">Confirm Account</a></td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>-->
+ <!-- COPY -->
+<!--</table>
+            </td>
+        </tr>
+
+    </table>
+</body>
+</html>-->
+
+
+
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Welcome to Handcraft - Account Confirmation</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        @import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css');
+
+        /* CLIENT-SPECIFIC STYLES */
+        body, table, td, a {
+            -webkit-text-size-adjust: 100%;
+            -ms-text-size-adjust: 100%;
+        }
+
+        table, td {
+            mso-table-lspace: 0pt;
+            mso-table-rspace: 0pt;
+        }
+
+        img {
+            -ms-interpolation-mode: bicubic;
+            border: 0;
+            height: auto;
+            line-height: 100%;
+            outline: none;
+            text-decoration: none;
+        }
+
+        table {
+            border-collapse: collapse !important;
+        }
+
+        body {
+            height: 100% !important;
+            margin: 0 !important;
+            padding: 0 !important;
+            width: 100% !important;
+            background: linear-gradient(135deg, #f8fffe 0%, #e8f5f3 100%);
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+
+        /* DECORATIVE ELEMENTS */
+        .decoration {
+            position: absolute;
+            opacity: 0.1;
+            color: #2d5a27;
+        }
+
+        .decoration-1 {
+            top: 20px;
+            left: 30px;
+            font-size: 24px;
+            transform: rotate(-15deg);
+        }
+
+        .decoration-2 {
+            top: 60px;
+            right: 40px;
+            font-size: 18px;
+            transform: rotate(25deg);
+        }
+
+        .decoration-3 {
+            bottom: 80px;
+            left: 50px;
+            font-size: 20px;
+            transform: rotate(-30deg);
+        }
+
+        .decoration-4 {
+            bottom: 40px;
+            right: 60px;
+            font-size: 16px;
+            transform: rotate(45deg);
+        }
+
+        /* MAIN CARD STYLES */
+        .email-card {
+            background: #ffffff;
+            border-radius: 16px;
+            box-shadow: 0 20px 40px rgba(45, 90, 39, 0.08), 0 8px 16px rgba(45, 90, 39, 0.04);
+            overflow: hidden;
+            position: relative;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .top-border {
+            height: 4px;
+            background: linear-gradient(90deg, #2d5a27 0%, #4a7c59 50%, #2d5a27 100%);
+        }
+
+        .bottom-border {
+            height: 4px;
+            background: linear-gradient(90deg, #2d5a27 0%, #4a7c59 50%, #2d5a27 100%);
+        }
+
+        /* LOGO STYLES */
+        .logo-container {
+            text-align: center;
+            margin-bottom: 30px;
+            position: relative;
+        }
+
+        .logo {
+            display: inline-block;
+            position: relative;
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #2d5a27 0%, #4a7c59 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 8px 20px rgba(45, 90, 39, 0.3);
+        }
+
+            .logo i {
+                font-size: 32px;
+                color: #ffffff;
+            }
+
+        .logo-accent {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            width: 20px;
+            height: 20px;
+            background: #4a7c59;
+            border-radius: 50%;
+            border: 3px solid #ffffff;
+        }
+
+        /* TITLE STYLES */
+        .email-title {
+            font-size: 32px;
+            font-weight: 700;
+            color: #1a1a1a;
+            margin: 0 0 10px 0;
+            text-align: center;
+        }
+
+        .email-subtitle {
+            font-size: 16px;
+            color: #666666;
+            margin: 0 0 25px 0;
+            text-align: center;
+        }
+
+        .title-divider {
+            width: 60px;
+            height: 3px;
+            background: linear-gradient(90deg, #2d5a27, #4a7c59);
+            margin: 0 auto 40px auto;
+            border-radius: 2px;
+        }
+
+        /* BUTTON STYLES */
+        .confirm-btn {
+            display: inline-block;
+            background: linear-gradient(135deg, #2d5a27 0%, #4a7c59 100%);
+            color: #ffffff !important;
+            text-decoration: none;
+            padding: 16px 40px;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 16px;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            box-shadow: 0 8px 20px rgba(45, 90, 39, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+        }
+
+            .confirm-btn:hover {
+                transform: translateY(-2px);
+                box-shadow: 0 12px 25px rgba(45, 90, 39, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+            }
+
+        /* CONTENT STYLES */
+        .content-section {
+            background: #f8fffe;
+            border-radius: 12px;
+            padding: 30px;
+            margin: 30px 0;
+            border-left: 4px solid #2d5a27;
+        }
+
+        /* MOBILE STYLES */
+        @media screen and (max-width: 600px) {
+            .mobile-padding {
+                padding: 20px 15px !important;
+            }
+
+            .email-title {
+                font-size: 28px !important;
+            }
+
+            .confirm-btn {
+                padding: 14px 30px !important;
+                font-size: 14px !important;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- PREHEADER -->
+    <div style="display: none; font-size: 1px; color: #fefefe; line-height: 1px; max-height: 0px; max-width: 0px; opacity: 0; overflow: hidden;">
+        🌿 Welcome to MozArt! Your account confirmation is just one click away. Join our artisan community today.
+    </div>
+
+    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+        <!-- MAIN CONTAINER -->
+        <tr>
+            <td align="center" style="padding: 40px 20px; position: relative;">
+                <!-- DECORATIVE ELEMENTS -->
+                <div class="decoration decoration-1">
+                    <i class="fas fa-leaf"></i>
+                </div>
+                <div class="decoration decoration-2">
+                    <i class="fas fa-leaf"></i>
+                </div>
+                <div class="decoration decoration-3">
+                    <i class="fas fa-leaf"></i>
+                </div>
+                <div class="decoration decoration-4">
+                    <i class="fas fa-leaf"></i>
+                </div>
+
+                <!-- EMAIL CARD -->
+                <div class="email-card">
+                    <!-- TOP BORDER -->
+                    <div class="top-border"></div>
+
+                    <!-- MAIN CONTENT -->
+                    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+                        <tr>
+                            <td style="padding: 50px 40px;" class="mobile-padding">
+                                <!-- LOGO SECTION -->
+                                <div class="logo-container">
+                                    <div class="logo">
+                                        <i class="fas fa-leaf"></i>
+                                        <div class="logo-accent"></div>
+                                    </div>
+                                </div>
+
+                                <!-- GREETING -->
+                                <div style="text-align: center; margin-bottom: 30px;">
+                                    <h2 style="font-size: 24px; color: #2d5a27; margin: 0 0 10px 0; font-weight: 600;">
+                                        Welcome {{fullName}}! 👋
+                                    </h2>
+                                    <p style="font-size: 16px; color: #666666; margin: 0; line-height: 1.5;">
+                                        Welcome to MozArt family !
+                                    </p>
+                                </div>
+
+                                <!-- CONTENT SECTION -->
+                                <div class="content-section">
+                                    <p style="margin: 0 0 20px 0; font-size: 16px; color: #333333; line-height: 1.6;">
+                                        🎨 <strong>Congratulations!</strong> Your account has been successfully created and you are now part of our community of artisans.
+                                    </p>
+                                    <p style="margin: 0 0 20px 0; font-size: 16px; color: #333333; line-height: 1.6;">
+                                        By verifying your account, you will gain access to thousands of unique handmade products and connect directly with your favorite artisans.
+                                    </p>
+                                    <p style="margin: 0; font-size: 16px; color: #333333; line-height: 1.6;">
+
+                                        Verify your account by clicking the button below:
+                                    </p>
+                                </div>
+
+                                <!-- CTA BUTTON -->
+                                <div style="text-align: center; margin: 40px 0;">
+                                    <a href="{{link}}" class="confirm-btn" target="_blank">
+                                        <i class="fas fa-check" style="margin-right: 8px;"></i>
+                                        Confirm My Account
+                                    </a>
+                                </div>
+
+                                <!-- FEATURES LIST -->
+                               
+                            </td>
+                        </tr>
+                    </table>
+
+                    <!-- BOTTOM BORDER -->
+                    <div class="bottom-border"></div>
+                </div>
+
+                <!-- FOOTER -->
+                <div style="text-align: center; margin-top: 30px;">
+                    <p style="margin: 0; font-size: 12px; color: #999999;">
+                        © 2024 MozArt. Created with ❤️ for artists.
+                    </p>
+                </div>
+            </td>
+        </tr>
+    </table>
+</body>
+</html>

@@ -1,0 +1,26 @@
+﻿ @model VideoVM
+
+<div class="container" style="max-width: 600px; margin-top: 4rem;">
+    <h2 class="text-center mb-4">Category Detail</h2>
+
+    <div class="form-group mb-4">
+        <label class="form-label fw-semibold text-muted">Image</label><br />
+        <img src="~/assets/img/about/@Model.Image" class="img-thumbnail mt-2" style="max-width: 100%; height: auto; max-height: 300px;" alt="Slider Image" />
+    </div>
+
+    <div class="form-group mb-3">
+        <label class="form-label fw-semibold text-muted">VideoURL</label>
+        <div class="form-control-plaintext">@Model.VideoURL</div>
+    </div>
+
+    <div class="form-group mb-3">
+        <label class="form-label fw-semibold text-muted">Created Date</label>
+        <div class="form-control-plaintext">@Model.CreateDate.ToString("dd/MM/yyyy")</div>
+    </div>
+
+
+
+    <div class="form-group text-end">
+        <a asp-action="Index" class="btn btn-outline-secondary">Back</a>
+    </div>
+</div>

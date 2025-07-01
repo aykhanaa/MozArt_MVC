@@ -1,0 +1,102 @@
+﻿@using Final_MozArt.ViewModels.ContactMessage
+@model List<ContactMessageVM>
+@inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpContextAccessor
+@inject Microsoft.AspNetCore.Antiforgery.IAntiforgery Antiforgery
+
+<!-- CSRF token metatag -->
+<meta name="csrf-token" content="@Antiforgery.GetAndStoreTokens(HttpContextAccessor.HttpContext).RequestToken" />
+
+<div class="container my-5" style="margin-left: 22pc !important; width: 68pc !important; margin-top: 120px !important;">
+    <h1 class="text-center mt-3 mb-3" style="margin-left:200px; margin-top:150px;">Contact Message</h1>
+
+    <div class="table-responsive">
+        <table class="table table-striped" id="messages-table">
+            <thead>
+                <tr>
+                    <th>Email</th>
+                    <th>Message</th>
+                    <th>Created Date</th>
+                    <th>Operations</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr id="message-@item.Id">
+                        <td>@item.Email</td>
+                        <td>@item.Message</td>
+                        <td>@item.CreateDate.ToString("dd/MM/yyyy")</td>
+                        <td>
+                            @if (User.Identity.IsAuthenticated && User.IsInRole("SuperAdmin"))
+                            {
+                                @if (!item.IsApproved)
+                                {
+                                    <button class="btn btn-primary btn-approve" data-id="@item.Id">Approve</button>
+                                }
+                            }
+                            <button class="btn btn-danger btn-delete" data-id="@item.Id">Delete</button>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const token = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+
+            // DELETE
+            document.querySelectorAll('.btn-delete').forEach(btn => {
+                btn.addEventListener('click', async () => {
+                    const id = btn.getAttribute('data-id');
+
+                    const formData = new FormData();
+                    formData.append("id", id);
+
+                    const response = await fetch('/Admin/ContactMessage/Delete', {
+                        method: 'POST',
+                        headers: {
+                            'RequestVerificationToken': token
+                        },
+                        body: formData
+                    });
+
+                    const result = await response.json();
+                    if (result.success) {
+                        document.getElementById(`message-${id}`).remove();
+                    } else {
+                        alert("Failed to delete.");
+                    }
+                });
+            });
+
+            // APPROVE
+            document.querySelectorAll('.btn-approve').forEach(btn => {
+                btn.addEventListener('click', async () => {
+                    const id = btn.getAttribute('data-id');
+
+                    const formData = new FormData();
+                    formData.append("id", id);
+
+                    const response = await fetch('/Admin/ContactMessage/Approve', {
+                        method: 'POST',
+                        headers: {
+                            'RequestVerificationToken': token
+                        },
+                        body: formData
+                    });
+
+                    const result = await response.json();
+                    if (result.success) {
+                        btn.remove();
+                    } else {
+                        alert("Failed to approve.");
+                    }
+                });
+            });
+        });
+    </script>
+}

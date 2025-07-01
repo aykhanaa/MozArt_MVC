@@ -1,0 +1,68 @@
+﻿@using Final_MozArt.ViewModels.Subscribe
+@model SubscribeListVM
+@inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpContextAccessor
+@inject Microsoft.AspNetCore.Antiforgery.IAntiforgery Antiforgery
+
+<meta name="csrf-token" content="@Antiforgery.GetAndStoreTokens(HttpContextAccessor.HttpContext).RequestToken" />
+
+<div class="container my-5" style="margin-left: 22pc !important; width: 68pc !important; margin-top: 120px !important;">
+    <h1 class="text-center mt-3 mb-3" style="margin-left:200px; margin-top:150px;">Newsletter Subscribers</h1>
+
+    <div class="table-responsive">
+        <table class="table table-striped" id="subscribe-table">
+            <thead>
+                <tr>
+                    <th>Email</th>
+                    <th>Subscribed At</th>
+                    <th>Operations</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.Items)
+                {
+                    <tr id="subscriber-@item.Id">
+                        <td>@item.Email</td>
+                        <td>@item.CreateDate.ToString("dd/MM/yyy")</td>
+                        <td>
+                            <button class="btn btn-danger btn-delete" data-id="@item.Id">Delete</button>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+                        document.addEventListener("DOMContentLoaded", () => {
+            const token = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+
+            document.querySelectorAll('.btn-delete').forEach(btn => {
+                btn.addEventListener('click', async () => {
+                    const id = btn.getAttribute('data-id');
+
+                    const formData = new FormData();
+                    formData.append("id", id);
+
+                    const response = await fetch('/Admin/Subscribe/Delete', {
+                        method: 'POST',
+                        headers: {
+                            'RequestVerificationToken': token
+                        },
+                        body: formData
+                    });
+
+                    const result = await response.json();
+                    if (result.success) {
+                        document.getElementById(`subscriber-${id}`).remove();
+                    } else {
+                        alert(result.message || "Failed to delete subscriber.");
+                    }
+                });
+            });
+        });
+
+
+    </script>
+}

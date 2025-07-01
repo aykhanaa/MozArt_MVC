@@ -1,0 +1,8 @@
+2025-06-17 12:09:15.193 +04:00 [WRN] No store type was specified for the decimal property 'Price' on entity type 'Product'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2025-06-17 12:09:15.318 +04:00 [WRN] No store type was specified for the decimal property 'Price' on entity type 'Product'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2025-06-17 12:09:38.578 +04:00 [INF] User profile is available. Using 'C:\Users\ASUS\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2025-06-17 12:09:38.666 +04:00 [INF] Now listening on: https://localhost:7286
+2025-06-17 12:09:38.667 +04:00 [INF] Now listening on: http://localhost:5244
+2025-06-17 12:09:38.685 +04:00 [INF] Application started. Press Ctrl+C to shut down.
+2025-06-17 12:09:38.687 +04:00 [INF] Hosting environment: Development
+2025-06-17 12:09:38.691 +04:00 [INF] Content root path: C:\Users\ASUS\Desktop\Final_MVC_MozArt\Final_MozArt

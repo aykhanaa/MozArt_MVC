@@ -1,0 +1,128 @@
+*,
+*::after,
+*::before {
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+html,
+body,
+.site-wrapper {
+  height: 100%;
+}
+
+body {
+  font-family: "Futura", Arial, Helvetica, sans-serif;
+  font-size: 18px;
+  font-weight: 300;
+  font-style: normal;
+  line-height: 1.75;
+  position: relative;
+  visibility: visible;
+  overflow-x: hidden;
+  color: #696969;
+  background-color: #FFFFFF;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: "Marcellus", Arial, Helvetica, sans-serif;
+  font-weight: 600;
+  line-height: 1.2;
+  margin-top: 0;
+  color: #333333;
+}
+
+.h1,
+.h2,
+.h3,
+.h4,
+.h5,
+.h6 {
+  line-height: inherit;
+  margin: 0;
+}
+
+p:last-child {
+  margin-bottom: 0;
+}
+
+a,
+button {
+  line-height: inherit;
+  display: inline-block;
+  cursor: pointer;
+  text-decoration: none;
+  color: inherit;
+}
+
+a,
+button,
+img,
+input {
+  -webkit-transition: all 0.5s ease 0s;
+  transition: all 0.5s ease 0s;
+}
+
+*:focus {
+  outline: none !important;
+}
+
+a:focus {
+  text-decoration: none;
+  color: inherit;
+  outline: none;
+}
+
+a:hover {
+  text-decoration: none;
+  color: black;
+}
+
+button,
+input[type=submit] {
+  cursor: pointer;
+}
+
+
+#wishlist-title-area .page-title-size {
+    background-image: url("../../img/blog/page-title.webp");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center center;
+  }
+  
+  @media only screen and (min-width: 992px) and (max-width: 1199px),
+  only screen and (min-width: 768px) and (max-width: 991px) {
+    #wishlist-title-area .page-title-size {
+      padding: 80px 0;
+    }
+  }
+  
+  @media only screen and (max-width: 767px) {
+    #wishlist-title-area .page-title-size {
+      padding: 60px 0;
+    }
+  }
+  
+  @media only screen and (max-width: 479px) {
+    #wishlist-title-area .page-title-size {
+      padding: 50px 0;
+    }
+  }
+  
+  
+  .shop-toolbar {
+    padding-top: 25px;
+    padding-bottom: 25px;
+    margin-left: 60pc
+  }
+
+
+  #footer-area.footer-section {
+    background-color: #F8F8F8;
+  }

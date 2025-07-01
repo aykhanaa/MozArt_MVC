@@ -1,0 +1,76 @@
+﻿@using Final_MozArt.ViewModels.BlogComment
+
+@model List<BlogCommentVM>
+
+
+<div class="container my-5" style="margin-left: 22pc !important; width: 68pc !important; margin-top: 120px !important;">
+    <h1 class="text-center mt-3 mb-3" style="margin-left:200px; margin-top:150px;">Blog Comment</h1>
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+
+                    <th>
+                        Name
+                    </th>
+                    <th>
+                       Email
+                    </th>
+                    <th>
+                       Comment
+                    </th>
+                    <th>
+                        Operations
+                    </th>
+
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                 <tr data-id="@item.Id">
+
+                     <td>
+                         @item.Name
+                     </td>
+                     <td>
+                         @item.Email
+                     </td>
+                     <td>
+                         @item.Comment
+                     </td>
+                     <td>
+                         @item.CreatedDate.ToString("dd/MM/yyyy")
+                     </td>
+
+                     <td>                  
+                         @if (User.Identity.IsAuthenticated && User.IsInRole("SuperAdmin"))
+                         {
+                             <button class="btn btn-danger"  onclick="deleteComment(@item.Id)">Delete</button>
+                         }
+                     </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+
+<script>
+    async function deleteComment(id) {
+        const response = await fetch('/Admin/BlogComment/Delete', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+            body: `id=${id}`
+        });
+
+        const result = await response.json();
+        if (result.success) {
+            location.reload();
+        }
+    }
+</script>
+
+

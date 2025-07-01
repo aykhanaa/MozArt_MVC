@@ -1,0 +1,103 @@
+﻿@model List<BlogVM>
+
+<div class="container my-5" style="margin-left: 22pc !important; width: 68pc !important; margin-top: 120px !important;">
+    <h1 class="text-center mt-3 mb-3" style="margin-left:200px; margin-top:150px;">Blogs</h1>
+    @if (User.Identity.IsAuthenticated && User.IsInRole("SuperAdmin"))
+    {
+        <a class="btn btn-success text-white" asp-action="Create">Create</a>
+    }
+   
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Image</th>
+                    <th>Title</th>
+                    <th>Category</th>
+                    <th style="width: 25pc;">Description</th>
+                    <th>Operations</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var blog in Model)
+                {
+                    <tr data-id="@blog.Id">
+                        <td class="py-1">
+                            <img src="~/assets/img/blog/@blog.Image" style="width:80px; height:80px; border-radius:0" alt="blog image" />
+                        </td>
+                        <td>@blog.Title</td>
+                        <td>@blog.BlogCategoryName</td>
+                        <td>
+                            @(blog.Description.Length > 100
+                                                    ? blog.Description.Substring(0, 100) + "..."
+                                                    : blog.Description)
+                    </td>
+                        <td>
+
+                        @if (User.Identity.IsAuthenticated && User.IsInRole("SuperAdmin") || User.IsInRole("Admin"))
+                            {
+                                <a class="btn btn-info" asp-action="Detail" asp-route-id="@blog.Id">Detail</a>
+                            }
+                            @if (User.Identity.IsAuthenticated && User.IsInRole("SuperAdmin") || User.IsInRole("Admin"))
+                            {
+                                <a class="btn btn-primary" asp-action="Edit" asp-route-id="@blog.Id">Edit</a>
+
+                            }
+
+                            @if (User.Identity.IsAuthenticated && User.IsInRole("SuperAdmin"))
+                            {
+                                <button type="button" class="btn btn-danger delete-blog" data-id="@blog.Id">Delete</button>
+
+
+                            }
+                          
+                            
+                           
+
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+        @Html.AntiForgeryToken()
+
+    </div>
+</div>
+
+
+@section Scripts {
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const deleteButtons = document.querySelectorAll('.delete-blog');
+
+            deleteButtons.forEach(button => {
+                button.addEventListener('click', function () {
+                    const id = this.getAttribute('data-id');
+                    const row = this.closest('tr');
+
+                    const token = document.querySelector('input[name="__RequestVerificationToken"]').value;
+
+                    const formData = new FormData();
+                    formData.append('__RequestVerificationToken', token);
+
+                    fetch(`/Admin/Blog/Delete/${id}`, {
+                        method: 'POST',
+                        body: formData
+                    })
+                    .then(response => {
+                        if (response.ok) {
+                            row.remove(); // DOM-dan sil
+                        } else {
+                            alert("Delete failed!");
+                        }
+                    })
+                    .catch(error => {
+                        console.error("Error:", error);
+                        alert("An error occurred!");
+                    });
+                });
+            });
+        });
+    </script>
+}
+

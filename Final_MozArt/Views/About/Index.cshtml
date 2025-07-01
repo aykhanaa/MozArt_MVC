@@ -1,0 +1,219 @@
+﻿@section css {
+    <link rel="stylesheet" href="~/assets/css/about/about.css">
+}
+
+@model AboutUIVM
+
+<main>
+
+    <section id="shop-title-area">
+        <div class="page-title-size section" style="background-image:url(./assets/img/shop/@Model.Setting["AboutBanner"])">
+            <div class="container">
+                <div class="row">
+                    <div class="col">
+                        <div class="page-title">
+                            <h1 class="title">About</h1>
+                            <ul class="breadcrumb">
+                                <li class="breadcrumb-item"><a asp-controller="Home" asp-action="Index">Home</a></li>
+                                <li class="breadcrumb-item active">About</li>
+                                </li>
+                            </ul>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+      @if (Model.Abouts != null && Model.Abouts.Any())
+    {
+        <section id="about-area">
+            <div class="about-size section-padding pb-0">
+            <div class="container">
+                <div class="row learts-mb-n30">
+
+                    <div class="col-md-6 col-12 align-self-center learts-mb-30">
+                        <div class="about-us"> 
+
+                            <span class="sub-title">@Model.Abouts.FirstOrDefault()?.Subtitle
+                            </span>
+                            <h2 class="title">@Model.Abouts.FirstOrDefault()?.Title</h2>
+                            <div class="desc">
+                                <p>
+                                    @Model.Abouts.FirstOrDefault()?.Description
+
+                                </p>
+                            </div>
+                            <a asp-controller="Blog" asp-action="Index" class="link" style="margin-right: 24pc;">Learn more</a>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-12 text-center learts-mb-30">
+                        <img src="~/assets/img/about/@Model.Abouts.FirstOrDefault()?.Image" alt="">
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    }
+
+      @if (Model.Supports != null && Model.Supports.Any())
+    {
+    <section id="service-area">
+        <div class="service-size section-padding">
+            <div class="container">
+                <div class="row row-cols-md-3 row-cols-1 learts-mb-n30">
+
+                   @foreach (var item in Model.Supports.OrderByDescending(l=>l.CreateDate).Take(3))
+                    {
+                        <div class="col learts-mb-30">
+                            <div class="icon-box">
+                                <div class="inner">
+                                    <div class="content">
+                                        <h6 class="title">@item.Title</h6>
+                                        <p>
+                                           @item.Description
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                    }
+
+                             <div class="col learts-mb-30">
+                            <div class="icon-box">
+                                <div class="inner">
+                                    <div class="content">
+                                        <h6 class="title">SECURE PAYMENT</h6>
+                                         @if (Model.Setting?.TryGetValue("Payment", out var pay) == true && !string.IsNullOrWhiteSpace(pay))
+                                {
+                                        <img class="img-hover-color " src="assets/img/about/@pay" alt="">
+                                }
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+    }
+
+
+      @if (Model.Videos != null && Model.Videos.Any())
+    {
+        <section id="video-banner-area">
+            <div class="video-banner-size">   
+                <div class="container">
+                    <div class="video-banner"
+                    style="background-image: url(assets/img/about/@Model.Videos.FirstOrDefault().Image);background-repeat: no-repeat; margin-bottom: 10pc;">
+                        <div class="content" style="margin-bottom: 16pc;">
+                            <a href="@Model.Videos.FirstOrDefault().VideoURL" class="video-popup">
+                                <img src="~/assets/img/about/button-play-light.webp" alt="">
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <div id="videoModal" class="video-modal">
+            <div class="video-modal-content">
+            <span class="video-modal-close">&times;</span>
+            <div class="video-iframe-container">
+                <iframe id="videoIframe" class="video-iframe" allowfullscreen></iframe>
+            </div>
+        </div>
+    </div>
+    }
+
+
+    <section id="service-area">
+        <div class="section section-padding" style="margin-top: -15pc;">
+            <div class="container">
+                <div class="row learts-mb-n30">
+                    <div class="col-xl-3 col-lg-4 col-12 me-auto learts-mb-30">
+                        <h1 class="fw-400">The difference when you shop MozArt!</h1>
+                    </div>
+                    <div class="col-lg-8 col-12 learts-mb-30">
+                        <div class="row learts-mb-n30">
+
+                            @foreach (var item in Model.Advantages)
+                            {
+                                <div class="col-md-6 col-12 learts-mb-30">
+                                    <p class="text-heading fw-600 learts-mb-10">@item.Title</p>
+                                    <p style="width: 20pc;font-size: medium;font-family: system-ui;">
+                                       @item.Description
+                                    </p>
+                                </div>
+
+                            }
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+
+
+    <section id="line-area">
+        <div class="container">
+            <hr class="between-line">
+        </div>
+    </section>
+
+
+      @if (Model.Instagrams != null && Model.Instagrams.Any())
+    {
+        <section id="insta-area">
+            <div class="insta-size section-padding">
+                <div class="container">
+                    <div class="insta-title text-center">
+                        <h3 class="sub-title">Follow us on Instagram</h3>
+                        <h2 class="title">mozArt_shop</h2>
+                    </div>
+
+                    <section id="insta-area"></section>
+                    <div class="insta-slider-container">
+                        <div class="slider-wrapper">
+                            <div class="instafeed-carousel" id="instafeed-slider">
+                                @foreach (var item in Model.Instagrams)
+                                {
+                                    <a class="instafeed-item" href="#">
+                                        <img src="~/assets/img/home/@item.Image" alt="instagram image" />
+                                        <i class="fab fa-instagram"></i>
+                                    </a>
+                                }
+                            </div>
+                    </div>
+
+                    <button class="slider-btn slider-btn-prev" id="prevBtn">
+                        <span class="arrow-icon">‹</span>
+                    </button>
+                    <button class="slider-btn slider-btn-next" id="nextBtn">
+                        <span class="arrow-icon">›</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+    }
+</main>
+
+
+
+@section scripts {
+    <script src="~/assets/js/about/about.js"></script>
+}

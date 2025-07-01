@@ -1,0 +1,58 @@
+﻿  @model Dictionary<string,string>
+
+<footer>
+    <section id="footer-area">
+        <div class="footer-section section section-padding" style="background-color: #f8f8f8;margin-top: 170px;">
+            <div class="container">
+                <div class="row learts-mb-n40">
+
+                    <div class="col-lg-6 learts-mb-40">
+                        <div class="widget-about">
+                            <img src="~/assets/img/home/@Model["FooterImg"]" alt="">
+                            <p style="opacity: 0.60; font-size: medium; ">
+                                @Model["FooterDesc"]
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4 learts-mb-40" style="margin-top: 25px;">
+                        <div class="row">
+                            <div class="col">
+                                <ul class="widget-list">
+                                    <li><a asp-controller="About" asp-action="Index">About us</a></li>
+                                    <li><a asp-controller="Shop" asp-action="Index">Shop</a></li>
+                                    <li><a asp-controller="Contact" asp-action="Index">Contact</a></li>
+                                    <li><a asp-controller="Blog" asp-action="Index">Blog</a></li>
+                                </ul>
+                            </div>
+                            <div class="col">
+                                <ul class="widget-list">
+                                    <li><a href="#">@Model["Mobile"]</a></li>
+                                    <li><a href="#">@Model["Mail"]</a></li>
+                                    <li><a href="#">Hotline:@Model["Hotline"]</a></li>
+                                    <li><a href="#">@Model["Adress"] </a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-2 learts-mb-40">
+                        <ul class="widget-list" style="margin-top: 25px;">
+                            <li> <i class="fab fa-twitter"></i> <a href="https://www.twitter.com/">Twitter</a></li>
+                            <li>
+                                <i class="fab fa-facebook-f"></i> <a href="https://www.facebook.com/">Facebook</a>
+                            </li>
+                            <li>
+                                <i class="fab fa-instagram"></i> <a href="https://www.instagram.com/">Instagram</a>
+                            </li>
+                            <li> <i class="fab fa-youtube"></i> <a href="https://www.youtube.com/">Youtube</a></li>
+                        </ul>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+</footer>
+
+

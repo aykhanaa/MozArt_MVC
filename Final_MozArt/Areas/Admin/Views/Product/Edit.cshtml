@@ -1,0 +1,162 @@
+﻿@model ProductEditVM
+
+@{
+    ViewData["Title"] = "Edit Product";
+}
+
+<div class="container" style="max-width: 53pc; margin-top: 4rem;">
+    <h2 class="text-center mb-4">Edit Product</h2>
+
+    <form asp-action="Edit" method="post" enctype="multipart/form-data">
+        <input type="hidden" asp-for="Id" />
+
+        <div class="mb-3">
+            <label asp-for="Name" class="form-label fw-semibold text-muted"></label>
+            <input asp-for="Name" class="form-control" />
+            <span asp-validation-for="Name" class="text-danger"></span>
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="Description" class="form-label fw-semibold text-muted"></label>
+            <textarea asp-for="Description" class="form-control"></textarea>
+            <span asp-validation-for="Description" class="text-danger"></span>
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="Price" class="form-label fw-semibold text-muted"></label>
+            <input asp-for="Price" class="form-control" />
+            <span asp-validation-for="Price" class="text-danger"></span>
+        </div>
+
+        <div class="row mb-3">
+            <div class="col-md-6">
+                <label class="form-label fw-semibold text-muted">Brand</label>
+                <select asp-for="BrandId" class="form-control" asp-items="ViewBag.Brands"></select>
+            </div>
+            <div class="col-md-6">
+                <label class="form-label fw-semibold text-muted">Category</label>
+                <select asp-for="CategoryId" class="form-control" asp-items="ViewBag.Categories"></select>
+            </div>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label fw-semibold text-muted">Colors</label>
+            <select asp-for="ColorIds" asp-items="ViewBag.Colors" multiple class="form-control"></select>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label fw-semibold text-muted">Tags</label>
+            <select asp-for="TagIds" asp-items="ViewBag.Tags" multiple class="form-control"></select>
+        </div>
+
+        <div class="mb-4">
+            <label class="form-label fw-semibold text-muted">Upload New Images</label>
+            <input asp-for="Photos" type="file" class="form-control" multiple accept="image/*" />
+        </div>
+
+        <div class="mb-4 text-end">
+            <button type="submit" class="btn btn-success">Save</button>
+            <a asp-action="Index" class="btn btn-secondary ms-2">Cancel</a>
+        </div>
+    </form>
+
+    <hr class="my-4" />
+
+    <h4 class="mb-3">Existing Images</h4>
+    @if (Model.Images != null && Model.Images.Any())
+    {
+        <div class="d-flex flex-wrap gap-3" id="images-container">
+            @foreach (var image in Model.Images)
+            {
+                <div class="border p-2 rounded text-center" style="width: 150px;" data-image-id="@image.Id">
+                    <img src="~/assets/img/product-details/@image.Image" class="img-fluid mb-2 rounded" style="max-height: 100px;" />
+
+                    <form asp-action="DeleteImage" method="post" class="mb-2">
+                        <input type="hidden" name="id" value="@image.Id" />
+                        <input type="hidden" name="productId" value="@Model.Id" />
+                        <button class="btn btn-sm btn-danger w-100">Delete</button>
+                    </form>
+
+                    @if (!image.IsMain && !image.IsHover)
+                    {
+                        <form class="set-main-form" method="post" data-product-id="@Model.Id" data-image-id="@image.Id" action="@Url.Action("SetMainImage", "Product")">
+                            <button type="submit" class="btn btn-sm btn-warning w-100 set-main-btn">Set Main</button>
+                        </form>
+                    }
+                    else if (image.IsMain)
+                    {
+                        <span class="badge bg-success d-block mt-2">Main</span>
+                    }
+                    else if (image.IsHover)
+                    {
+                        <span class="badge bg-info d-block mt-2">Hover</span>
+                    }
+                </div>
+            }
+        </div>
+    }
+</div>
+
+@section Scripts {
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            document.querySelectorAll('.set-main-form').forEach(form => {
+                form.addEventListener('submit', async (e) => {
+                    e.preventDefault();
+
+                    const productId = form.getAttribute('data-product-id');
+                    const imageId = form.getAttribute('data-image-id');
+                    const token = document.querySelector('input[name="__RequestVerificationToken"]').value;
+
+                    const formData = new FormData();
+                    formData.append('ProductId', productId);
+                    formData.append('ImageId', imageId);
+                    formData.append('__RequestVerificationToken', token);
+
+                    try {
+                        const response = await fetch(form.action, {
+                            method: 'POST',
+                            body: formData
+                        });
+
+                        if (response.ok) {
+                            // Səhifəni yeniləmədən "Main" statusunu yenilə
+                            updateMainBadge(imageId);
+                        } else {
+                            alert('Main image olaraq hover seçilə bilməz!');
+                        }
+                    } catch {
+                        alert('Xəta baş verdi.');
+                    }
+                });
+            });
+
+            function updateMainBadge(newMainImageId) {
+                // Bütün "Main" badge-ləri sil
+                document.querySelectorAll('[data-image-id]').forEach(div => {
+                    const badge = div.querySelector('.badge.bg-success');
+                    if (badge) badge.remove();
+
+                    // Əgər həmin divdə set main düyməsi yoxdursa (hover ola bilər)
+                    // set main düyməsini aktiv et
+                    const setMainForm = div.querySelector('.set-main-form');
+                    if (setMainForm) setMainForm.style.display = 'block';
+                });
+
+                // Yeni main şəkilin divini tap
+                const newMainDiv = document.querySelector(`[data-image-id="${newMainImageId}"]`);
+                if (newMainDiv) {
+                    // "Set Main" düyməsini gizlət
+                    const setMainForm = newMainDiv.querySelector('.set-main-form');
+                    if (setMainForm) setMainForm.style.display = 'none';
+
+                    // "Main" badge əlavə et
+                    const badge = document.createElement('span');
+                    badge.classList.add('badge', 'bg-success', 'd-block', 'mt-2');
+                    badge.innerText = 'Main';
+                    newMainDiv.appendChild(badge);
+                }
+            }
+        });
+    </script>
+}

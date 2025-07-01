@@ -1,0 +1,171 @@
+﻿@model BlogUIVM
+
+@section css {
+    <link rel="stylesheet" href="~/assets/css/blog/blog.css">
+}
+
+<main>
+    <section id="blog-title-area">
+        <div class="page-title-size section" style="margin-bottom: 4pc; background-image:url(./assets/img/blog/@Model.Setting["BlogBanner"])">
+            <div class="container">
+                <div class="row">
+                    <div class="col">
+                        <div class="page-title">
+                            <h1 class="title">Blog</h1>
+                            <ul class="breadcrumb">
+                                <li class="breadcrumb-item"><a asp-controller="Home" asp-action="Index">Home</a></li>
+                                <li class="breadcrumb-item active">Blog</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+      @if (Model.Blogs != null && Model.Blogs.Any())
+    {
+    <section id="blog-area">
+        <div class="blog-size section-padding">
+            <div class="container">
+                <div class="row learts-mb-n40" id="blogContainer">
+                    @foreach (var item in Model.Blogs.Take(3))
+                    {
+                        <div class="col-lg-4 col-md-6 col-12 learts-mb-40">
+                            <div class="blog">
+                                <div class="image">
+                                    <a asp-controller="blog" asp-action="Detail" asp-route-id="@item.Id">
+                                        <img src="/assets/img/blog/@item.Image" alt="Blog Image" />
+                                    </a>
+                                </div>
+                                <div class="content">
+                                    <ul class="meta">
+                                        <li><i class="far fa-calendar"></i><a >@item.CreateDate.ToString("dd/MM/yyyy")</a></li>
+                                    </ul>
+                                    <ul class="meta">
+                                        <li><i class="fa-solid fa-list"></i><a >@item.BlogCategoryName</a></li>
+                                    </ul>
+                                    <h5 class="title">
+                                        <a>@item.Title</a>
+                                    </h5>
+                                    <div class="desc">
+                                        <p>@(item.Description.Length > 200 ? item.Description.Substring(0, 200) + "..." : item.Description)</p>
+                                    </div>
+                                    <a asp-controller="blog" asp-action="Detail" asp-route-id="@item.Id" class="link">Read More</a>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+
+                @if (Model.TotalCount > 3)
+                {
+                    <div class="row learts-mt-50">
+                        <div class="col text-center">
+                            <a href="#" id="loadMoreBtn" class="btn btn-dark btn-outline-hover-dark" data-skip="3" data-take="3" data-totalcount="@Model.TotalCount">Load More</a>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </section>
+    }
+</main>
+
+@section scripts {
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const loadMoreBtn = document.getElementById("loadMoreBtn");
+            const blogContainer = document.getElementById("blogContainer");
+
+            if (!loadMoreBtn) return;
+
+            
+            const totalCount = parseInt(loadMoreBtn.getAttribute("data-totalcount"));
+
+            function formatDate(isoString) {
+                const date = new Date(isoString);
+                return `${String(date.getDate()).padStart(2, '0')}/${String(date.getMonth() + 1).padStart(2, '0')}/${date.getFullYear()}`;
+            }
+
+                    function createBlogHTML(item) {
+            const description = item.description ? (item.description.length > 200 ? item.description.substring(0, 200) + '...' : item.description) : '';
+            const title = item.title || 'Untitled';
+            const image = item.image || 'default.jpg';
+            const createDate = formatDate(item.createDate);
+            const categoryName = item.blogCategoryName || 'Uncategorized';
+
+            return `
+                <div class="col-lg-4 col-md-6 col-12 learts-mb-40">
+                    <div class="blog">
+                        <div class="image">
+                            <a href="/blog/detail/${item.id}">
+                                <img src="/assets/img/blog/${image}" alt="Blog Image" />
+                            </a>
+                        </div>
+                        <div class="content">
+                            <ul class="meta">
+                                <li><i class="far fa-calendar"></i><a href="#">${createDate}</a></li>
+                            </ul>
+                            <ul class="meta">
+                                <li><i class="fa-solid fa-list"></i><a href="#">${categoryName}</a></li>
+                            </ul>
+                            <h5 class="title">
+                                <a href="/blog/detail/${item.id}">${title}</a>
+                            </h5>
+                            <div class="desc">
+                                <p>${description}</p>
+                            </div>
+                            <a href="/blog/detail/${item.id}" class="link">Read More</a>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+
+            loadMoreBtn.addEventListener("click", function (e) {
+                e.preventDefault();
+
+                let skip = parseInt(loadMoreBtn.getAttribute("data-skip"));
+                let take = parseInt(loadMoreBtn.getAttribute("data-take"));
+
+                loadMoreBtn.textContent = "Loading...";
+                loadMoreBtn.disabled = true;
+
+                fetch(`/Blog/LoadMore?skip=${skip}&take=${take}`)
+                    .then(response => {
+                        if (!response.ok) throw new Error('Network response was not ok');
+                        return response.json();
+                    })
+                    .then(data => {
+                        if (!data.success || !data.blogs || data.blogs.length === 0) {
+                            loadMoreBtn.style.display = "none";
+                            return;
+                        }
+
+                        data.blogs.forEach(item => {
+                            const blogHtml = createBlogHTML(item);
+                            blogContainer.insertAdjacentHTML("beforeend", blogHtml);
+                        });
+
+                        skip += data.blogs.length;
+                        loadMoreBtn.setAttribute("data-skip", skip);
+
+                     
+                        if (skip >= totalCount) {
+                            loadMoreBtn.style.display = "none";
+                        } else {
+                            loadMoreBtn.textContent = "Load More";
+                            loadMoreBtn.disabled = false;
+                        }
+                    })
+                    .catch(error => {
+                        console.error("Error loading more blogs:", error);
+                        loadMoreBtn.textContent = "Error - Try Again";
+                        loadMoreBtn.disabled = false;
+                    });
+            });
+        });
+    </script>
+}

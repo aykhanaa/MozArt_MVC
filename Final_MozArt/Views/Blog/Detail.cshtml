@@ -1,0 +1,322 @@
+﻿@model BlogDetailVM
+
+@section css {
+    <link rel="stylesheet" href="~/assets/css/blog-details/blog-detai.css">
+}
+
+<main>
+    <section id="blog-title-area">
+        <div class="page-title-size section" style="margin-bottom: 4pc; background-image: url(/assets/img/shop/@Model.Setting["BlogBanner"]);">
+            <div class="container">
+                <div class="row">
+                    <div class="col">
+                        <div class="page-title">
+                            <h1 class="title">Blog details</h1>
+                            <ul class="breadcrumb">
+                                <li class="breadcrumb-item"><a asp-controller="Blog" asp-action="Index">Blog</a></li>
+                                <li class="breadcrumb-item active">Blog details</li>
+                                </li>
+                            </ul>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="blog-area">
+        <div class="blog-size section-padding">
+            <div class="container">
+                <div class="row learts-mb-n50">
+
+                    <div class="col-xl-9 col-lg-8 col-12 order-lg-2 learts-mb-50">
+                        <div class="single-blog">
+                            <div class="image">
+                                <a>
+                                    <img src="~/assets/img/blog/@Model.Blog.Image"
+                                         alt="Blog Image">
+                                </a>
+                            </div>
+                            <div class="content">
+                                <h2 class="title">@Model.Blog.Title</h2>
+                                <ul class="meta">
+                                    <li><i class="fa-solid fa-list"></i> <a >@Model.Blog.BlogCategoryName</a></li>
+                                    <li><i class="far fa-calendar"></i><a>@Model.Blog.CreateDate.ToString("dd/MM/yyyy")</a></li>
+                                </ul>
+                                <div class="desc">
+                                    <p>
+                                        @Model.Blog.Description
+                                    </p>
+                                   
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="related-blog">
+                            <div class="block-title pb-0 border-bottom-0">
+                                <h2 class="title">Related Blog</h2>
+                            </div>
+                            <div class="row learts-mb-n40">
+                                @foreach (var blog in Model.Blogs
+                                                                .Where(m => m.BlogCategoryId == Model.Blog.BlogCategoryId && m.Id != Model.Blog.Id)
+                                                                .OrderByDescending(m => m.CreateDate)
+                                                                .Take(2))
+
+                                {
+                                    <div class="col-md-6 col-12 learts-mb-40">
+                                        <div class="blog">
+                                            <div class="image">
+                                                <a asp-controller="Blog" asp-action="Detail" asp-route-id="@blog.Id">
+                                                    <img src="~/assets/img/blog/@blog.Image" alt="Blog Image">
+                                                </a>
+                                            </div>
+                                            <div class="content">
+                                                <ul class="meta">
+                                                    <li>
+                                                        <i class="far fa-calendar"></i><a>@blog.CreateDate.ToString("dd/MM/yyyy")</a>
+                                                    </li>
+                                                </ul>
+                                                <h5 class="title mb-0">
+                                                    <a asp-controller="Blog" asp-action="Detail" asp-route-id="@blog.Id">
+                                                        @blog.Title
+                                                    </a>
+                                                </h5>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                         <div class="    ">
+                            <div class="block-title pb-0 border-bottom-0">
+                                <h2 class="title">Comments</h2>
+                            </div>
+                            <ul class="comment-list">
+                               @foreach (var item in Model.BlogComments)
+                                {
+                                    <li>
+                                        <div class="comment">
+                                            <div class="content">
+                                                <h4 class="name">@item.Name</h4>
+                                                <p>
+                                                    @item.Comment
+                                                </p>
+                                                <div class="actions">
+                                                    <span class="date">@item.CreatedDate</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                }
+                            </ul>
+                            <div class="block-title pb-0 border-bottom-0">
+                                <h2 class="title">Leave your thought here</h2>
+                            </div>
+                            <div class="comment-form">
+                                @*  <form action="#">
+                                    <div class="row learts-mb-n20">
+                                        <div class="col-md-6 col-12 learts-mb-20">
+                                            <input type="text" placeholder="Your name (*)">
+                                        </div>
+                                        <div class="col-md-6 col-12 learts-mb-20">
+                                            <input type="text" placeholder="Mail (*)">
+                                        </div>
+                                        <div class="col-12 learts-mb-20">
+                                            <textarea placeholder="Message"></textarea>
+                                        </div>
+                                        <div class="col-12 text-center learts-mb-20 learts-mt-20">
+                                            <button class="btn btn-dark btn-outline-hover-dark">Submit</button>
+                                        </div>
+                                    </div>
+                                </form>  *@
+
+                                @* <form id="commentForm">
+                                    <div class="row learts-mb-n20">
+                                        <div class="col-md-6 col-12 learts-mb-20">
+                                            <input type="text" name="Name" placeholder="Your name (*)" required>
+                                        </div>
+                                        <div class="col-md-6 col-12 learts-mb-20">
+                                            <input type="email" name="Email" placeholder="Mail (*)" required>
+                                        </div>
+                                        <div class="col-12 learts-mb-20">
+                                            <textarea name="Comment" placeholder="Message" required></textarea>
+                                        </div>
+                                        <div class="col-12 text-center learts-mb-20 learts-mt-20">
+                                            <button type="submit" class="btn btn-dark btn-outline-hover-dark">Submit</button>
+                                        </div>
+                                    </div>
+                                </form>
+
+                                <div id="messageBox"></div>
+                                
+
+                                <ul class="comment-list" id="commentList">
+                                </ul>
+
+                                <script>
+                                    var YOUR_BLOG_ID = @Model.Blog.Id;
+
+                                    document.getElementById('commentForm').addEventListener('submit', async function (e) {
+                                        e.preventDefault();
+
+                                        const formData = new FormData(this);
+                                        formData.append('BlogId', YOUR_BLOG_ID);
+
+                                        try {
+                                            const response = await fetch('/Blog/Create', {  // controller route doğru olsun
+                                                method: 'POST',
+                                                body: formData
+                                            });
+
+                                            const result = await response.json();
+                                            const messageBox = document.getElementById('messageBox');
+
+                                            if (result.success) {
+                                                messageBox.innerText = result.message;
+                                                messageBox.style.color = 'green';
+                                                this.reset();
+                                            } else {
+                                                messageBox.innerText = result.message || 'Failed to submit comment.';
+                                                messageBox.style.color = 'red';
+                                            }
+                                        } catch (error) {
+                                            const messageBox = document.getElementById('messageBox');
+                                            messageBox.innerText = 'An unexpected error occurred.';
+                                            messageBox.style.color = 'red';
+                                        }
+                                    });
+                                </script> *@
+
+
+                                <form id="commentForm">
+                                    <div class="row learts-mb-n20">
+                                        <div class="col-md-6 col-12 learts-mb-20">
+                                            <input type="text" name="Name" placeholder="Your name (*)" required>
+                                        </div>
+                                        <div class="col-md-6 col-12 learts-mb-20">
+                                            <input type="email" name="Email" placeholder="Mail (*)" required>
+                                        </div>
+                                        <div class="col-12 learts-mb-20">
+                                            <textarea name="Comment" placeholder="Message" required></textarea>
+                                        </div>
+                                        <div class="col-12 text-center learts-mb-20 learts-mt-20">
+                                            <button type="submit" class="btn btn-dark btn-outline-hover-dark">Submit</button>
+                                        </div>
+                                    </div>
+                                </form>
+
+                                <div id="messageBox"></div>
+
+                                <ul class="comment-list" id="commentList">
+                                </ul>
+
+                                <script>
+                                    const isAuthenticated = @User.Identity.IsAuthenticated.ToString().ToLower();  // true or false
+                                    const YOUR_BLOG_ID = @Model.Blog.Id;
+
+                                    document.getElementById('commentForm').addEventListener('submit', async function (e) {
+                                        e.preventDefault();
+
+                                        const messageBox = document.getElementById('messageBox');
+
+                                        if (!isAuthenticated) {
+                                            messageBox.innerText = "Please login before commenting.";
+                                            messageBox.style.color = 'red';
+                                            return;
+                                        }
+
+                                        const formData = new FormData(this);
+                                        formData.append('BlogId', YOUR_BLOG_ID);
+
+                                        try {
+                                            const response = await fetch('/Blog/Create', {
+                                                method: 'POST',
+                                                body: formData
+                                            });
+
+                                            const result = await response.json();
+
+                                            if (result.success) {
+                                                messageBox.innerText = result.message;
+                                                messageBox.style.color = 'green';
+                                                this.reset();
+                                            } else {
+                                                messageBox.innerText = result.message || 'Failed to submit comment.';
+                                                messageBox.style.color = 'red';
+                                            }
+                                        } catch (error) {
+                                            messageBox.innerText = 'An unexpected error occurred.';
+                                            messageBox.style.color = 'red';
+                                        }
+                                    });
+                                </script>
+
+
+                            </div>
+                        </div>  
+                    </div>
+
+                  <div class="col-xl-3 col-lg-4 col-12 order-lg-1 learts-mb-10">
+
+                        <div class="single-widget learts-mb-40">
+                            <h3 class="widget-title product-filter-widget-title">Recent Post</h3>
+                            <ul class="widget-blogs">
+                                @foreach(var recent in Model.Blogs.OrderByDescending(m => m.CreateDate).Take(3))
+                                {
+                                    <li class="widget-blog">
+                                        <div class="thumbnail">
+                                            <a asp-controller="Blog" asp-action="Detail" asp-route-id="@recent.Id">
+                                                <img src="~/assets/img/blog/@recent.Image"
+                                                     alt="Widget Blog Post">
+                                            </a>
+                                        </div>
+                                        <div class="content">
+                                            <h6 class="title">
+                                                <a href="blog-details.html">@recent.Title</a>
+                                            </h6>
+                                            <span class="date">@recent.CreateDate.ToString("dd/MM/yyyy")</span>
+
+                                        </div>
+                                    </li>
+                                }
+
+                              
+                            </ul>
+                        </div>
+
+                        <div class="single-widget learts-mb-40">
+                            <div class="widget-banner">
+                                <img src="~assets/img/blog/@Model.Blog.Image" alt="">
+                            </div>
+                        </div>
+
+                        <div class="single-widget learts-mb-40">
+                            <h3 class="widget-title product-filter-widget-title">Categories</h3>
+
+                            @{
+                                var groupedCategories = Model.Blogs
+                                .GroupBy(b => b.BlogCategoryName)
+                                .Select(g => new { Category = g.Key, Count = g.Count() });
+                            }
+
+                            <ul class="widget-list">
+                                @foreach (var cat in groupedCategories)
+                                {
+                                    <li><a>@cat.Category</a> <span class="count">@cat.Count</span></li>
+                                }
+                            </ul>
+                        </div>
+                    </div> 
+
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+
+
+@section scripts {
+    <script src="~/assets/js/blog-details/blog-details.js"></script>
+}

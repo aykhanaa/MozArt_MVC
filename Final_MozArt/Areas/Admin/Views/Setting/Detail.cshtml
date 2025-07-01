@@ -1,0 +1,18 @@
+﻿@model SettingVM
+
+<div class="container mt-5" style="max-width: 600px;">
+    <h2>Setting Detail</h2>
+
+    <dl class="row">
+        <dt class="col-sm-3">Key</dt>
+        <dd class="col-sm-9">@Model.Key</dd>
+
+        <dt class="col-sm-3">Value</dt>
+        <dd class="col-sm-9">@Model.Value</dd>
+
+        <dt class="col-sm-3">Created Date</dt>
+        <dd class="col-sm-9">@Model.CreateDate.ToString("dd/MM/yyyy")</dd>
+    </dl>
+
+    <a asp-action="Index" class="btn btn-secondary">Back</a>
+</div>

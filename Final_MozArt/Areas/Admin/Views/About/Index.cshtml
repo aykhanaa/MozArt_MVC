@@ -1,0 +1,122 @@
+﻿@model List<AboutVM>
+
+
+<div class="container my-5" style="margin-left: 22pc !important; width: 68pc !important; margin-top: 120px !important;">
+    <h1 class="text-center mt-3 mb-3" style="margin-left:200px; margin-top:150px;">About</h1>
+    @if (User.Identity.IsAuthenticated && User.IsInRole("SuperAdmin"))
+    {
+        @if (Model.Count < 1)
+        {
+            <a class="btn btn-success text-white" asp-action="Create">Create</a>
+        }
+    }
+  
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>
+                        Image
+                    </th>
+                    <th>
+                        Title
+                    </th>
+                    <th>
+                        Subtitle
+                    </th>
+                    <th>
+                        Description
+                    </th>
+
+                    <th>
+                        Operations
+                    </th>
+
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr data-id="@item.Id">
+                        <td class="py-1">
+                            <img src="~/assets/img/about/@item.Image" style="width:80px;height:80px;border-radius:0" alt="image" />
+                        </td>
+                        <td>
+                            @item.Title
+                        </td>
+                        <td>
+                            @item.Subtitle
+                        </td>
+                        <td style="width:20pc;">
+                       @(
+                          string.IsNullOrEmpty(item.Description)
+                           ? ""
+                           : (item.Description.Length > 100
+                           ? item.Description.Substring(0, 100) + "..."
+                           : item.Description)
+                           )
+                        </td>
+
+                        <td>
+                            @if (User.Identity.IsAuthenticated && User.IsInRole("SuperAdmin") || User.IsInRole("Admin"))
+                            {
+                                <a class="btn btn-info" asp-action="Detail" asp-route-id="@item.Id">Detail</a>
+                            }
+                            @if (User.Identity.IsAuthenticated && User.IsInRole("SuperAdmin") || User.IsInRole("Admin"))
+                            {
+                                <a class="btn btn-primary" asp-action="Edit" asp-route-id="@item.Id">Edit</a>
+                            }
+
+                            @if (User.Identity.IsAuthenticated && User.IsInRole("SuperAdmin"))
+                            {
+                                <button type="button" class="btn btn-danger delete-slider" data-id="@item.Id">Delete</button>
+                            }
+                            
+                        </td>
+
+                    </tr>
+                }
+            </tbody>
+        </table>
+        @Html.AntiForgeryToken()
+    </div>
+</div>
+
+
+@section Scripts {
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const deleteButtons = document.querySelectorAll('.delete-slider');
+
+            deleteButtons.forEach(button => {
+                button.addEventListener('click', function () {
+                    const id = this.getAttribute('data-id');
+                    const row = this.closest('tr');
+
+                    const token = document.querySelector('input[name="__RequestVerificationToken"]').value;
+
+                    const formData = new FormData();
+                    formData.append('__RequestVerificationToken', token);
+
+                    fetch(`/Admin/About/Delete/${id}`, {
+                        method: 'POST',
+                        body: formData
+                    })
+                    .then(response => {
+                        if (response.ok) {
+                            row.remove(); // DOM-dan sil
+                        } else {
+                            alert("Delete failed!");
+                        }
+                    })
+                    .catch(error => {
+                        console.error("Error:", error);
+                        alert("An error occurred!");
+                    });
+                });
+            });
+        });
+    </script>
+}
+
+

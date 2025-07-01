@@ -1,0 +1,292 @@
+﻿@model ShopVM
+
+@section css {
+    <link rel="stylesheet" href="~/assets/css/shop/shop.css">
+}
+
+<main>
+    <section id="shop-title-area">
+        <div class="page-title-size section" style="background-image:url(/assets/img/shop/@Model.Setting["ShopBanner"])">
+            <div class="container">
+                <div class="row">
+                    <div class="col">
+                        <div class="page-title">
+                            <h1 class="title">Shop</h1>
+                            <ul class="breadcrumb">
+                                <li class="breadcrumb-item"><a asp-controller="Home" asp-action="Index">Home</a></li>
+                                <li class="breadcrumb-item active">Shop</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="shop-product-area" class="section-padding pt-0">
+        <div class="shop-toolbar section-fluid border-bottom">
+            <div class="container">
+                <div class="row learts-mb-n20">
+                    <div class="col-md-auto col-12 learts-mb-20" style="margin-top: 2pc;margin-left: 3pc;">
+                        <ul class="shop-toolbar-controls">
+                            <li>
+                                <div class="product-sorting">
+                                    <select id="sortSelect" name="sortKey" class="nice-select" style="margin-left: 7pc;">
+                                        <option value="default" selected>Default sorting</option>
+                                        <option value="A-Z">Sort by name: A to Z</option>
+                                        <option value="Z-A">Sort by name: Z to A</option>
+                                        <option value="LowToHigh">Sort by price: Low to High</option>
+                                        <option value="HighToLow">Sort by price: High to Low</option>
+                                    </select>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="product-size section-fluid learts-mt-70">
+            <div class="container">
+                <div class="row learts-mb-n50">
+              @if (Model.Products != null && Model.Products.Any())
+               {
+                    <div class="col-lg-9 col-12 learts-mb-50 order-lg-2">
+                        <div id="shop-products" class="products isotope-grid row row-cols-xl-4 row-cols-md-3 row-cols-sm-2 row-cols-1">
+                            <div class="grid-sizer col-1"></div>
+
+                            @{
+                                var productsToShow = Model.Products.Take(8).ToList();
+                            }
+
+                            @foreach (var item in productsToShow)
+                            {
+                                <div class="grid-item col featured product-item">
+                                    <div class="product">
+                                        <div class="product-thumb">
+                                            <a asp-controller="Shop" asp-action="Detail" asp-route-id="@item.Id" class="image">
+                                                <img src="~/assets/img/product-details/@item.Image" alt="Product Image">
+                                                <img class="image-hover" src="~/assets/img/product-details/@item.Hower" alt="Product Image">
+                                            </a>
+                                        </div>
+                                        <div class="product-info">
+                                            <h6 class="title">
+                                                <a asp-controller="Shop" asp-action="Detail" asp-route-id="@item.Id">@item.Name</a>
+                                            </h6>
+                                            <span class="price">$@item.Price</span>
+                                            <div class="product-buttons">
+                                                <a asp-controller="Shop" asp-action="Detail" asp-route-id="@item.Id" class="product-button hintT-top" data-hint="View"><i class="fas fa-search"></i></a>
+                                                <a asp-controller="Shop" asp-action="Detail" asp-route-id="@item.Id" class="product-button hintT-top" data-hint="Add to Cart"><i class="fas fa-shopping-cart"></i></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                        </div>
+
+                        @if (Model.Products.Count() > 8)
+                        {
+                            <div class="text-center learts-mt-70">
+                                <a href="#" id="loadMoreBtn" class="btn btn-dark btn-outline-hover-dark">
+                                    <i class="fa-solid fa-plus"></i> More
+                                </a>
+                            </div>
+                        } 
+                    </div>
+              }
+                    <!-- Sidebar Widgets -->
+                    <div class="col-lg-3 col-12 learts-mb-10 order-lg-1">
+                        <!-- Categories -->
+                        <div class="single-widget learts-mb-40">
+                            <h3 class="widget-title product-filter-widget-title">Product categories</h3>
+                            <ul class="widget-list">
+                                @foreach (var item in Model.Categories)
+                                {
+                                    var count = Model.ProductCount.ContainsKey(item.Name) ? Model.ProductCount[item.Name] : 0;
+                                    if (count > 0)
+                                    {
+                                        <li>
+                                            <a href="@Url.Action("Index", "Shop", new { categoryName = item.Name })">@item.Name</a>
+                                            <span class="count">@count</span>
+                                        </li>
+                                    }
+                                }
+                            </ul>
+                        </div>
+
+                        <!-- Price Filter -->
+                        <div class="single-widget learts-mb-40">
+                            <h3 class="widget-title product-filter-widget-title">Filter by Price</h3>
+                            <div class="widget-price-range">
+                                <label for="priceSlider">Show products with price above: $<span id="priceValue">0</span></label>
+                                <input type="range" id="priceSlider" min="0" max="200" value="0" step="10" style="width: 100%;">
+                            </div>
+                        </div>
+
+                        <!-- Brands -->
+                        <div class="single-widget learts-mb-40">
+                            <h3 class="widget-title product-filter-widget-title">Brands</h3>
+                            <ul class="widget-list">
+                                @foreach (var item in Model.Brands)
+                                {
+                                    var count = Model.BrandsProductCount.ContainsKey(item.Name) ? Model.BrandsProductCount[item.Name] : 0;
+                                    if (count > 0)
+                                    {
+                                        <li>
+                                            <a href="@Url.Action("Index", "Shop", new { brandName = item.Name })">@item.Name</a>
+                                            <span class="count">@count</span>
+                                        </li>
+                                    }
+                                }
+                            </ul>
+                        </div>
+
+                        <div class="single-widget learts-mb-40">
+                            <h3 class="widget-title product-filter-widget-title">New Products</h3>
+                            <div id="productList">
+                                <ul class="widget-products">
+                                    @foreach (var item in Model.AllProducts.OrderByDescending(x => x.CreateDate).Take(3))
+                                    {
+                                        <li class="product">
+                                            <div class="thumbnail">
+                                                <a asp-controller="Shop" asp-action="Detail" asp-route-id="@item.Id" class="image">
+                                                    <img src="~/assets/img/product-details/@item.Image" alt="List product">
+                                                </a>
+                                            </div>
+                                            <div class="content">
+                                                <h6 class="title"><a asp-controller="Shop" asp-action="Detail" asp-route-id="@item.Id">@item.Name</a></h6>
+                                                <span class="price">$@item.Price</span>
+                                            </div>
+                                        </li>
+                                    }
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+
+<script type="text/javascript">
+    window.allProducts = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model.Products));
+</script>
+
+@section scripts {
+    <script src="~/assets/js/shop/shop.js"></script>
+}   <script src="~/assets/js/shop/sorts.js"></script>
+  
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            let currentPage = 1;
+            const productsPerPage = 8;
+            const loadMoreBtn = document.getElementById('loadMoreBtn');
+            const shopProducts = document.getElementById('shop-products');
+            const allProducts = window.allProducts || [];
+            let isotopeInstance = null;
+
+            function initializeIsotope() {
+                if (typeof $.fn.isotope !== 'undefined') {
+                    isotopeInstance = $(shopProducts).isotope({
+                        itemSelector: '.grid-item',
+                        layoutMode: 'fitRows',
+                        percentPosition: true,
+                        masonry: {
+                            columnWidth: '.grid-sizer'
+                        }
+                    });
+                }
+            }
+
+            setTimeout(initializeIsotope, 100);
+
+            function createProductHTML(product) {
+                return `
+                    <div class="grid-item col featured product-item">
+                        <div class="product">
+                            <div class="product-thumb">
+                                <a href="/Shop/Detail/${product.Id}" class="image">
+                                    <img src="/assets/img/product-details/${product.Image}" alt="Product Image">
+                                    <img class="image-hover" src="/assets/img/product-details/${product.Hower || product.Image}" alt="Product Image">
+                                </a>
+                                <a href="wishlist.html" class="add-to-wishlist hintT-left" data-hint="Add to wishlist">
+                                    <i class="far fa-heart"></i>
+                                </a>
+                            </div>
+                            <div class="product-info">
+                                <h6 class="title">
+                                    <a href="/Shop/Detail/${product.Id}">${product.Name}</a>
+                                </h6>
+                                <span class="price">$${product.Price}</span>
+                                <div class="product-buttons">
+                                    <a href="/Shop/Detail/${product.Id}" class="product-button hintT-top" data-hint="View">
+                                        <i class="fas fa-search"></i>
+                                    </a>
+                                    <a href="/Shop/Detail/${product.Id}" class="product-button hintT-top" data-hint="Add to Cart">
+                                        <i class="fas fa-shopping-cart"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }
+
+            function loadMoreProducts() {
+                const startIndex = currentPage * productsPerPage;
+                const endIndex = startIndex + productsPerPage;
+                const nextProducts = allProducts.slice(startIndex, endIndex);
+
+                if (nextProducts.length === 0) {
+                    loadMoreBtn.style.display = 'none';
+                    return;
+                }
+
+                const newElements = [];
+                nextProducts.forEach(product => {
+                    const productElement = document.createElement('div');
+                    productElement.innerHTML = createProductHTML(product);
+                    const gridItem = productElement.firstElementChild;
+                    newElements.push(gridItem);
+                    shopProducts.appendChild(gridItem);
+                });
+
+                if (isotopeInstance) {
+                    isotopeInstance.isotope('appended', newElements);
+                    Promise.all(newElements.map(element => {
+                        const images = element.querySelectorAll('img');
+                        return Promise.all([...images].map(img => {
+                            return new Promise(resolve => {
+                                if (img.complete) {
+                                    resolve();
+                                } else {
+                                    img.addEventListener('load', resolve);
+                                    img.addEventListener('error', resolve);
+                                }
+                            });
+                        }));
+                    })).then(() => {
+                        isotopeInstance.isotope('layout');
+                    });
+                }
+
+                currentPage++;
+                if (currentPage * productsPerPage >= allProducts.length) {
+                    loadMoreBtn.style.display = 'none';
+                }
+            }
+
+            if (loadMoreBtn) {
+                loadMoreBtn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    loadMoreProducts();
+                });
+            }
+
+            if (allProducts.length <= productsPerPage && loadMoreBtn) {
+                loadMoreBtn.style.display = 'none';
+            }
+        });
+    </script>

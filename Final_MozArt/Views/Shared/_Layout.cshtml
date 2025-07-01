@@ -1,0 +1,72 @@
+﻿
+<!DOCTYPE html>
+<html class="no-js" lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>MozArt</title>
+    <meta name="robots" content="noindex, follow" />
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="~/assets/css/other/select2.min.css">
+    <link rel="stylesheet" href="~/assets/css/other/perfect-scrollbar.css">
+    <link rel="stylesheet" href="~/assets/css/other/swiper.min.css">
+    <link rel="stylesheet" href="~/assets/css/other/nice-select.css">
+    <link rel="stylesheet" href="~/assets/css/other/ion.rangeSlider.min.css">
+    <link rel="stylesheet" href="~/assets/css/other/photoswipe.css">
+    <link rel="stylesheet" href="~/assets/css/other/photoswipe-default-skin.css">
+    <link rel="stylesheet" href="~/assets/css/other/magnific-popup.css">
+    <link rel="stylesheet" href="~/assets/css/other/slick.css">
+    <link rel="stylesheet" href="~/assets/css/other/bootstrap.min.css">
+    <link rel="stylesheet" href="~/assets/css/other/bootstrap.pro.min.css">
+    <link rel="stylesheet" href="~/assets/css/other/themify-icons.css">
+
+    @RenderSection("css", required: false)
+</head>
+
+<body>
+
+    @await Component.InvokeAsync("Header")
+
+
+            @RenderBody()
+
+    @await Component.InvokeAsync("Footer")
+
+
+
+
+    <script src="~/assets/js/other/modernizr-3.6.0.min.js"></script>
+    <script src="~/assets/js/other/jquery-3.4.1.min.js"></script>
+    <script src="~/assets/js/other/bootstrap.bundle.min.js"></script>
+    <script src="https://kit.fontawesome.com/ceee63f691.js" crossorigin="anonymous"></script>
+    <script src="~/assets/js/other/select2.min.js"></script>
+    <script src="~/assets/js/other/jquery.nice-select.min.js"></script>
+    <script src="~/assets/js/other/perfect-scrollbar.min.js"></script>
+    <script src="~/assets/js/other/swiper.min.js"></script>
+    <script src="~/assets/js/other/slick.min.js"></script>
+    <script src="~/assets/js/other/mo.min.js"></script>
+    <script src="~/assets/js/other/jquery.ajaxchimp.min.js"></script>
+    <script src="~/assets/js/other/jquery.countdown.min.js"></script>
+    <script src="~/assets/js/other/imagesloaded.pkgd.min.js"></script>
+    <script src="~/assets/js/other/isotope.pkgd.min.js"></script>
+    <script src="~/assets/js/other/jquery.matchHeight-min.js"></script>
+    <script src="~/assets/js/other/ion.rangeSlider.min.js"></script>
+    <script src="~/assets/js/other/photoswipe.min.js"></script>
+    <script src="~/assets/js/other/photoswipe-ui-default.min.js"></script>
+    <script src="~/assets/js/other/jquery.zoom.min.js"></script>
+    <script src="~/assets/js/other/ResizeSensor.js"></script>
+    <script src="~/assets/js/other/jquery.sticky-sidebar.min.js"></script>
+    <script src="~/assets/js/other/product360.js"></script>
+    <script src="~/assets/js/other/jquery.magnific-popup.min.js"></script>
+    <script src="~/assets/js/other/jquery.scrollUp.min.js"></script>
+    <script src="~/assets/js/other/scrollax.min.js"></script>
+
+    @RenderSection("scripts", required: false)
+</body>
+
+</html>
+
+
+

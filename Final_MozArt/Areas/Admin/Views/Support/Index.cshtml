@@ -1,0 +1,77 @@
+﻿@model List<SupportVM>
+
+<div class="container my-5" style="margin-top: 120px;">
+    <h1 class="text-center mt-3 mb-3">Support</h1>
+    @if (User.Identity.IsAuthenticated && User.IsInRole("SuperAdmin"))
+    {
+        @if (Model.Count < 1)
+        {
+            <a class="btn btn-success text-white" asp-action="Create">Create</a>
+        }
+    }
+
+    <div class="table-responsive" style="margin-left: 14pc;">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Title</th>
+                    <th style="width: 40%;">Description</th>
+                    <th>Created Date</th>
+                    <th>Operations</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr data-id="@item.Id">
+                        <td>@item.Title</td>
+                        <td>@item.Description</td>
+                        <td>@item.CreateDate.ToString("dd/MM/yyyy")</td>
+                        <td>
+                            @if (User.Identity.IsAuthenticated && (User.IsInRole("SuperAdmin") || User.IsInRole("Admin")))
+                            {
+                                <a class="btn btn-info" asp-action="Detail" asp-route-id="@item.Id">Detail</a>
+                                <a class="btn btn-primary" asp-action="Edit" asp-route-id="@item.Id">Edit</a>
+                            }
+                            @if (User.Identity.IsAuthenticated && User.IsInRole("SuperAdmin"))
+                            {
+                                <button type="button" class="btn btn-danger delete-btn" data-id="@item.Id">Delete</button>
+                            }
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+        @Html.AntiForgeryToken()
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const deleteButtons = document.querySelectorAll('.delete-btn');
+
+            deleteButtons.forEach(button => {
+                button.addEventListener('click', async function () {
+                    const id = this.getAttribute('data-id');
+                    const row = this.closest('tr');
+                    const token = document.querySelector('input[name="__RequestVerificationToken"]').value;
+
+                    const formData = new FormData();
+                    formData.append('__RequestVerificationToken', token);
+
+                    const response = await fetch(`/Admin/Support/Delete/${id}`, {
+                        method: 'POST',
+                        body: formData
+                    });
+
+                    if (response.ok) {
+                        row.remove();
+                    } else {
+                        alert("An error occurred during deletion.");
+                    }
+                });
+            });
+        });
+    </script>
+}

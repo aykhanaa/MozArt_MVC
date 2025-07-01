@@ -1,0 +1,305 @@
+﻿@section css {
+    <link rel="stylesheet" href="~/assets/css/product-details/product-details.css">
+}
+@model ProductDetailVM
+
+<main>
+    <section id="product-detail-area">
+        <div class="page-title-size section" style="margin-bottom: 4pc;">
+            <div class="container">
+                <div class="row">
+                    <div class="col">
+                        <div class="page-title">
+                            <h1 class="title">Product detail</h1>
+                            <ul class="breadcrumb">
+                                <li class="breadcrumb-item"><a asp-controller="Home" asp-action="Index">Home</a></li>
+                                <li class="breadcrumb-item active">Product details</li>
+                            </ul>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+    <div class="section section-padding border-bottom">
+        <div class="container">
+            <div class="row learts-mb-n40">
+
+
+                <div class="col-lg-6 col-12 learts-mb-40">
+                    <div class="product-images">
+                        <div class="product-gallery-slider">
+                            @foreach (var item in Model.Images)
+                            {
+                                <div >
+                                    <img src="/assets/img/product-details/@item.Image" alt="" style="width: 90%; height: 90%; margin-left: 29px;">
+                                </div>
+                            }
+                            
+                        </div>
+                        <div class="product-thumb-slider">
+                            @foreach (var item in Model.Images)
+                            {
+                                <div>
+                                    <img src="/assets/img/product-details/@item.Image" alt="">
+                                </div>
+                            }
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-6 col-12 learts-mb-40">
+                    <div class="product-summery detail" data-id="@Model.Id">
+                        <h3 class="product-title">@Model.Name</h3>
+                        <div class="product-price">$@Model.Price</div>
+                        <div class="product-variations">
+                            <table>
+                                <tbody>
+                                    <tr>
+                                        <td class="label"><span>Color</span></td>
+                                        <td class="value">
+                                            <div class="product-colors">
+
+                                                @foreach (var item in Model.ColorNames)
+                                                {
+                                                    <span class="color-box" style="width: 20px; height: 20px; border-radius: 50%; margin-right: 5px; border: 1px solid #ccc;background-color:@item;" title="@item"></span>
+                                                }
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            <div class="product-buttons cart">
+                                @* <a href="" class="btn btn-icon btn-outline-body btn-hover-dark hintT-top"
+                                   data-hint="Add to Wishlist"><i class="far fa-heart"></i></a> *@
+
+                                <a href="#" class="wishlist-add btn btn-icon btn-outline-body btn-hover-dark hintT-top"
+                                   data-id="@Model.Id" data-hint="Add to Wishlist"><i class="far fa-heart"></i></a>
+
+                                <a href="" class="btn btn-dark btn-outline-hover-dark">
+                                    <i class="fas fa-shopping-cart"></i>
+                                    Add
+                                    to Cart
+                                </a>
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="product-buttons cart">
+                                <a asp-controller="Account" asp-action="Login" class="btn btn-icon btn-outline-body btn-hover-dark hintT-top"
+                                   data-hint="Add to Wishlist"><i class="far fa-heart"></i></a>
+                                <a asp-controller="Account" asp-action="Login" class="btn btn-dark btn-outline-hover-dark">
+                                    <i class="fas fa-shopping-cart"></i>
+                                    Add
+                                    to Cart
+                                </a>
+                            </div>
+                        }
+
+
+                        <div class="product-meta">
+                            <table>
+                                <tbody>
+                                    <tr>
+                                        <td class="label"><span>Brand</span></td>
+                                        <td class="value">
+                                            <ul class="product-brands" style="list-style-type: none; padding-left: 0;">
+
+                                                <li>
+                                                    <a>
+                                                        <span>@Model.BrandName</span>
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="label"><span>Category</span></td>
+                                        <td class="value">
+                                            <ul class="product-category">
+                                                <li><a href="#">@Model.CategoryName</a></li>
+                                            </ul>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="label"><span>Tags</span></td>
+                                        <td class="value">
+                                            <ul class="product-tags">
+                                                @foreach (var item in Model.TagNames)
+                                                {
+                                                    <li>@item</li>
+                                                }
+                                            </ul>
+
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+
+    </div>
+
+
+
+    <div class="section section-padding border-bottom" style="border-top: 1px solid #e0e0e0;">
+        <div class="container">
+
+            <ul class="nav product-info-tab-list">
+                <li><a class="active" data-bs-toggle="tab" href="#tab-description">Description</a></li>
+                <li><a data-bs-toggle="tab" href="#tab-reviews">Reviews</a></li>
+            </ul>
+            <div class="tab-content product-infor-tab-content">
+                <div class="tab-pane fade show active" id="tab-description">
+                    <div class="row">
+                        <div class="col-lg-10 col-12 mx-auto" style="font-family: system-ui;font-size: 18px;">
+                            <p>
+                                @Model.Description
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tab-pane fade" id="tab-reviews">
+                    <div class="product-review-wrapper">
+                        <ul class="product-review-list">
+                            <li>
+                                <div class="product-review">
+                                    <div class="thumb"><img src="/assets/img/product-details/review-1.webp" alt=""></div>
+                                    <div class="content">
+                                        <div class="ratings">
+                                        </div>
+                                        <div class="meta">
+                                            <h5 class="title">Edna Watson</h5>
+                                            <span class="date">November 27, 2020</span>
+                                        </div>
+                                        <p>
+                                            Thanks for always keeping your WordPress themes up to date. Your level of
+                                            support
+                                            and dedication is second to none.
+                                        </p>
+                                    </div>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="product-review">
+                                    <div class="thumb"><img src="/assets/img/product-details/review-2.webp" alt=""></div>
+                                    <div class="content">
+                                        <div class="meta">
+                                            <h5 class="title">Scott James</h5>
+                                            <span class="date">November 27, 2020</span>
+                                        </div>
+                                        <p>
+                                            Thanks for always keeping your WordPress themes up to date. Your level of
+                                            support
+                                            and dedication is second to none.
+                                        </p>
+                                    </div>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="product-review">
+                                    <div class="thumb"><img src="/assets/img/product-details/review-3.webp" alt=""></div>
+                                    <div class="content">
+                                        <div class="meta">
+                                            <h5 class="title">Owen Christ</h5>
+                                            <span class="date">November 27, 2020</span>
+                                        </div>
+                                        <p>Good Product!</p>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                        <span class="title">Add a review</span>
+                        <div class="review-form">
+                            <p class="note">Your email address will not be published. Required fields are marked *</p>
+                            <form action="#">
+                                <div class="row learts-mb-n30">
+                                    <div class="col-md-6 col-12 learts-mb-30">
+                                        <input type="text" placeholder="Name *">
+                                    </div>
+                                    <div class="col-md-6 col-12 learts-mb-30">
+                                        <input type="email" placeholder="Email *">
+                                    </div>
+                                    <div class="col-12 learts-mb-10">
+                                    </div>
+                                    <div class="col-12 learts-mb-30">
+                                        <textarea placeholder="Your Review *"></textarea>
+                                    </div>
+                                    <div class="col-12 text-center learts-mb-30">
+                                        <button class="btn btn-dark btn-outline-hover-dark">
+                                            Submit
+                                        </button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</main>
+
+
+@* <script>
+    $(document).on("click", ".wishlist-add", function () {
+
+
+               let id = $(this).parent().parent().attr("data-id");;
+               let count = $(".wishlist-count").text();
+               $.ajax({
+                   url: `/shop/addwishlist?id=${id}`,
+                   type: "Post",
+                   success: function (res) {
+
+                       $(".wishlist-count").text(res);
+
+                   }
+               })
+
+
+           })
+</script>
+ *@
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<script>
+    $(document).on("click", ".wishlist-add", function (e) {
+        e.preventDefault();
+
+        let id = $(this).data("id");
+
+        $.ajax({
+            url: `/shop/addwishlist?id=${id}`,
+            type: "POST",
+            success: function (res) {
+                $(".wishlist-count").text(res);
+            },
+            error: function (err) {
+                console.log("Wishlist error:", err);
+            }
+        });
+    });
+</script>
+
+
+
+@section scripts {
+    <script src="~/assets/js/product-details/product-details.js"></script>
+    <script src="~/assets/js/product-details/basket.js"></script>
+}

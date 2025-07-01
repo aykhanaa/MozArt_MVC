@@ -1,0 +1,104 @@
+﻿@using Final_MozArt.ViewModels.Account
+
+@model LoginVM
+
+@section css {
+    <link rel="stylesheet" href="~/assets/css/login/login.css">
+}
+ <main>
+    <section id="login-title-area">
+        <div class="page-title-size section"
+             style="margin-bottom: 4pc;background-image: url('/assets/img/blog/page-title.webp');">
+            <div class="container">
+                <div class="row">
+                    <div class="col">
+                        <div class="page-title">
+                            <h1 class="title">Login</h1>
+                            <ul class="breadcrumb">
+                                <li class="breadcrumb-item"><a asp-controller="Home" asp-action="Index">Home</a></li>
+                                <li class="breadcrumb-item active">Login</li>
+                                </li>
+                            </ul>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="login-area">
+        <div class="login-container">
+            <div class="decoration decoration-1"></div>
+            <div class="decoration decoration-2">
+                <i class="fas fa-leaf"></i>
+            </div>
+            <div class="decoration decoration-3">
+                <i class="fas fa-leaf"></i>
+            </div>
+            <div class="decoration decoration-4"></div>
+
+            <div class="login-wrapper">
+                <div class="login-card">
+                    <div class="top-border"></div>
+
+                    <div class="login-content">
+                        <div class="login-header">
+                            <div class="logo-container">
+                                <div class="logo">
+                                    <i class="fas fa-leaf"></i>
+                                    <div class="logo-accent"></div>
+                                </div>
+                            </div>
+                            <h2 class="login-title">Welcome Back</h2>
+                            <p class="login-subtitle">Great to have you back!</p>
+                            <div class="title-divider"></div>
+                        </div>
+
+                        <div style="color:red" ; asp-validation-summary="All"></div>
+                        <form method="post" asp-controller="Account" asp-action="Login">
+                        <div class="form-group">
+                            <label asp-for ="EmailOrUsername" class="form-label">
+                                Username or email</label>
+                            <input asp-for="EmailOrUsername" required class="form-input">
+                            </div>
+
+                            <div class="form-group">
+                                <label asp-for="Password" class="form-label">Password</label>
+                                <div class="password-wrapper">
+                                    <input type="password" id="passwordInput" asp-for="Password" required
+                                           class="form-input">
+                                    <button type="button" class="toggle-password" onclick="togglePassword()">
+                                        <i class="fas fa-eye" id="toggleIcon"></i>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div class="form-options">
+                                <a asp-controller="Account" asp-action="ForgotPassword" class="forgot-password">Forgot password?</a>
+                            </div>
+
+                            <div class="form-submit">
+                                <button type="submit" class="login-btn">LOGIN</button>
+                            </div>
+
+                            <div class="register-link">
+                                <span>Don't have an account?</span>
+                                <a asp-controller="Account" asp-action="Register">Create Account</a>
+                            </div>
+                        </form>
+                    </div>
+
+                    <div class="bottom-border"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+</main>
+
+
+
+@section scripts {
+    <script src="~/assets/js/login/login.js"></script>
+}

@@ -1,0 +1,56 @@
+﻿@model Final_MozArt.ViewModels.Product.ProductDetailVM
+
+<div class="container" style="max-width: 800px; margin-top: 4rem;">
+    <h2 class="text-center mb-4">@Model.Name</h2>
+
+    <div class="mb-3">
+        <label class="form-label fw-semibold text-muted">Price</label>
+        <div class="form-control-plaintext">@Model.Price ₼</div>
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label fw-semibold text-muted">Description</label>
+        <div class="form-control-plaintext">@Model.Description</div>
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label fw-semibold text-muted">Brand</label>
+        <div class="form-control-plaintext">@Model.BrandName</div>
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label fw-semibold text-muted">Category</label>
+        <div class="form-control-plaintext">@Model.CategoryName</div>
+    </div>
+
+    @if (Model.ColorNames != null && Model.ColorNames.Any())
+    {
+        <div class="mb-3">
+            <label class="form-label fw-semibold text-muted">Colors</label>
+            <div class="form-control-plaintext">@string.Join(", ", Model.ColorNames)</div>
+        </div>
+    }
+
+    @if (Model.TagNames != null && Model.TagNames.Any())
+    {
+        <div class="mb-3">
+            <label class="form-label fw-semibold text-muted">Tags</label>
+            <div class="form-control-plaintext">@string.Join(", ", Model.TagNames)</div>
+        </div>
+    }
+
+    @if (Model.Images != null && Model.Images.Any())
+    {
+        <div class="mb-4">
+            <label class="form-label fw-semibold text-muted">Images</label><br />
+            @foreach (var image in Model.Images)
+            {
+                <img src="~/assets/img/product-details/@image.Image" class="img-thumbnail me-2 mb-2" style="width: 150px;" />
+            }
+        </div>
+    }
+
+    <div class="form-group text-end">
+        <a asp-action="Index" class="btn btn-outline-secondary">Back</a>
+    </div>
+</div>

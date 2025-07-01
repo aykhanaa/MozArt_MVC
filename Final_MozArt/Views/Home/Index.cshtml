@@ -1,0 +1,367 @@
+﻿
+@model HomeVM
+ 
+@section css {
+    <link rel="stylesheet" href="~/assets/css/home/home.css">
+}
+
+<main>
+
+    @if (Model.Sliders != null && Model.Sliders.Any())
+    {
+        <section id="main-slider">
+        <div class="container">
+            <div class="home-slider swiper-container">
+                <div class="swiper-wrapper">
+                    @foreach (var item in Model.Sliders)
+                    {
+                        <div class="home-slide-item swiper-slide" data-swiper-autoplay="5000">
+                            <div class="home-slide-image">
+                                <img src="~/assets/img/home/@item.Image"
+                                     alt="Home 4 Slider Image">
+                            </div>
+                            <div class="home-slide-content">
+
+                                <h2 class="title">@item.Title</h2>
+                                <div class="link">
+                                    <a asp-controller="Shop" asp-action="Index" class="btn btn-black btn-outline-hover-black">
+                                        shop
+                                        now
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+                <div class="home-slider-prev swiper-button-prev"><i class="fa-solid fa-angle-left"></i></div>
+                <div class="home-slider-next swiper-button-next"><i class="fa-solid fa-angle-right"></i></div>
+                <div class="home-slider-pagination swiper-pagination"></div>
+            </div>
+        </div>
+    </section>
+    }
+
+     <section id="main-about-us">
+            <div class="about-us section-padding">
+            <div class="container">
+                <div class="row">
+                    <div class="col-xl-7 col-lg-8 col-12 mx-auto">
+                        <div class="about-us-home">
+                            <div class="inner">
+
+                                @if (Model.Setting?.TryGetValue("AboutTitle", out var title) == true && !string.IsNullOrWhiteSpace(title))
+                                {
+                                <h2 style="font-family: 'Playfair Display', serif; font-size: 71px;" class="title">
+                                    @title
+                                </h2>
+                                }
+
+                                @if (Model.Setting?.TryGetValue("AboutSubtitle", out var subtitle) == true && !string.IsNullOrWhiteSpace(subtitle))
+                                {
+                                    <h5 style="color: #72A499;" class="sub-title">@subtitle</h5>
+                                }
+
+                                <div class="desc">
+
+                                    @if (Model.Setting?.TryGetValue("AboutDescription", out var desc) == true && !string.IsNullOrWhiteSpace(desc))
+                                {
+                                    <p>
+                                        @desc
+                                    </p>
+                                }
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+     @if (Model.Categories != null && Model.Categories.Any())
+    {
+     
+    <section id="category-banner">
+        <div class="category-banner-home section-padding pt-0">
+            <div class="container">
+                <div class="row row-cols-lg-4 row-cols-sm-2 row-cols-1 learts-mb-n40">
+
+                    @{
+                        var visibleCategories = Model.Categories
+                        .Where(c => Model.Products.Any(p => p.CategoryId == c.Id))
+                        .OrderByDescending(c => c.CreateDate)
+                        .Take(4)
+                        .ToList();
+                    }
+
+                    @foreach (var item in visibleCategories)
+                    {
+                        <div class="col learts-mb-40">
+                            <div class="category-banner-main">
+                                <a href="@Url.Action("Index", "Shop", new { categoryName = item.Name })" class="inner">
+                                    <div class="image">
+                                        <img src="~/assets/img/home/@item.Image" alt="@item.Name">
+                                    </div>
+                                    <div class="content" data-bg-color="#f4ede7">
+                                        <h3 class="title">@item.Name</h3>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </section>
+    }
+
+
+    <section id="line-area">
+        <div class="container">
+            <hr class="between-line">
+        </div>
+    </section>
+
+      @if (Model.Products != null && Model.Products.Any())
+    {
+    <section id="product-area">
+        <div class="product-size section-padding">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <ul class="product-tab-list nav">
+                            <li><a class="active" data-bs-toggle="tab" href="#tab-new-sale">New arrivals</a></li>
+                        </ul>
+                        <div class="product-tab-content1 tab-content">
+                            <div class="tab-pane fade show active" id="tab-new-sale">
+                                <div class="products row row-cols-lg-4 row-cols-md-3 row-cols-sm-2 row-cols-1">
+
+                                   @foreach (var item in Model.Products.OrderByDescending(x=>x.CreateDate).Take(8))
+                                    {
+                                        <div class="col">
+                                            <div class="product">
+                                                <div class="product-thumb">
+                                                    <a asp-controller="Shop" asp-action="Detail" asp-route-id="@item.Id" class="image">
+                                                        <img src="~/assets/img/product-details/@item.Image" alt="Product Image">
+                                                        <img class="image-hover " src="~/assets/img/product-details/@item.Hower"
+                                                             alt="Product Image">
+                                                    </a>
+                                                       
+                                                </div>
+                                                <div class="product-info">
+                                                    <h6 class="title">
+                                                        <a asp-controller="Shop" asp-action="Detail" asp-route-id="@item.Id">@item.Name</a>
+
+                                                    </h6>
+                                                    <span class="price">
+                                                        $@item.Price
+                                                    </span>
+                                                    <div class="product-buttons">
+                                                        <a asp-controller="Shop" asp-action="Detail" asp-route-id="@item.Id" class="product-button hintT-top" data-hint="View">
+                                                            <i class="fas fa-search"></i>
+                                                        </a>
+                                                        <a asp-controller="Shop" asp-action="Detail" asp-route-id="@item.Id" class="product-button hintT-top"
+                                                           data-hint="Add to Cart">
+                                                            <i class="fas fa-shopping-cart"></i>
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    }
+
+                                    
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+               
+
+            </div>
+        </div>
+    </section>
+    }
+
+    <section id="line-area">
+        <div class="container">
+            <hr class="between-line">
+        </div>
+    </section>
+
+      @if (Model.Brands != null && Model.Brands.Any())
+    {
+        <section id="brands-area">
+            <div class="brands-size section-padding">
+                <div class="container">
+                    <div class="brands-title text-md-left text-center row justify-content-between align-items-center">
+                        <div class="col-md-auto col-12">
+
+                            <h2 class="title title-icon-right">Shop by brands</h2>
+
+                        </div>
+                    </div>
+
+                    <div class="row align-items-center row-cols-lg-4 row-cols-md-3 row-cols-sm-2 row-cols-1 learts-mb-n50">
+
+                        @foreach (var item in Model.Brands)
+                        {
+                            <div class="col learts-mb-50">
+                                <div class="brand-item">
+                                    <a href="@Url.Action("Index", "Shop", new { brandName = item.Name })" title="@item.Name">
+                                        <img src="~/assets/img/home/@item.Image" alt="@item.Name Brand">
+                                    </a>
+
+                                </div>
+                            </div>
+                        }
+
+                </div>
+            </div>
+        </div>
+    </section>
+    }
+
+    <section id="line-area">
+        <div class="container">
+            <hr class="between-line">
+        </div>
+    </section>
+
+      @if (Model.ApprovedMessages != null && Model.ApprovedMessages.Any())
+    {
+    <section id="testimonial-area">
+        <div class="testimonial-size section-padding">
+            <div class="container">
+                <div class="testimonial-title row justify-content-between align-items-center">
+                    <div class="col-md-auto col-12">
+                        <h2 class="title title-icon-right">We love our clients</h2>
+                    </div>
+                </div>
+
+                <div class="testimonial-carousel row">
+                    @foreach (var msg in Model.ApprovedMessages)
+                    {
+                        <div class="col">
+                            <div class="testimonial">
+                                <p>@msg.Message</p>
+                                <div class="author">
+                                    <div class="content">
+                                        <h6 class="name">@msg.Name</h6>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+
+            </div>
+        </div>
+    </section>
+    }
+
+    <section id="newsletter-subscribe">
+        <div class="container">
+            <div class="subscribe-box text-center" style="
+          padding: 60px 50px;
+          background-color: white;
+          max-width: 100%;
+          width: 100%;
+          margin: 0 auto 80px;
+      ">
+                <h2 style="color: black; font-size: 2.5rem; margin-bottom: 20px; font-family: 'Playfair Display';">
+                    Newsletter
+                </h2>
+                <p style="color: black; opacity: 0.85; font-size: 1.1rem; margin-bottom: 35px;">
+                    Subscribe to get updates about our handcraft products and special offers.
+                </p>
+
+                @if (TempData["Successs"] != null)
+                {
+                    <div class="alert alert-success text-center">
+                        @TempData["Successs"]
+                    </div>
+                }
+
+                @if (TempData["Error"] != null)
+                {
+                    <div class="alert alert-danger text-center">
+                        @TempData["Error"]
+                    </div>
+                }
+
+                <form asp-controller="Subscribe" asp-action="Subscribe" method="post">
+                    <div class="form-group">
+                        <input name="email" class="email-input" placeholder="  Your email address" type="email" required style="font-size: 16px;font-weight: 400;display: block;width: 80%;margin-left: 10pc;padding: 10px 0;color: #333;border: 1px solid black;background-color: rgba(0, 0, 0, 0);
+" />
+                    </div>
+                    <button type="submit" class="subscribe-btn" style="margin-top: 50px;background-color: black;color: white;width: 9pc;height: 4pc;border-radius: 35px;">
+                        Subscribe
+                    </button>
+                    @Html.AntiForgeryToken()
+                </form>
+            </div>
+        </div>
+    </section> 
+
+      @if (Model.Instagrams != null && Model.Instagrams.Any())
+    {
+        <section id="instagram-area">
+            <div class="instagram-size instagram-padding pt-0">
+                <div class="container">
+                    <div class="row row-cols-lg-2 row-cols-1 learts-mb-n50">
+                        <div class="col align-self-center learts-mb-50 order-lg-2">
+                            <div class="instagram-title text-center m-0"
+                            data-bg-image="assets/images/title/title-3.webp">
+                                <h2 class="title">Follow us on Instagram</h2>
+                                <p class="desc">MozArt</p>
+                            </div>
+                        </div>
+
+                        <div class="col learts-mb-50">
+                            <div class="instafeed instafeed-carousel instafeed-carousel2">
+
+                                @foreach (var item in Model.Instagrams)
+                                {
+                                    <a class="instafeed-item" href="#">
+                                        <img src="~/assets/img/home/@item.Image" alt="instagram image" />
+                                        <i class="fab fa-instagram"></i>
+                                    </a>
+                                }
+
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    }
+</main>
+
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<script>
+    $(document).on("click", ".wishlist-add", function (e) {
+        e.preventDefault();
+
+        let id = $(this).data("id");
+
+        $.ajax({
+            url: `/shop/addwishlist?id=${id}`,
+            type: "POST",
+            success: function (res) {
+                $(".wishlist-count").text(res);
+            },
+            error: function (err) {
+                console.log("Wishlist error:", err);
+            }
+        });
+    });
+</script>
+
+ @section scripts {
+    <script src="~/assets/js/home/home.js"></script>
+} 

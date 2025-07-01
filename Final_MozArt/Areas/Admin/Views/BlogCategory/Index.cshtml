@@ -1,0 +1,115 @@
+﻿@model List<BlogCategoryVM>
+
+
+<div class="container my-5" style="margin-left: 22pc !important; width: 68pc !important; margin-top: 120px !important;">
+    <h1 class="text-center mt-3 mb-3" style="margin-left:200px; margin-top:150px;">Blog Category</h1>
+    @if (User.Identity.IsAuthenticated && User.IsInRole("SuperAdmin"))
+    {
+        @if (Model.Count < 4)
+        {
+            <a class="btn btn-success text-white" asp-action="Create">Create</a>
+        }
+    }
+  
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+
+                    <th>
+                        Name
+                    </th>
+                   
+                    <th>
+                        Created Date
+                    </th>
+                    <th>
+                        Operations
+                    </th>
+
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr data-id="@item.Id">
+
+                        <td>
+                            @item.Name
+                        </td>
+                        <td>
+                            @item.CreateDate.ToString("dd/MM/yyyy")
+                        </td>
+
+                        <td>
+                            @if (User.Identity.IsAuthenticated && User.IsInRole("SuperAdmin") || User.IsInRole("Admin"))
+                            {
+                                <a class="btn btn-info" asp-action="Detail" asp-route-id="@item.Id">Detail</a>
+                            }
+                            @if (User.Identity.IsAuthenticated && User.IsInRole("SuperAdmin") || User.IsInRole("Admin"))
+                            {
+                                <a class="btn btn-primary" asp-action="Edit" asp-route-id="@item.Id">Edit</a>
+
+                            }
+
+                            @if (User.Identity.IsAuthenticated && User.IsInRole("SuperAdmin"))
+                            {
+                                <button type="button" class="btn btn-danger delete-btn" data-id="@item.Id">Delete</button>
+
+                            }
+                          
+                           
+
+                           
+                        </td>
+
+
+                    </tr>
+                }
+            </tbody>
+        </table>
+        @Html.AntiForgeryToken()
+
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const deleteButtons = document.querySelectorAll('.delete-btn');
+            const token = document.querySelector('input[name="__RequestVerificationToken"]').value;
+
+            deleteButtons.forEach(btn => {
+                btn.addEventListener('click', async () => {
+                    const id = btn.getAttribute('data-id');
+                    const row = btn.closest('tr');
+
+                    const formData = new FormData();
+                    formData.append('__RequestVerificationToken', token);
+
+                    const response = await fetch(`/Admin/BlogCategory/Delete/${id}`, {
+                        method: 'POST',
+                        body: formData
+                    });
+
+                    if (response.ok) {
+                        row.remove();
+
+                        // Əgər element sayı 4-dən aşağıdırsa, "Create" düyməsini yoxla və əlavə et
+                        const rowsCount = document.querySelectorAll('tbody tr').length;
+                        if (rowsCount < 4 && !document.querySelector('.btn-success[asp-action="Create"]')) {
+                            const container = document.querySelector('.container');
+                            const newCreateBtn = document.createElement('a');
+                            newCreateBtn.className = 'btn btn-success text-white';
+                            newCreateBtn.href = '/Admin/BlogCategory/Create';
+                            newCreateBtn.textContent = 'Create';
+                            container.insertBefore(newCreateBtn, container.querySelector('.table-responsive'));
+                        }
+                    } else {
+                        alert('Silinmə zamanı xəta baş verdi.');
+                    }
+                });
+            });
+        });
+    </script>
+}

@@ -1,0 +1,117 @@
+﻿
+@model List<BrandVM>
+
+
+<div class="container my-5" style="margin-left: 22pc !important; width: 68pc !important; margin-top: 120px !important;">
+    <h1 class="text-center mt-3 mb-3" style="margin-left:200px; margin-top:150px;">Brand</h1>
+    @if (User.Identity.IsAuthenticated && User.IsInRole("SuperAdmin"))
+    {
+        <a class="btn btn-success text-white" asp-action="Create">Create</a>
+
+    }
+   
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>
+                        Image
+                    </th>
+                    <th>
+                        Name
+                    </th>
+                    <th>
+                        Created Date
+                    </th>
+                    <th>
+                        Operations
+                    </th>
+
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var slider in Model)
+                {
+                    <tr data-id="@slider.Id">
+                        <td class="py-1">
+                            <img src="~/assets/img/home/@slider.Image" style="width:80px;height:80px;border-radius:0" alt="image" />
+                        </td>
+                        <td>
+                            @slider.Name
+                        </td>
+                        <td>
+                            @slider.CreateDate.ToString("dd/MM/yyyy")
+                        </td>
+
+                        <td>
+
+
+                            @if (User.Identity.IsAuthenticated && User.IsInRole("SuperAdmin") || User.IsInRole("Admin"))
+                            {
+                                <a class="btn btn-info" asp-action="Detail" asp-route-id="@slider.Id">Detail</a>
+                            }
+                            @if (User.Identity.IsAuthenticated && User.IsInRole("SuperAdmin") || User.IsInRole("Admin"))
+                            {
+                                <a class="btn btn-primary" asp-action="Edit" asp-route-id="@slider.Id">Edit</a>
+
+                            }
+
+                            @if (User.Identity.IsAuthenticated && User.IsInRole("SuperAdmin"))
+                            {
+                                <button type="button" class="btn btn-danger delete-brand" data-id="@slider.Id">Delete</button>
+
+                            }
+
+                           
+                           
+                            
+                        </td>
+
+                    </tr>
+                }
+            </tbody>
+        </table>
+        @Html.AntiForgeryToken()
+    </div>
+</div>
+
+
+
+@section Scripts {
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const deleteButtons = document.querySelectorAll('.delete-brand');
+
+            deleteButtons.forEach(button => {
+                button.addEventListener('click', function () {
+                    const id = this.getAttribute('data-id');
+                    const row = this.closest('tr');
+
+                    const tokenInput = document.querySelector('input[name="__RequestVerificationToken"]');
+                    const token = tokenInput ? tokenInput.value : '';
+
+                    const formData = new FormData();
+                    formData.append('__RequestVerificationToken', token);
+
+                    fetch(`/Admin/Brand/Delete/${id}`, {
+                        method: 'POST',
+                        body: formData
+                    })
+                    .then(response => {
+                        if (response.ok) {
+                            row.remove(); // DOM-dan silir
+                        } else {
+                            alert("Delete failed!");
+                        }
+                    })
+                    .catch(error => {
+                        console.error("Error:", error);
+                        alert("An error occurred!");
+                    });
+                });
+            });
+        });
+    </script>
+}
+
+

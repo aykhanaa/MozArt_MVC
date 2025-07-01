@@ -1,0 +1,66 @@
+2025-06-06 00:02:14.549 +04:00 [INF] User profile is available. Using 'C:\Users\Hp\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2025-06-06 00:02:14.967 +04:00 [INF] Now listening on: https://localhost:7286
+2025-06-06 00:02:14.972 +04:00 [INF] Now listening on: http://localhost:5244
+2025-06-06 00:02:14.982 +04:00 [INF] Application started. Press Ctrl+C to shut down.
+2025-06-06 00:02:14.985 +04:00 [INF] Hosting environment: Development
+2025-06-06 00:02:14.987 +04:00 [INF] Content root path: C:\Users\Hp\Desktop\Final_MozArt\Final_MozArt
+2025-06-06 00:02:15.186 +04:00 [INF] Request starting HTTP/2 GET https://localhost:7286/About - null null
+2025-06-06 00:02:15.473 +04:00 [INF] Executing endpoint 'Final_MozArt.Controllers.AboutController.Index (Final_MozArt)'
+2025-06-06 00:02:15.550 +04:00 [INF] Route matched with {action = "Index", controller = "About", area = ""}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Index() on controller Final_MozArt.Controllers.AboutController (Final_MozArt).
+2025-06-06 00:02:18.696 +04:00 [INF] Executed DbCommand (129ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [a].[Id], [a].[CreateDate], [a].[Description], [a].[Image], [a].[IsMain], [a].[Subtitle], [a].[Title]
+FROM [Abouts] AS [a]
+2025-06-06 00:02:19.004 +04:00 [INF] Executed DbCommand (17ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [s].[Id], [s].[CreateDate], [s].[Description], [s].[Title]
+FROM [Supports] AS [s]
+2025-06-06 00:02:19.082 +04:00 [INF] Executed DbCommand (8ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [i].[Id], [i].[CreateDate], [i].[Image]
+FROM [Instagrams] AS [i]
+2025-06-06 00:02:19.160 +04:00 [INF] Executed DbCommand (11ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [s].[Id], [s].[CreateDate], [s].[Key], [s].[Value]
+FROM [Settings] AS [s]
+2025-06-06 00:02:19.215 +04:00 [INF] Executing ViewResult, running view Index.
+2025-06-06 00:02:19.562 +04:00 [INF] Executed DbCommand (38ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [s].[Id], [s].[CreateDate], [s].[Key], [s].[Value]
+FROM [Settings] AS [s]
+2025-06-06 00:02:19.869 +04:00 [INF] Executed ViewResult - view Index executed in 657.6369ms.
+2025-06-06 00:02:19.904 +04:00 [INF] Executed action Final_MozArt.Controllers.AboutController.Index (Final_MozArt) in 4343.8864ms
+2025-06-06 00:02:20.514 +04:00 [INF] Executed endpoint 'Final_MozArt.Controllers.AboutController.Index (Final_MozArt)'
+2025-06-06 00:02:20.616 +04:00 [INF] Request finished HTTP/2 GET https://localhost:7286/About - 200 null text/html; charset=utf-8 5433.3334ms
+2025-06-06 00:02:22.638 +04:00 [INF] Request starting HTTP/2 GET https://localhost:7286/_framework/aspnetcore-browser-refresh.js - null null
+2025-06-06 00:02:22.638 +04:00 [INF] Request starting HTTP/2 GET https://localhost:7286/_vs/browserLink - null null
+2025-06-06 00:02:22.664 +04:00 [INF] Request finished HTTP/2 GET https://localhost:7286/_framework/aspnetcore-browser-refresh.js - 200 13760 application/javascript; charset=utf-8 25.5626ms
+2025-06-06 00:02:22.747 +04:00 [INF] Request finished HTTP/2 GET https://localhost:7286/_vs/browserLink - 200 null text/javascript; charset=UTF-8 108.6738ms
+2025-06-06 00:02:43.421 +04:00 [INF] User profile is available. Using 'C:\Users\Hp\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2025-06-06 00:02:43.735 +04:00 [INF] Now listening on: https://localhost:7286
+2025-06-06 00:02:43.741 +04:00 [INF] Now listening on: http://localhost:5244
+2025-06-06 00:02:43.752 +04:00 [INF] Application started. Press Ctrl+C to shut down.
+2025-06-06 00:02:43.758 +04:00 [INF] Hosting environment: Development
+2025-06-06 00:02:43.765 +04:00 [INF] Content root path: C:\Users\Hp\Desktop\Final_MozArt\Final_MozArt
+2025-06-06 00:02:43.931 +04:00 [INF] Request starting HTTP/2 GET https://localhost:7286/About - null null
+2025-06-06 00:02:44.147 +04:00 [INF] Executing endpoint 'Final_MozArt.Controllers.AboutController.Index (Final_MozArt)'
+2025-06-06 00:02:44.213 +04:00 [INF] Route matched with {action = "Index", controller = "About", area = ""}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Index() on controller Final_MozArt.Controllers.AboutController (Final_MozArt).
+2025-06-06 00:02:47.161 +04:00 [INF] Executed DbCommand (82ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [a].[Id], [a].[CreateDate], [a].[Description], [a].[Image], [a].[IsMain], [a].[Subtitle], [a].[Title]
+FROM [Abouts] AS [a]
+2025-06-06 00:02:47.392 +04:00 [INF] Executed DbCommand (26ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [s].[Id], [s].[CreateDate], [s].[Description], [s].[Title]
+FROM [Supports] AS [s]
+2025-06-06 00:02:47.454 +04:00 [INF] Executed DbCommand (6ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [i].[Id], [i].[CreateDate], [i].[Image]
+FROM [Instagrams] AS [i]
+2025-06-06 00:02:47.515 +04:00 [INF] Executed DbCommand (8ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [s].[Id], [s].[CreateDate], [s].[Key], [s].[Value]
+FROM [Settings] AS [s]
+2025-06-06 00:02:47.573 +04:00 [INF] Executing ViewResult, running view Index.
+2025-06-06 00:02:47.747 +04:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [s].[Id], [s].[CreateDate], [s].[Key], [s].[Value]
+FROM [Settings] AS [s]
+2025-06-06 00:02:47.841 +04:00 [INF] Executed ViewResult - view Index executed in 266.9785ms.
+2025-06-06 00:02:47.855 +04:00 [INF] Executed action Final_MozArt.Controllers.AboutController.Index (Final_MozArt) in 3634.1654ms
+2025-06-06 00:02:47.866 +04:00 [INF] Executed endpoint 'Final_MozArt.Controllers.AboutController.Index (Final_MozArt)'
+2025-06-06 00:02:47.898 +04:00 [INF] Request starting HTTP/2 GET https://localhost:7286/_framework/aspnetcore-browser-refresh.js - null null
+2025-06-06 00:02:47.898 +04:00 [INF] Request starting HTTP/2 GET https://localhost:7286/_vs/browserLink - null null
+2025-06-06 00:02:47.899 +04:00 [INF] Request finished HTTP/2 GET https://localhost:7286/About - 200 null text/html; charset=utf-8 3970.2044ms
+2025-06-06 00:02:47.926 +04:00 [INF] Request finished HTTP/2 GET https://localhost:7286/_framework/aspnetcore-browser-refresh.js - 200 13760 application/javascript; charset=utf-8 27.837ms
+2025-06-06 00:02:47.987 +04:00 [INF] Request finished HTTP/2 GET https://localhost:7286/_vs/browserLink - 200 null text/javascript; charset=UTF-8 89.2688ms

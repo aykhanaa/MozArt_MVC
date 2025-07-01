@@ -1,0 +1,36 @@
+﻿@model List<Setting>
+
+<div class="container my-5" style="margin-left: 22pc !important; width: 68pc !important; margin-top: 120px !important;">
+    <h1 class="text-center mt-3 mb-3" style="margin-left:200px; margin-top:150px;">Settings</h1>
+
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Key</th>
+                    <th style="width: 28pc;">Value</th>
+                    <th>Operations</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var setting in Model)
+                {
+                    <tr data-id="@setting.Id">
+                        <td>@setting.Key</td>
+                        <td>@setting.Value</td>
+                        <td>
+                            @if (User.Identity.IsAuthenticated && User.IsInRole("SuperAdmin") || User.IsInRole("Admin"))
+                            {
+                                <a class="btn btn-info" asp-action="Detail" asp-route-id="@setting.Id">Detail</a>
+                            }
+                            @if (User.Identity.IsAuthenticated && User.IsInRole("SuperAdmin") || User.IsInRole("Admin"))
+                             {
+                                <a class="btn btn-primary" asp-action="Edit" asp-route-id="@setting.Id">Edit</a>
+                             }       
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

@@ -1,0 +1,91 @@
+﻿@model List<ContactIntroVM>
+
+<div class="container my-5" style="margin-left: 22pc !important; width: 68pc !important; margin-top: 120px !important;">
+    <h1 class="text-center mt-3 mb-3" style="margin-left:200px; margin-top:150px;">Contact Intro</h1>
+    @if (Model.Count < 1)
+    {
+        <a class="btn btn-success text-white" asp-action="Create">Create</a>
+    }
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Title</th>
+                    <th>Description</th>
+                    <th>Created Date</th>
+                    <th>Operations</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr data-id="@item.Id">
+                        <td>@item.Title</td>
+                        <td style="width:29pc;">
+                            @(
+                              string.IsNullOrEmpty(item.Description)
+                              ? ""
+                              : (item.Description.Length > 100
+                              ? item.Description.Substring(0, 100) + "..."
+                              : item.Description)
+                             )
+                    </td>
+                        <td>@item.CreateDate.ToString("dd/MM/yyyy")</td>
+                        <td>
+                            <a class="btn btn-info" asp-action="Detail" asp-route-id="@item.Id">Detail</a>
+                            <a class="btn btn-primary" asp-action="Edit" asp-route-id="@item.Id">Edit</a>
+                            <button class="btn btn-danger delete-btn" data-id="@item.Id">Delete</button>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+        @Html.AntiForgeryToken()
+    </div>
+</div>
+
+
+@section Scripts {
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const tokenInput = document.querySelector('input[name="__RequestVerificationToken"]');
+            const token = tokenInput ? tokenInput.value : '';
+
+            document.querySelectorAll('.delete-btn').forEach(button => {
+                button.addEventListener('click', () => {
+                    const id = button.getAttribute('data-id');
+                    const row = button.closest('tr');
+
+                    const formData = new FormData();
+                    formData.append('__RequestVerificationToken', token);
+
+                    fetch(`/Admin/ContactIntro/Delete/${id}`, {
+                        method: 'POST',
+                        body: formData
+                    })
+                    .then(response => {
+                        if (response.ok) {
+                            row.remove();
+
+                            // Əgər sətir qalmayıbsa, Create düyməsini göstər
+                            if (document.querySelectorAll('tbody tr').length < 1) {
+                                let createBtn = document.querySelector('a.btn-success');
+                                if (!createBtn) {
+                                    const container = document.querySelector('.container');
+                                    const newCreateBtn = document.createElement('a');
+                                    newCreateBtn.className = 'btn btn-success text-white';
+                                    newCreateBtn.href = '/Admin/ContactIntro/Create';
+                                    newCreateBtn.innerText = 'Create';
+                                    container.insertBefore(newCreateBtn, container.querySelector('.table-responsive'));
+                                }
+                            }
+                        } else {
+                            alert('Delete failed!');
+                        }
+                    })
+                    .catch(() => alert('An error occurred!'));
+                });
+            });
+        });
+    </script>
+}
