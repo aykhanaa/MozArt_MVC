@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\ASUS\\Desktop\\Final_MVC_MozArt\\Final_MozArt\\Final_MozArt.csproj": {}
+    "C:\\Users\\ASUS\\Desktop\\After-Final_MVC_MozArt\\Final_MozArt\\Final_MozArt.csproj": {}
   },
   "projects": {
-    "C:\\Users\\ASUS\\Desktop\\Final_MVC_MozArt\\Final_MozArt\\Final_MozArt.csproj": {
+    "C:\\Users\\ASUS\\Desktop\\After-Final_MVC_MozArt\\Final_MozArt\\Final_MozArt.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\ASUS\\Desktop\\Final_MVC_MozArt\\Final_MozArt\\Final_MozArt.csproj",
+        "projectUniqueName": "C:\\Users\\ASUS\\Desktop\\After-Final_MVC_MozArt\\Final_MozArt\\Final_MozArt.csproj",
         "projectName": "Final_MozArt",
-        "projectPath": "C:\\Users\\ASUS\\Desktop\\Final_MVC_MozArt\\Final_MozArt\\Final_MozArt.csproj",
+        "projectPath": "C:\\Users\\ASUS\\Desktop\\After-Final_MVC_MozArt\\Final_MozArt\\Final_MozArt.csproj",
         "packagesPath": "C:\\Users\\ASUS\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\ASUS\\Desktop\\Final_MVC_MozArt\\Final_MozArt\\obj\\",
+        "outputPath": "C:\\Users\\ASUS\\Desktop\\After-Final_MVC_MozArt\\Final_MozArt\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

@@ -1,0 +1,265 @@
+﻿
+@model MyAccountVM
+
+@section css {
+    <link rel="stylesheet" href="~/assets/css/my-account/my-account.css">
+}
+
+
+<main>
+
+    <section id="my-account-title-area">
+        <div class="page-title-size section" style="margin-bottom: 3pc;">
+            <div class="container">
+                <div class="row">
+                    <div class="col">
+                        <div class="page-title">
+                            <h1 class="title">My Account</h1>
+                            <ul class="breadcrumb">
+                                <li class="breadcrumb-item"><a href="home.html">Home</a></li>
+                                <li class="breadcrumb-item active"><a href="my-account.html">My Account</a></li>
+                                </li>
+                            </ul>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="my-account-area">
+        <div class="my-account-size section-padding">
+            <div class="container">
+                <div class="row learts-mb-n30">
+
+                    <div class="col-lg-4 col-12 learts-mb-30">
+                        <div class="myaccount-tab-list nav">
+                            <a href="#dashboad" class="active" data-bs-toggle="tab">
+                                Dashboard <i class="fa-solid fa-house-chimney"></i>
+                            </a>
+                            <a href="#orders" data-bs-toggle="tab">Orders <i class="fa-solid fa-file-lines"></i></a>
+                            <a href="#address" data-bs-toggle="tab">
+                                address <i class="fa-solid fa-location-dot"></i>
+                            </a>
+                            <a href="#account-info" data-bs-toggle="tab">
+                                Account Details <i class="fa-solid fa-user-tie"></i>
+                            </a>
+                          
+                            <a href="login-register.html">
+                                  <form asp-controller="Account" asp-action="Logout" asp-route-userId="@Model.UserId" method="post" style="margin: 0;">
+                                            <button type="submit" style="background: none; border: none; cursor: pointer; display: flex; align-items: center; gap: 14rem;">
+                                        Logout <i class="fa-solid fa-arrow-right-from-bracket"></i>
+                                               
+                                            </button>
+                                        </form>  
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-8 col-12 learts-mb-30">
+                        <div class="tab-content">
+
+
+                            <div class="tab-pane fade show active" id="dashboad">
+                                <div class="myaccount-content dashboad">
+                                    <p>
+                                        Hello <strong>@Model.AppUser.FullName</strong>
+                                    </p>
+                                    <p>
+                                        From your account dashboard you can view your <span>recent orders</span>,
+                                        manage
+                                        your <span>shipping and billing addresses</span>, and <span>
+                                            edit your
+                                            password
+                                            and account details
+                                        </span>.
+                                    </p>
+                                </div>
+                            </div>
+
+                            <div class="tab-pane fade" id="orders">
+                                <div class="myaccount-content order">
+                                    <div class="table-responsive">
+                                        <table class="table">
+                                            <thead>
+                                                <tr>
+                                                    <th>Order</th>
+                                                    <th>Date</th>
+                                                    <th>Status</th>
+                                                    <th>Total</th>
+                                                    <th>Action</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td>1</td>
+                                                    <td>Aug 22, 2018</td>
+                                                    <td>Pending</td>
+                                                    <td>$3000</td>
+                                                    <td><a href="shopping-cart.html">View</a></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>2</td>
+                                                    <td>July 22, 2018</td>
+                                                    <td>Approved</td>
+                                                    <td>$200</td>
+                                                    <td><a href="shopping-cart.html">View</a></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>3</td>
+                                                    <td>June 12, 2017</td>
+                                                    <td>On Hold</td>
+                                                    <td>$990</td>
+                                                    <td><a href="shopping-cart.html">View</a></td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="tab-pane fade" id="address">
+                                <div class="myaccount-content address">
+                                    <p>The following addresses will be used on the checkout page by default.</p>
+                                    <div class="row learts-mb-n30">
+                                        <div class="col-md-6 col-12 learts-mb-30">
+                                            <h4 class="title">
+                                                Billing Address <a href="#" class="edit-link">edit</a>
+                                            </h4>
+                                            <address>
+                                                <p><strong>Alex Tuntuni</strong></p>
+                                                <p>
+                                                    1355 Market St, Suite 900 <br>
+                                                    San Francisco, CA 94103
+                                                </p>
+                                                <p>Mobile: (123) 456-7890</p>
+                                            </address>
+                                        </div>
+                                        <div class="col-md-6 col-12 learts-mb-30">
+                                            <h4 class="title">
+                                                Shipping Address <a href="#"
+                                                                    class="edit-link">edit</a>
+                                            </h4>
+                                            <address>
+                                                <p><strong>Alex Tuntuni</strong></p>
+                                                <p>
+                                                    1355 Market St, Suite 900 <br>
+                                                    San Francisco, CA 94103
+                                                </p>
+                                                <p>Mobile: (123) 456-7890</p>
+                                            </address>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="tab-pane fade" id="account-info">
+                                 <div class="my-account-account-details">
+                                <form id="emailForm" asp-action="UpdateEmail" asp-controller="MyAccount" method="post">
+                                    @Html.AntiForgeryToken()
+                                    <fieldset>
+                                        <legend>Change Email</legend>
+                                            <input name="NewEmail" class="form-control" autocomplete="off" style="margin-bottom: 20px;" value="@Model.AppUser.Email" />
+                                        <p class="form-row">
+                                            <button type="submit" class="button btn btn-primary">Save</button>
+                                        </p>
+                                    </fieldset>
+                                </form>
+
+                                <div id="emailResult"></div>
+
+                                <hr />
+
+
+                                <form id="usernameForm" asp-action="UpdateUsername" asp-controller="MyAccount" method="post">
+                                    @Html.AntiForgeryToken()
+                                    <fieldset>
+                                        <legend>Change Username</legend>
+                                            <input name="NewUsername" class="form-control" autocomplete="off" style="margin-bottom: 20px;" value="@Model.AppUser.UserName" />
+                                        <p class="form-row">
+                                            <button type="submit" class="button btn btn-primary">Save</button>
+                                        </p>
+                                    </fieldset>
+                                </form>
+
+                                <div id="usernameResult"></div>
+
+                            </div> 
+                            </div>
+
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+    </section>
+
+
+</main>
+
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(function () {
+            $("#usernameForm").submit(function (e) {
+                e.preventDefault();
+
+                let form = $(this);
+                let data = form.serialize();
+
+                $.ajax({
+                    type: "POST",
+                    url: form.attr("action"),
+                    data: data,
+                    success: function (res) {
+                        $("#usernameResult").html(`<div class="alert alert-success">${res.message}</div>`);
+
+                        if (res.redirectToLogin) {
+                            setTimeout(() => {
+                                window.location.href = "/Account/Login";
+                            }, 2000);
+                        }
+                    },
+                    error: function (xhr) {
+                        const msg = xhr.responseJSON?.message ?? "An error occurred.";
+                        $("#usernameResult").html(`<div class="alert alert-danger">${msg}</div>`);
+                    }
+                });
+            });
+        });
+    </script>
+
+    <script>
+        $(function () {
+            $("#emailForm").submit(function (e) {
+                e.preventDefault();
+
+                let form = $(this);
+                let data = form.serialize();
+
+                $.ajax({
+                    type: "POST",
+                    url: form.attr("action"),
+                    data: data,
+                    success: function (res) {
+                        $("#emailResult").html(`<div class="alert alert-success">${res.message}</div>`);
+
+                        if (res.redirectToLogin) {
+                            setTimeout(() => {
+                                window.location.href = "/Account/Login";
+                            }, 2000);
+                        }
+                    },
+                    error: function (xhr) {
+                        const msg = xhr.responseJSON?.message ?? "An error occurred.";
+                        $("#emailResult").html(`<div class="alert alert-danger">${msg}</div>`);
+                    }
+                });
+            });
+        });
+    </script>
+
+@section scripts {
+    <script src="~/assets/js/my-account/my-account.js"></script>
+}

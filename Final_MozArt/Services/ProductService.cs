@@ -387,21 +387,27 @@ namespace Final_MozArt.Services
             if (File.Exists(filePath))
                 File.Delete(filePath);
         }
+
+
         public async Task<List<Product>> SearchProductsAsync(string query)
         {
-            IQueryable<Product> products = _context.Products.Include(p => p.Category);
+            IQueryable<Product> products = _context.Products
+                .Include(p => p.Category)
+                .Include(p => p.Brand)
+                .Include(p => p.Images);
 
-            if (!string.IsNullOrEmpty(query))
+            if (!string.IsNullOrWhiteSpace(query))
             {
-                query = query.ToLower();
+                query = query.Trim().ToLower();
 
                 products = products.Where(p =>
-                    p.Name.ToLower().Contains(query) ||
-                    p.Category.Name.ToLower().Contains(query));
+                    p.Name.ToLower().Trim().Contains(query) ||
+                    p.Category.Name.ToLower().Trim().Contains(query));
             }
 
             return await products.ToListAsync();
         }
+
 
         public async Task<ICollection<ProductVM>> SortAsync(string sortKey)
         {

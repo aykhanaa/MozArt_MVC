@@ -503,6 +503,7 @@ wwwroot\assets\css\contact\contact.css
 wwwroot\assets\css\forget-password\forget-password.css
 wwwroot\assets\css\home\home.css
 wwwroot\assets\css\login\login.css
+wwwroot\assets\css\my-account\my-account.css
 wwwroot\assets\css\new-password\new-password.css
 wwwroot\assets\css\not-found\not-found.css
 wwwroot\assets\css\other\bootstrap.min.css
@@ -559,9 +560,12 @@ wwwroot\assets\img\blog\13f1bc81-9073-4d8d-9d85-3b8dba323c9c-blog-2.webp
 wwwroot\assets\img\blog\2c1e106e-4423-401b-adc6-50e383f32b8d-blog-4 - Copy - Copy.webp
 wwwroot\assets\img\blog\2c1e106e-4423-401b-adc6-50e383f32b8d-blog-4 - Copy.webp
 wwwroot\assets\img\blog\2c1e106e-4423-401b-adc6-50e383f32b8d-blog-4.webp
+wwwroot\assets\img\blog\50e57a5d-a722-4c42-96f9-92c2abab09fc-blog-7.jpg
+wwwroot\assets\img\blog\5e8d1c51-5a26-49b1-8f2e-9a4cfec73266-blog-8.webp
 wwwroot\assets\img\blog\64334cd6-6ccd-455f-aa6a-91e07fbc0787-blog-3 - Copy - Copy.webp
 wwwroot\assets\img\blog\64334cd6-6ccd-455f-aa6a-91e07fbc0787-blog-3 - Copy.webp
 wwwroot\assets\img\blog\64334cd6-6ccd-455f-aa6a-91e07fbc0787-blog-3.webp
+wwwroot\assets\img\blog\6f45a7af-154e-4256-b35a-1031e6c249c9-blog-9.webp
 wwwroot\assets\img\blog\77ebd331-e7c6-4e7b-b5cf-fbe66697d885-blog-5 - Copy - Copy.webp
 wwwroot\assets\img\blog\77ebd331-e7c6-4e7b-b5cf-fbe66697d885-blog-5 - Copy.webp
 wwwroot\assets\img\blog\77ebd331-e7c6-4e7b-b5cf-fbe66697d885-blog-5.webp
@@ -583,15 +587,16 @@ wwwroot\assets\img\home\0450c555-192c-4381-9ac3-16c95c5100af-Screenshot 2024-04-
 wwwroot\assets\img\home\1e89c629-42d5-41cf-8765-0bf45806cc7d-brand-4.webp
 wwwroot\assets\img\home\1f717c99-5ad2-4c7b-8c04-0d89e86bceb3-brand-1.webp
 wwwroot\assets\img\home\208692da-8213-4e61-8a2b-6689e999e920-category-img-2.webp
+wwwroot\assets\img\home\24dc4184-414f-4540-99c8-915cbb04b967-category-img-1.webp
 wwwroot\assets\img\home\26adb222-efab-4efa-a068-607ea99d5a8e-Screenshot 2024-04-28 194703.png
 wwwroot\assets\img\home\2947008d-d98c-4833-91d1-a85f7a507353-slide-3.webp
 wwwroot\assets\img\home\2a5d2e21-d60a-4a0a-a93e-ef8a214771cb-category-img-3.webp
+wwwroot\assets\img\home\313ba257-16f6-4539-961c-5942bb692010-instagram-4.webp
 wwwroot\assets\img\home\31bde835-a16a-4e49-a4ab-e3df4cd344ea-brand-6.webp
 wwwroot\assets\img\home\35591de9-de26-4387-82db-e0405ee3b5c8_product-2-1.webp
 wwwroot\assets\img\home\35b9df3d-807a-49d8-afbf-fbcefca42381_blog-1.webp
 wwwroot\assets\img\home\3c2e122c-d499-4255-939e-9e3efe87198c_blog-1 - Copy.webp
 wwwroot\assets\img\home\3c2e122c-d499-4255-939e-9e3efe87198c_blog-1.webp
-wwwroot\assets\img\home\a69e25ae-a225-47d5-8482-72572d32955e-category-img-5-n.webp
 wwwroot\assets\img\home\47e2cbfc-deb5-4cdc-bbeb-1d76ca3de5fe-category-img-2.webp
 wwwroot\assets\img\home\4dc95ca6-60ea-4140-82f2-768da0f6380d-category-img-1 - Copy.webp
 wwwroot\assets\img\home\55f061fa-62f5-44da-8ac1-7004cf01aed5-brand-2.webp
@@ -602,9 +607,13 @@ wwwroot\assets\img\home\6eacc569-6e77-4507-b186-1b4dcac8153c-brand-3.webp
 wwwroot\assets\img\home\7cab6509-5e16-425e-9c64-441f64b0c8fd-instagram-2.webp
 wwwroot\assets\img\home\810d09c1-cd6a-4eec-a771-d8794041384f-brand-4.webp
 wwwroot\assets\img\home\8db7ad2c-ba8f-4672-b6df-a227080c7242-brand-7.webp
+wwwroot\assets\img\home\8fca7551-aecd-44aa-83c3-24542640c1e9-instagram-2.webp
 wwwroot\assets\img\home\90f53e42-1ad0-4645-9922-538c01c11bea-Screenshot 2024-04-28 194703.png
 wwwroot\assets\img\home\9bca08dc-5f38-45f4-9cee-b7cb64a57ee6-category-img-4.webp
 wwwroot\assets\img\home\a24d0b24-b07d-4078-ad67-7929d2078750_product-2-2.webp
+wwwroot\assets\img\home\a69e25ae-a225-47d5-8482-72572d32955e-category-img-5-n.webp
+wwwroot\assets\img\home\ab94015f-5a77-4499-807c-cc1b2d739cf5-instagram-5.webp
+wwwroot\assets\img\home\ba47c866-169d-4f20-900e-784cc4c693f1-instagram-3.webp
 wwwroot\assets\img\home\brand-1.webp
 wwwroot\assets\img\home\brand-2.webp
 wwwroot\assets\img\home\brand-3.webp
@@ -622,11 +631,14 @@ wwwroot\assets\img\home\d4110250-b86b-4842-ab26-d3d03f05870f-category-img-1.webp
 wwwroot\assets\img\home\d545b54c-88ed-4db2-af29-977ebed5cbab-instagram-1.webp
 wwwroot\assets\img\home\dae38bf1-5f16-4f73-92fc-a9df352d99c1-slide-2.webp
 wwwroot\assets\img\home\dd08e4c8-a3dc-4e2b-833a-0f7fbba7b5c2-button-play-light.webp
+wwwroot\assets\img\home\e10ec800-6dee-479a-9691-034bbbffbf87-instagram-1.webp
+wwwroot\assets\img\home\e14e7d39-f066-4099-84b0-111bc244128a-slide-4-n.webp
 wwwroot\assets\img\home\e4e21d31-41fc-4895-b229-ba0fb33deb01-slide-1.webp
 wwwroot\assets\img\home\eb4b76b1-60cf-42ae-a66d-b183fd574b6f-Screenshot 2024-04-28 194703.png
 wwwroot\assets\img\home\eb878598-5312-46ac-9cc4-0648303c456b-brand-5.webp
 wwwroot\assets\img\home\f5fb166d-b2db-4b9e-ab2f-c5e2d241ded6-brand-8.webp
 wwwroot\assets\img\home\f6164e4b-bf31-477d-9e5c-1d2e41537268-Screenshot 2024-04-28 194703.png
+wwwroot\assets\img\home\f90b0735-116b-4a7c-8726-1745034ee946-slider-5-n.png
 wwwroot\assets\img\home\fd504563-dd72-488b-8fd8-b54b2c78d876_3D pot 1-2.webp
 wwwroot\assets\img\home\instagram-1.webp
 wwwroot\assets\img\home\instagram-2.webp
@@ -662,14 +674,24 @@ wwwroot\assets\img\home\web-img-white.png
 wwwroot\assets\img\login\login-register-1.jpeg
 wwwroot\assets\img\login\page-title.webp
 wwwroot\assets\img\new-password\page-title.webp
+wwwroot\assets\img\product-details\1194bd23-56db-47d8-b894-b3e1d3486267_product-3-2.webp
 wwwroot\assets\img\product-details\16f4eb88-b037-4a09-8998-2bc87c582ee3_motocycle  1-1.webp
 wwwroot\assets\img\product-details\4da4a792-963c-4ae1-a7ab-96e5aee7dd4d_blender 1-1.webp
 wwwroot\assets\img\product-details\4ea199c9-8e31-4a53-9964-434b819efcd6_product-8-1.webp
 wwwroot\assets\img\product-details\4f656547-08c5-4685-bde2-b2e823ddd060_4db1aa24-1488-4577-a429-a42108c16bf3-instagram-3.webp
+wwwroot\assets\img\product-details\5708a1c6-64f3-4d86-a54f-f3e5910ad98e_product-9-1.webp
 wwwroot\assets\img\product-details\5eb8f583-ee18-4bf7-88b4-dfbcbcb40f78_abstract pot 1-2.webp
+wwwroot\assets\img\product-details\66414241-eabb-4835-a425-5a42bc26ab4e_product-6-2.webp
 wwwroot\assets\img\product-details\7da7d8d1-0839-4591-9570-5ca9976df287_product-8-2.webp
 wwwroot\assets\img\product-details\83f38da8-b467-48b2-aa4a-68cbc1161af4_mug 1-2.webp
+wwwroot\assets\img\product-details\8459f917-b53c-49eb-879a-f5be6f7a5135_product-9-2.webp
+wwwroot\assets\img\product-details\8626c9fc-c957-40eb-8060-5300c1d50f23_product-5-2.webp
+wwwroot\assets\img\product-details\897e5903-4dc9-486f-83d8-860becfff0ae_product-6-1.webp
+wwwroot\assets\img\product-details\96f3ce24-c315-443c-ab07-786a72a23a2d_product-4-1.webp
+wwwroot\assets\img\product-details\99d770fd-8135-4b37-8678-7f0ff7183053_product-10-1.webp
 wwwroot\assets\img\product-details\9b977a6b-4c75-496e-986f-14e54b209a81_motocycle 1-2.webp
+wwwroot\assets\img\product-details\9f4c3273-3cc9-4dca-bc89-c1b16d09d416_product-4-2.webp
+wwwroot\assets\img\product-details\a54b856e-2ac8-4bfc-bc4a-829e5fbdab47_product-5-1.webp
 wwwroot\assets\img\product-details\a9825685-a39d-4d7f-8ca4-808a0673f7b0_fox 1-1.webp
 wwwroot\assets\img\product-details\ac37f6c1-7913-4b20-9462-727d34606b61_mug 1-1.webp
 wwwroot\assets\img\product-details\b4a799d4-d741-4719-8b8b-97c705a457ef_3c2e122c-d499-4255-939e-9e3efe87198c_blog-1 - Copy.webp
@@ -682,9 +704,14 @@ wwwroot\assets\img\product-details\brand-6.webp
 wwwroot\assets\img\product-details\brand-7.webp
 wwwroot\assets\img\product-details\brand-8.webp
 wwwroot\assets\img\product-details\c9f91b1c-ec24-4df9-a4dd-4107784b5dbf_blender 1-1.webp
+wwwroot\assets\img\product-details\d24e410e-8303-475b-8bac-d3e8b4a28e11_product-7-2.webp
+wwwroot\assets\img\product-details\e23202fd-6eff-482a-9f33-2c25fcde09a2_product-2-2.webp
+wwwroot\assets\img\product-details\e2b9ffdb-ce0d-4a2f-89dc-62c02fa63a70_product-10-2.webp
 wwwroot\assets\img\product-details\ea73d254-b7fa-4a6a-83b8-82113b4dc665_product-3-1.webp
 wwwroot\assets\img\product-details\f1921265-878b-4015-b8af-4242eab77f2f_4dc95ca6-60ea-4140-82f2-768da0f6380d-category-img-1.webp
 wwwroot\assets\img\product-details\f73b4592-09b3-4ffb-b689-82712b30ff8a_product-3-2.webp
+wwwroot\assets\img\product-details\f991ff3c-a92b-410c-bcff-42a2c564a254_product-2-1.webp
+wwwroot\assets\img\product-details\fb530cb0-7546-4dea-a973-663693794688_product-7-1.webp
 wwwroot\assets\img\product-details\page-title.webp
 wwwroot\assets\img\product-details\product-4.webp
 wwwroot\assets\img\product-details\review-1.webp
@@ -756,6 +783,7 @@ wwwroot\assets\js\contact\contact.js
 wwwroot\assets\js\forget-password\forget-password.js
 wwwroot\assets\js\home\home.js
 wwwroot\assets\js\login\login.js
+wwwroot\assets\js\my-account\my-account.js
 wwwroot\assets\js\new-password\new-password.js
 wwwroot\assets\js\other\bootstrap.bundle.min.js
 wwwroot\assets\js\other\imagesloaded.pkgd.min.js
@@ -792,29 +820,3 @@ wwwroot\assets\js\shop\sorts.js
 wwwroot\assets\js\wishlist\wishlist.js
 wwwroot\templates\register-confirm.html
 wwwroot\templates\reset-password.html
-wwwroot\assets\img\home\e14e7d39-f066-4099-84b0-111bc244128a-slide-4-n.webp
-wwwroot\assets\img\home\f90b0735-116b-4a7c-8726-1745034ee946-slider-5-n.png
-wwwroot\assets\img\product-details\1194bd23-56db-47d8-b894-b3e1d3486267_product-3-2.webp
-wwwroot\assets\img\product-details\e23202fd-6eff-482a-9f33-2c25fcde09a2_product-2-2.webp
-wwwroot\assets\img\product-details\f991ff3c-a92b-410c-bcff-42a2c564a254_product-2-1.webp
-wwwroot\assets\img\home\e10ec800-6dee-479a-9691-034bbbffbf87-instagram-1.webp
-wwwroot\assets\img\home\8fca7551-aecd-44aa-83c3-24542640c1e9-instagram-2.webp
-wwwroot\assets\img\home\ba47c866-169d-4f20-900e-784cc4c693f1-instagram-3.webp
-wwwroot\assets\img\home\313ba257-16f6-4539-961c-5942bb692010-instagram-4.webp
-wwwroot\assets\img\home\ab94015f-5a77-4499-807c-cc1b2d739cf5-instagram-5.webp
-wwwroot\assets\img\product-details\96f3ce24-c315-443c-ab07-786a72a23a2d_product-4-1.webp
-wwwroot\assets\img\product-details\9f4c3273-3cc9-4dca-bc89-c1b16d09d416_product-4-2.webp
-wwwroot\assets\img\product-details\d24e410e-8303-475b-8bac-d3e8b4a28e11_product-7-2.webp
-wwwroot\assets\img\product-details\fb530cb0-7546-4dea-a973-663693794688_product-7-1.webp
-wwwroot\assets\img\product-details\8626c9fc-c957-40eb-8060-5300c1d50f23_product-5-2.webp
-wwwroot\assets\img\product-details\a54b856e-2ac8-4bfc-bc4a-829e5fbdab47_product-5-1.webp
-wwwroot\assets\img\product-details\66414241-eabb-4835-a425-5a42bc26ab4e_product-6-2.webp
-wwwroot\assets\img\product-details\897e5903-4dc9-486f-83d8-860becfff0ae_product-6-1.webp
-wwwroot\assets\img\product-details\99d770fd-8135-4b37-8678-7f0ff7183053_product-10-1.webp
-wwwroot\assets\img\product-details\e2b9ffdb-ce0d-4a2f-89dc-62c02fa63a70_product-10-2.webp
-wwwroot\assets\img\product-details\5708a1c6-64f3-4d86-a54f-f3e5910ad98e_product-9-1.webp
-wwwroot\assets\img\product-details\8459f917-b53c-49eb-879a-f5be6f7a5135_product-9-2.webp
-wwwroot\assets\img\home\0dea65fb-918a-4930-994f-1ca40b3e1ef0-category-img-9.webp
-wwwroot\assets\img\blog\50e57a5d-a722-4c42-96f9-92c2abab09fc-blog-7.jpg
-wwwroot\assets\img\blog\5e8d1c51-5a26-49b1-8f2e-9a4cfec73266-blog-8.webp
-wwwroot\assets\img\blog\6f45a7af-154e-4256-b35a-1031e6c249c9-blog-9.webp

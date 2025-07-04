@@ -1,0 +1,200 @@
+*,
+*::after,
+*::before {
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+html,
+body,
+.site-wrapper {
+  height: 100%;
+}
+
+body {
+  font-family: "Futura", Arial, Helvetica, sans-serif;
+  font-size: 18px;
+  font-weight: 300;
+  font-style: normal;
+  line-height: 1.75;
+  position: relative;
+  visibility: visible;
+  overflow-x: hidden;
+  color: #696969;
+  background-color: #FFFFFF;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: "Marcellus", Arial, Helvetica, sans-serif;
+  font-weight: 600;
+  line-height: 1.2;
+  margin-top: 0;
+  color: #333333;
+}
+
+.h1,
+.h2,
+.h3,
+.h4,
+.h5,
+.h6 {
+  line-height: inherit;
+  margin: 0;
+}
+
+p:last-child {
+  margin-bottom: 0;
+}
+
+a,
+button {
+  line-height: inherit;
+  display: inline-block;
+  cursor: pointer;
+  text-decoration: none;
+  color: inherit;
+}
+
+a,
+button,
+img,
+input {
+  -webkit-transition: all 0.5s ease 0s;
+  transition: all 0.5s ease 0s;
+}
+
+*:focus {
+  outline: none !important;
+}
+
+a:focus {
+  text-decoration: none;
+  color: inherit;
+  outline: none;
+}
+
+a:hover {
+  text-decoration: none;
+  color: #F8796C;
+}
+
+button,
+input[type=submit] {
+  cursor: pointer;
+}
+
+
+#my-account-title-area .page-title-size {
+  background-image: url("../../img/shop/page-title.webp");
+  background-repeat: no-repeat;    
+  background-size: cover;            
+  background-position: center center;
+}
+@media only screen and (min-width: 992px) and (max-width: 1199px), only screen and (min-width: 768px) and (max-width: 991px) {
+  #my-account-title-area .page-title-size {
+    padding: 80px 0;
+  }
+}
+@media only screen and (max-width: 767px) {
+  #my-account-title-area .page-title-size {
+    padding: 60px 0;
+  }
+}
+@media only screen and (max-width: 479px) {
+  #my-account-title-area .page-title-size {
+    padding: 50px 0;
+  }
+}
+
+
+.shop-toolbar {
+  padding-top: 25px;
+  padding-bottom: 25px;
+  margin-left: 60pc
+}
+
+
+#my-account-area .myaccount-tab-list {
+  display: block;
+  margin-right: 30px;
+  border: 1px solid #EEEEEE;
+}
+#my-account-area .myaccount-tab-list a {
+  font-weight: 500;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  padding: 14px 20px;
+}
+#my-account-area .myaccount-tab-list a + a {
+  border-top: 1px solid #EEEEEE;
+}
+#my-account-area .myaccount-tab-list a:hover {
+  color: #333333;
+}
+#my-account-area .myaccount-tab-list a.active {
+  cursor: default;
+  background-color: #FAFAFA;
+}
+@media only screen and (min-width: 768px) and (max-width: 991px), only screen and (max-width: 767px) {
+  #my-account-area .myaccount-tab-list {
+    margin-right: 0;
+  }
+}
+
+#my-account-area .myaccount-content {
+  font-size: 16px;
+  font-weight: 400;
+}
+#my-account-area .myaccount-content.dashboad p {
+  padding: 20px;
+  background-color: #FAFAFA;
+}
+#my-account-area .myaccount-content.dashboad p:not(:last-child) {
+  margin-bottom: 24px;
+}
+#my-account-area .myaccount-content.dashboad p span {
+  text-decoration: underline;
+}
+#my-account-area .myaccount-content.order table, .myaccount-content.download table {
+  white-space: nowrap;
+}
+#my-account-area .myaccount-content.address > p {
+  padding: 20px;
+  background-color: #FAFAFA;
+}
+#my-account-area .myaccount-content.address > p:not(:last-child) {
+  margin-bottom: 24px;
+}
+#my-account-area .myaccount-content.address > p span {
+  text-decoration: underline;
+}
+#my-account-area .myaccount-content.address .title {
+  margin-bottom: 20px;
+}
+#my-account-area .myaccount-content.address .title .edit-link {
+  font-size: 12px;
+  margin-left: 5px;
+  text-transform: capitalize;
+  color: #7E7E7E;
+}
+#my-account-area .myaccount-content.address .title .edit-link:hover {
+  color: #000;
+}
+#my-account-area .myaccount-content.address address {
+  margin-bottom: 0;
+}

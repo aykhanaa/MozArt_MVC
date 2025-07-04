@@ -62,12 +62,8 @@
                                     </a>
                                     <div class="dropdown-menu" id="userDropdown" style="margin-right: -5pc; background-color: white;">
                                         <a href="#">@Model.UserFullName</a>
-                                        <form asp-controller="Account" asp-action="Logout" asp-route-userId="@Model.UserId" method="post" style="margin: 0;">
-                                            <button type="submit" style="background: none; border: none; cursor: pointer; display: flex; align-items: center; gap: 5px;">
-                                                <span style="color:#D10000 ;">Logout</span>
-                                                <i class="fa-solid fa-arrow-right-from-bracket" style="color: #D10000;"></i>
-                                            </button>
-                                        </form>
+
+                                        <a asp-controller="MyAccount" asp-action="Index" class="dropdown-item">My-Account</a>
                                     </div>
                                 </div>
                             }

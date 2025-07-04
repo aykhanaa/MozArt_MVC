@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 using System.Data;
+using System.Security.Claims;
 
 namespace Final_MozArt.Controllers
 {
@@ -261,6 +262,36 @@ namespace Final_MozArt.Controllers
 
 
             return RedirectToAction("Index", "Home");
+        }
+
+        [HttpPut]
+        public async Task<IActionResult> UpdateEmail([FromBody] UpdateEmailVM model)
+        {
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            if (userId == null)
+                return Unauthorized(new { Message = "User not authenticated." });
+
+            var result = await _accountService.UpdateEmailAsync(userId, model.NewEmail);
+
+            if (result.Contains("successfully"))
+                return Ok(new { Message = result });
+
+            return BadRequest(new { Message = result });
+        }
+
+        [HttpPut]
+        public async Task<IActionResult> UpdateUsername([FromBody] UpdateUsernameVM model)
+        {
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            if (userId == null)
+                return Unauthorized(new { Message = "User not authenticated." });
+
+            var result = await _accountService.UpdateUsernameAsync(userId, model.NewUsername);
+
+            if (result.Contains("successfully"))
+                return Ok(new { Message = result });
+
+            return BadRequest(new { Message = result });
         }
 
     }

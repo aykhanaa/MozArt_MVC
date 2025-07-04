@@ -12,6 +12,10 @@ namespace Final_MozArt.Services.Interfaces
         Task<bool> ForgotPasswordAsync(ForgotPasswordVM model);
         Task<IdentityResult> ResetPasswordAsync(ResetPasswordVM model);
         Task LogoutAsync();
+        Task<string> UpdateEmailAsync(string userId, string newEmail);
+        Task<string> UpdateUsernameAsync(string userId, string newUsername);
+
+        Task<AppUser> GetUserByIdAsync(string userId);
 
     }
 }

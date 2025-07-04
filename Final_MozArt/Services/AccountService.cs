@@ -181,5 +181,126 @@ namespace Final_MozArt.Services
             await _signInManager.SignOutAsync();
         }
 
+        //public async Task<string> UpdateEmailAsync(string userId, string newEmail)
+        //{
+        //    var user = await _userManager.FindByIdAsync(userId);
+        //    if (user == null) return "User not found";
+
+        //    if (string.IsNullOrWhiteSpace(newEmail)) return "Email cannot be empty";
+
+        //    if (user.Email == newEmail)
+        //        return "New email cannot be the same as the current one.";
+
+        //    var emailExists = await _userManager.FindByEmailAsync(newEmail);
+        //    if (emailExists != null)
+        //        return "This email is already taken.";
+
+        //    user.Email = newEmail;
+        //    user.NormalizedEmail = newEmail.ToUpper();
+
+        //    var result = await _userManager.UpdateAsync(user);
+        //    if (!result.Succeeded)
+        //        return string.Join(", ", result.Errors.Select(e => e.Description));
+
+        //    return "Email successfully updated.";
+        //}
+
+
+
+        //public async Task<string> UpdateUsernameAsync(string userId, string newUsername)
+        //{
+        //    var user = await _userManager.FindByIdAsync(userId);
+        //    if (user == null) return "User not found";
+
+        //    if (string.IsNullOrWhiteSpace(newUsername)) return "Username cannot be empty";
+
+        //    if (user.UserName == newUsername)
+        //        return "New username cannot be the same as the current one.";
+
+        //    var usernameExists = await _userManager.FindByNameAsync(newUsername);
+        //    if (usernameExists != null)
+        //        return "This username is already taken.";
+
+        //    user.UserName = newUsername;
+        //    user.NormalizedUserName = newUsername.ToUpper();
+
+        //    var result = await _userManager.UpdateAsync(user);
+        //    if (!result.Succeeded)
+        //        return string.Join(", ", result.Errors.Select(e => e.Description));
+
+        //    return "Username successfully updated.";
+        //}
+
+        public async Task<string> UpdateEmailAsync(string userId, string newEmail)
+        {
+            var user = await _userManager.FindByIdAsync(userId);
+            if (user == null) return "User not found";
+
+            if (string.IsNullOrWhiteSpace(newEmail)) return "Email cannot be empty";
+
+            if (user.Email == newEmail)
+                return "New email cannot be the same as the current one.";
+
+            var emailExists = await _userManager.FindByEmailAsync(newEmail);
+            if (emailExists != null)
+                return "This email is already taken.";
+
+            user.Email = newEmail;
+            user.NormalizedEmail = newEmail.ToUpper();
+
+            var result = await _userManager.UpdateAsync(user);
+            if (!result.Succeeded)
+                return string.Join(", ", result.Errors.Select(e => e.Description));
+
+            _emailService.Send(
+                to: newEmail,
+                subject: "Email Updated",
+                html: "<p>Your email has been successfully updated.</p>"
+            );
+
+            return "Email successfully updated.";
+        }
+
+        public async Task<string> UpdateUsernameAsync(string userId, string newUsername)
+        {
+            var user = await _userManager.FindByIdAsync(userId);
+            if (user == null) return "User not found";
+
+            if (string.IsNullOrWhiteSpace(newUsername)) return "Username cannot be empty";
+
+            if (user.UserName == newUsername)
+                return "New username cannot be the same as the current one.";
+
+            var usernameExists = await _userManager.FindByNameAsync(newUsername);
+            if (usernameExists != null)
+                return "This username is already taken.";
+
+            user.UserName = newUsername;
+            user.NormalizedUserName = newUsername.ToUpper();
+
+            var result = await _userManager.UpdateAsync(user);
+            if (!result.Succeeded)
+                return string.Join(", ", result.Errors.Select(e => e.Description));
+
+            _emailService.Send(
+                to: user.Email,
+                subject: "Username Updated",
+                html: $"<p>Your username has been successfully updated to <strong>{newUsername}</strong>.</p>"
+            );
+
+            return "Username successfully updated.";
+        }
+
+        public async Task<AppUser> GetUserByIdAsync(string userId)
+        {
+            var user = await _userManager.FindByIdAsync(userId);
+            if (user == null)
+            {
+                throw new ArgumentException("User not found");
+            }
+
+            return user;
+        }
+
     }
 }

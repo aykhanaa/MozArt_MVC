@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "LoLGKdMNek4=",
+  "dgSpecHash": "fZcg8YvD0tM=",
   "success": true,
-  "projectFilePath": "C:\\Users\\ASUS\\Desktop\\Final_MVC_MozArt\\Final_MozArt\\Final_MozArt.csproj",
+  "projectFilePath": "C:\\Users\\ASUS\\Desktop\\After-Final_MVC_MozArt\\Final_MozArt\\Final_MozArt.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\ASUS\\.nuget\\packages\\automapper\\12.0.1\\automapper.12.0.1.nupkg.sha512",
     "C:\\Users\\ASUS\\.nuget\\packages\\automapper.extensions.microsoft.dependencyinjection\\12.0.1\\automapper.extensions.microsoft.dependencyinjection.12.0.1.nupkg.sha512",
