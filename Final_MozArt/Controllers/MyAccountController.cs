@@ -13,26 +13,30 @@ namespace Final_MozArt.Controllers
         private readonly UserManager<AppUser> _userManager;
         private readonly ISettingService _settingService;
         private readonly IAccountService _accountService;
+        private readonly IOrderService _orderService;
 
         public MyAccountController(UserManager<AppUser> userManager, ISettingService settingService, 
-                                   IAccountService accountService)
+                                   IAccountService accountService, IOrderService orderService)
         {
             _settingService = settingService;
             _userManager = userManager;
             _accountService = accountService;
+            _orderService = orderService;
         }
         public async Task<IActionResult> Index()
         {
             var setting = _settingService.GetSettings();
             var userId = _userManager.GetUserId(User); 
             var user = await _accountService.GetUserByIdAsync(userId); 
+            var orders = await _orderService.GetAllAsync();
 
 
 
             MyAccountVM model = new MyAccountVM()
             {
                 Setting = setting,
-                AppUser = user 
+                AppUser = user ,
+                Orders = orders
             };
             return View(model);
         }

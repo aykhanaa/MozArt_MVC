@@ -1,4 +1,4 @@
-﻿
+﻿﻿
 @model MyAccountVM
 
 @section css {
@@ -40,19 +40,19 @@
                             </a>
                             <a href="#orders" data-bs-toggle="tab">Orders <i class="fa-solid fa-file-lines"></i></a>
                             <a href="#address" data-bs-toggle="tab">
-                                address <i class="fa-solid fa-location-dot"></i>
+                                New Password <i class="fa-solid fa-key"></i>
                             </a>
                             <a href="#account-info" data-bs-toggle="tab">
                                 Account Details <i class="fa-solid fa-user-tie"></i>
                             </a>
-                          
+
                             <a href="login-register.html">
-                                  <form asp-controller="Account" asp-action="Logout" asp-route-userId="@Model.UserId" method="post" style="margin: 0;">
-                                            <button type="submit" style="background: none; border: none; cursor: pointer; display: flex; align-items: center; gap: 14rem;">
+                                <form asp-controller="Account" asp-action="Logout" asp-route-userId="@Model.UserId" method="post" style="margin: 0;">
+                                    <button type="submit" style="background: none; border: none; cursor: pointer; display: flex; align-items: center; gap: 14rem;">
                                         Logout <i class="fa-solid fa-arrow-right-from-bracket"></i>
-                                               
-                                            </button>
-                                        </form>  
+
+                                    </button>
+                                </form>
                             </a>
                         </div>
                     </div>
@@ -86,106 +86,116 @@
                                                 <tr>
                                                     <th>Order</th>
                                                     <th>Date</th>
-                                                    <th>Status</th>
                                                     <th>Total</th>
-                                                    <th>Action</th>
+                                                    <th>Products</th>
+
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <tr>
-                                                    <td>1</td>
-                                                    <td>Aug 22, 2018</td>
-                                                    <td>Pending</td>
-                                                    <td>$3000</td>
-                                                    <td><a href="shopping-cart.html">View</a></td>
-                                                </tr>
-                                                <tr>
-                                                    <td>2</td>
-                                                    <td>July 22, 2018</td>
-                                                    <td>Approved</td>
-                                                    <td>$200</td>
-                                                    <td><a href="shopping-cart.html">View</a></td>
-                                                </tr>
-                                                <tr>
-                                                    <td>3</td>
-                                                    <td>June 12, 2017</td>
-                                                    <td>On Hold</td>
-                                                    <td>$990</td>
-                                                    <td><a href="shopping-cart.html">View</a></td>
-                                                </tr>
+                                                @if (Model.Orders != null && Model.Orders.Any())
+                                                {
+                                                    foreach (var order in Model.Orders)
+                                                    {
+                                                        <tr>
+                                                            <td>@order.Id</td>
+                                                            <td>@order.CreatedDate.ToString("MMM dd, yyyy")</td>
+                                                            <td>$@order.TotalPrice.ToString("F2")</td>
+                                                            <td>
+                                                                <ul style="list-style-type: none; padding-left: 0;">
+                                                                    @foreach (var product in order.Items)
+                                                                    {
+                                                                        <li>
+                                                                            <strong>@product.ProductName</strong>
+                                                                            (@product.Quantity) -
+                                                                            $@product.Price.ToString("F2")
+                                                                        </li>
+                                                                    }
+                                                                </ul>
+                                                            </td>
+                                                          
+                                                        </tr>
+                                                    }
+                                                }
+                                                else
+                                                {
+                                                    <tr>
+                                                        <td colspan="5">No orders found.</td>
+                                                    </tr>
+                                                }
+
                                             </tbody>
                                         </table>
                                     </div>
                                 </div>
                             </div>
 
+
                             <div class="tab-pane fade" id="address">
-                                <div class="myaccount-content address">
-                                    <p>The following addresses will be used on the checkout page by default.</p>
-                                    <div class="row learts-mb-n30">
-                                        <div class="col-md-6 col-12 learts-mb-30">
-                                            <h4 class="title">
-                                                Billing Address <a href="#" class="edit-link">edit</a>
-                                            </h4>
-                                            <address>
-                                                <p><strong>Alex Tuntuni</strong></p>
-                                                <p>
-                                                    1355 Market St, Suite 900 <br>
-                                                    San Francisco, CA 94103
-                                                </p>
-                                                <p>Mobile: (123) 456-7890</p>
-                                            </address>
-                                        </div>
-                                        <div class="col-md-6 col-12 learts-mb-30">
-                                            <h4 class="title">
-                                                Shipping Address <a href="#"
-                                                                    class="edit-link">edit</a>
-                                            </h4>
-                                            <address>
-                                                <p><strong>Alex Tuntuni</strong></p>
-                                                <p>
-                                                    1355 Market St, Suite 900 <br>
-                                                    San Francisco, CA 94103
-                                                </p>
-                                                <p>Mobile: (123) 456-7890</p>
-                                            </address>
+                                <div class="forgot-password-container">
+                                    <div class="forgot-password-wrapper">
+                                        <div class="forgot-password-card">
+                                            <div class="top-border"></div>
+
+                                            <div class="forgot-password-content">
+                                                <div class="forgot-password-header">
+                                                    <h2 class="forgot-password-title">New Password</h2>
+                                                    <p class="forgot-password-subtitle">Enter your email to change your password</p>
+                                                    <div class="title-divider"></div>
+                                                </div>
+
+
+                                                <form method="post" asp-controller="Account" asp-action="ForgotPassword">
+                                                    <div class="form-group">
+                                                        <label for="email" class="form-label">Email Address</label>
+                                                        <input type="email" id="email" asp-for="Email" required class="form-input">
+                                                    </div>
+
+                                                    <div class="form-submit">
+                                                        <button href="new-password.html" type="submit" class="button btn btn-primary" style="margin-top:20px;">
+                                                            SEND RESET LINK
+                                                        </button>
+                                                    </div>
+                                                </form>
+                                            </div>
+
+                                            <div class="bottom-border"></div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
 
                             <div class="tab-pane fade" id="account-info">
-                                 <div class="my-account-account-details">
-                                <form id="emailForm" asp-action="UpdateEmail" asp-controller="MyAccount" method="post">
-                                    @Html.AntiForgeryToken()
-                                    <fieldset>
-                                        <legend>Change Email</legend>
+                                <div class="my-account-account-details">
+                                    <form id="emailForm" asp-action="UpdateEmail" asp-controller="MyAccount" method="post">
+                                        @Html.AntiForgeryToken()
+                                        <fieldset>
+                                            <legend>Change Email</legend>
                                             <input name="NewEmail" class="form-control" autocomplete="off" style="margin-bottom: 20px;" value="@Model.AppUser.Email" />
-                                        <p class="form-row">
-                                            <button type="submit" class="button btn btn-primary">Save</button>
-                                        </p>
-                                    </fieldset>
-                                </form>
+                                            <p class="form-row">
+                                                <button type="submit" class="button btn btn-primary">Save</button>
+                                            </p>
+                                        </fieldset>
+                                    </form>
 
-                                <div id="emailResult"></div>
+                                    <div id="emailResult"></div>
 
-                                <hr />
+                                    <hr />
 
 
-                                <form id="usernameForm" asp-action="UpdateUsername" asp-controller="MyAccount" method="post">
-                                    @Html.AntiForgeryToken()
-                                    <fieldset>
-                                        <legend>Change Username</legend>
+                                    <form id="usernameForm" asp-action="UpdateUsername" asp-controller="MyAccount" method="post">
+                                        @Html.AntiForgeryToken()
+                                        <fieldset>
+                                            <legend>Change Username</legend>
                                             <input name="NewUsername" class="form-control" autocomplete="off" style="margin-bottom: 20px;" value="@Model.AppUser.UserName" />
-                                        <p class="form-row">
-                                            <button type="submit" class="button btn btn-primary">Save</button>
-                                        </p>
-                                    </fieldset>
-                                </form>
+                                            <p class="form-row">
+                                                <button type="submit" class="button btn btn-primary">Save</button>
+                                            </p>
+                                        </fieldset>
+                                    </form>
 
-                                <div id="usernameResult"></div>
+                                    <div id="usernameResult"></div>
 
-                            </div> 
+                                </div>
                             </div>
 
 
@@ -199,67 +209,94 @@
 </main>
 
 
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script>
-        $(function () {
-            $("#usernameForm").submit(function (e) {
-                e.preventDefault();
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(function () {
+        $("#usernameForm").submit(function (e) {
+            e.preventDefault();
 
-                let form = $(this);
-                let data = form.serialize();
+            let form = $(this);
+            let data = form.serialize();
 
-                $.ajax({
-                    type: "POST",
-                    url: form.attr("action"),
-                    data: data,
-                    success: function (res) {
-                        $("#usernameResult").html(`<div class="alert alert-success">${res.message}</div>`);
+            $.ajax({
+                type: "POST",
+                url: form.attr("action"),
+                data: data,
+                success: function (res) {
+                    $("#usernameResult").html(`<div class="alert alert-success">${res.message}</div>`);
 
-                        if (res.redirectToLogin) {
-                            setTimeout(() => {
-                                window.location.href = "/Account/Login";
-                            }, 2000);
-                        }
-                    },
-                    error: function (xhr) {
-                        const msg = xhr.responseJSON?.message ?? "An error occurred.";
-                        $("#usernameResult").html(`<div class="alert alert-danger">${msg}</div>`);
+                    if (res.redirectToLogin) {
+                        setTimeout(() => {
+                            window.location.href = "/Account/Login";
+                        }, 2000);
                     }
-                });
+                },
+                error: function (xhr) {
+                    const msg = xhr.responseJSON?.message ?? "An error occurred.";
+                    $("#usernameResult").html(`<div class="alert alert-danger">${msg}</div>`);
+                }
             });
         });
-    </script>
+    });
+</script>
 
-    <script>
-        $(function () {
-            $("#emailForm").submit(function (e) {
-                e.preventDefault();
+<script>
+    $(function () {
+        $("#emailForm").submit(function (e) {
+            e.preventDefault();
 
-                let form = $(this);
-                let data = form.serialize();
+            let form = $(this);
+            let data = form.serialize();
 
-                $.ajax({
-                    type: "POST",
-                    url: form.attr("action"),
-                    data: data,
-                    success: function (res) {
-                        $("#emailResult").html(`<div class="alert alert-success">${res.message}</div>`);
+            $.ajax({
+                type: "POST",
+                url: form.attr("action"),
+                data: data,
+                success: function (res) {
+                    $("#emailResult").html(`<div class="alert alert-success">${res.message}</div>`);
 
-                        if (res.redirectToLogin) {
-                            setTimeout(() => {
-                                window.location.href = "/Account/Login";
-                            }, 2000);
-                        }
-                    },
-                    error: function (xhr) {
-                        const msg = xhr.responseJSON?.message ?? "An error occurred.";
-                        $("#emailResult").html(`<div class="alert alert-danger">${msg}</div>`);
+                    if (res.redirectToLogin) {
+                        setTimeout(() => {
+                            window.location.href = "/Account/Login";
+                        }, 2000);
                     }
-                });
+                },
+                error: function (xhr) {
+                    const msg = xhr.responseJSON?.message ?? "An error occurred.";
+                    $("#emailResult").html(`<div class="alert alert-danger">${msg}</div>`);
+                }
             });
         });
-    </script>
+    });
+</script>
 
 @section scripts {
     <script src="~/assets/js/my-account/my-account.js"></script>
 }
+
+<script>
+    $(document).ready(function () {
+        $('.myaccount-tab-list a[data-bs-toggle="tab"]').on('click', function (e) {
+            e.preventDefault();
+
+            const target = $(this).attr('href');
+
+            // Bütün tab-ları gizlət və hədəfi göstər
+            $('.tab-pane').removeClass('active show');
+            $(target).addClass('active show');
+
+            // Tab menyusunda aktiv sinfi yenilə
+            $('.myaccount-tab-list a').removeClass('active');
+            $(this).addClass('active');
+
+            // Tab content hissəsini səhifənin ortasına gətir
+            const targetOffset = $(target).offset().top;
+            const windowHeight = $(window).height();
+            const scrollPosition = targetOffset - (windowHeight / 2) + ($(target).outerHeight() / 2);
+
+            $('html, body').animate({
+                scrollTop: scrollPosition
+            }, 400);
+        });
+    });
+</script>

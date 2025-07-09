@@ -1,0 +1,58 @@
+﻿@model List<OrderVM>
+
+
+<div class="container my-5" style="margin-left: 22pc !important; width: 68pc !important; margin-top: 120px !important;">
+    <h1 class="text-center mt-3 mb-3" style="margin-left:200px; margin-top:150px;">Order</h1>
+   
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+
+                   
+                    <th>
+                        Products
+                    </th>
+                    <th>
+                        Total
+                    </th>
+                    <th>
+                        Date
+                    </th>
+                   
+
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr data-id="@item.Id">
+                        <td>
+                            <ul>
+                                @foreach (var product in item.Items)
+                                {
+                                    <li>@product.ProductName - @product.Quantity item - @product.Price $</li>
+                                }
+                            </ul>
+                        </td>
+
+                       
+                        <td>
+                            @item.TotalPrice $
+                        </td>
+
+                        <td>
+                            @item.CreatedDate
+                        </td>
+                      
+                    </tr>
+                }
+            </tbody>
+        </table>
+        @Html.AntiForgeryToken()
+    </div>
+</div>
+
+}
+
+

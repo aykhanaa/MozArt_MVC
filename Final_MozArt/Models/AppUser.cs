@@ -6,5 +6,6 @@ namespace Final_MozArt.Models
     {
         public string FullName { get; set; }
         public  ICollection<BlogComment> BlogComments { get; set; }
+        public  ICollection<ProductComment>  ProductComments { get; set; }
     }
 }

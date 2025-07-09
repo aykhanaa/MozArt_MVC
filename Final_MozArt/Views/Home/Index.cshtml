@@ -142,9 +142,12 @@
                                             <div class="product">
                                                 <div class="product-thumb">
                                                     <a asp-controller="Shop" asp-action="Detail" asp-route-id="@item.Id" class="image">
-                                                        <img src="~/assets/img/product-details/@item.Image" alt="Product Image">
-                                                        <img class="image-hover " src="~/assets/img/product-details/@item.Hower"
-                                                             alt="Product Image">
+                                                            <img src="~/assets/img/product-details/@item.Image" alt="Product Image" />
+                                                            @if (!string.IsNullOrEmpty(item.Hower))
+                                                            {
+                                                                <img class="image-hover" src="~/assets/img/product-details/@item.Hower" alt="Product Hover Image" />
+                                                            }
+
                                                     </a>
                                                        
                                                 </div>
@@ -261,7 +264,7 @@
     </section>
     }
 
-    <section id="newsletter-subscribe">
+   @*  <section id="newsletter-subscribe">
         <div class="container">
             <div class="subscribe-box text-center" style="
           padding: 60px 50px;
@@ -303,7 +306,133 @@
                 </form>
             </div>
         </div>
-    </section> 
+    </section>  *@
+
+    <section id="line-area">
+        <div class="container">
+            <hr class="between-line">
+        </div>
+    </section>
+
+    <section id="newsletter-subscribe">
+        <style>
+            .subscribe-box {
+                padding: 60px 20px;
+                background-color: white;
+                max-width: 700px;
+                width: 100%;
+                margin: 0 auto 80px;
+            }
+
+                .subscribe-box h2 {
+                    color: black;
+                    font-size: 2.5rem;
+                    margin-bottom: 20px;
+                    font-family: 'Playfair Display', serif;
+                }
+
+                .subscribe-box p {
+                    color: black;
+                    opacity: 0.85;
+                    font-size: 1.1rem;
+                    margin-bottom: 35px;
+                }
+
+            .email-input {
+                font-size: 16px;
+                font-weight: 400;
+                display: block;
+                width: 100%;
+                max-width: 500px;
+                margin: 0 auto;
+                padding: 10px;
+                color: #333;
+                border: 1px solid black;
+                background-color: rgba(0, 0, 0, 0);
+                border-radius: 5px;
+            }
+
+            .subscribe-btn {
+                margin-top: 30px;
+                background-color: black;
+                color: white;
+                width: 200px;
+                height: 50px;
+                border-radius: 35px;
+                font-size: 16px;
+                border: none;
+            }
+
+            media (max-width: 768px) {
+                .subscribe-box
+
+            {
+                padding: 40px 15px;
+            }
+
+            .subscribe-box h2 {
+                font-size: 2rem;
+            }
+
+            .subscribe-box p {
+                font-size: 1rem;
+            }
+
+            .email-input {
+                width: 100%;
+            }
+
+            .subscribe-btn {
+                width: 100%;
+                height: 45px;
+                font-size: 15px;
+            }
+
+            }
+        </style>
+
+        <div class="container">
+            <div class="subscribe-box text-center">
+                <h2>Newsletter</h2>
+                <p>
+                    Subscribe to get updates about our handcraft products and special offers.
+                </p>
+
+                @if (TempData["Successs"] != null)
+                {
+                    <div class="alert alert-success text-center">
+                        @TempData["Successs"]
+                    </div>
+                }
+
+                @if (TempData["Error"] != null)
+                {
+                    <div class="alert alert-danger text-center">
+                        @TempData["Error"]
+                    </div>
+                }
+
+                <form asp-controller="Subscribe" asp-action="Subscribe" method="post">
+                    <div class="form-group">
+                        <input name="email" class="email-input" placeholder="Your email address" type="email" required />
+                    </div>
+                    <button type="submit" class="subscribe-btn">
+                        Subscribe
+                    </button>
+                    @Html.AntiForgeryToken()
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <section id="line-area">
+        <div class="container">
+            <hr class="between-line">
+        </div>
+    </section>
+
+
+
 
       @if (Model.Instagrams != null && Model.Instagrams.Any())
     {

@@ -681,6 +681,7 @@ wwwroot\assets\img\product-details\4ea199c9-8e31-4a53-9964-434b819efcd6_product-
 wwwroot\assets\img\product-details\4f656547-08c5-4685-bde2-b2e823ddd060_4db1aa24-1488-4577-a429-a42108c16bf3-instagram-3.webp
 wwwroot\assets\img\product-details\5708a1c6-64f3-4d86-a54f-f3e5910ad98e_product-9-1.webp
 wwwroot\assets\img\product-details\5eb8f583-ee18-4bf7-88b4-dfbcbcb40f78_abstract pot 1-2.webp
+wwwroot\assets\img\product-details\614191d5-cd85-4aad-b202-c4050969ea27_brand-7.webp
 wwwroot\assets\img\product-details\66414241-eabb-4835-a425-5a42bc26ab4e_product-6-2.webp
 wwwroot\assets\img\product-details\7da7d8d1-0839-4591-9570-5ca9976df287_product-8-2.webp
 wwwroot\assets\img\product-details\83f38da8-b467-48b2-aa4a-68cbc1161af4_mug 1-2.webp
@@ -688,6 +689,7 @@ wwwroot\assets\img\product-details\8459f917-b53c-49eb-879a-f5be6f7a5135_product-
 wwwroot\assets\img\product-details\8626c9fc-c957-40eb-8060-5300c1d50f23_product-5-2.webp
 wwwroot\assets\img\product-details\897e5903-4dc9-486f-83d8-860becfff0ae_product-6-1.webp
 wwwroot\assets\img\product-details\96f3ce24-c315-443c-ab07-786a72a23a2d_product-4-1.webp
+wwwroot\assets\img\product-details\98c69eac-273b-481a-97dd-20754aa875ef_brand-8.webp
 wwwroot\assets\img\product-details\99d770fd-8135-4b37-8678-7f0ff7183053_product-10-1.webp
 wwwroot\assets\img\product-details\9b977a6b-4c75-496e-986f-14e54b209a81_motocycle 1-2.webp
 wwwroot\assets\img\product-details\9f4c3273-3cc9-4dca-bc89-c1b16d09d416_product-4-2.webp
@@ -705,6 +707,7 @@ wwwroot\assets\img\product-details\brand-7.webp
 wwwroot\assets\img\product-details\brand-8.webp
 wwwroot\assets\img\product-details\c9f91b1c-ec24-4df9-a4dd-4107784b5dbf_blender 1-1.webp
 wwwroot\assets\img\product-details\d24e410e-8303-475b-8bac-d3e8b4a28e11_product-7-2.webp
+wwwroot\assets\img\product-details\d7ee3af2-925f-4036-9380-356e4960ae1e_category-img-3.webp
 wwwroot\assets\img\product-details\e23202fd-6eff-482a-9f33-2c25fcde09a2_product-2-2.webp
 wwwroot\assets\img\product-details\e2b9ffdb-ce0d-4a2f-89dc-62c02fa63a70_product-10-2.webp
 wwwroot\assets\img\product-details\ea73d254-b7fa-4a6a-83b8-82113b4dc665_product-3-1.webp

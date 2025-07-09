@@ -5,6 +5,7 @@ using Final_MozArt.Services.Interfaces;
 using Final_MozArt.ViewModels.Blog;
 using Final_MozArt.ViewModels.Category;
 using Final_MozArt.ViewModels.Product;
+using Final_MozArt.ViewModels.ProductComment;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.EntityFrameworkCore;
@@ -83,6 +84,7 @@ namespace Final_MozArt.Services
                 .Include(p => p.ProductColors).ThenInclude(pc => pc.Color)
                 .Include(p => p.ProductTags).ThenInclude(pt => pt.Tag)
                 .Include(p => p.Images)
+                .Include(p=>p.ProductComments)
                 .AsNoTracking()
                 .FirstOrDefaultAsync(p => p.Id == id);
 
@@ -108,7 +110,17 @@ namespace Final_MozArt.Services
                 TagIds = product.ProductTags.Select(pt => pt.TagId).ToList(),
                 TagNames = product.ProductTags.Select(pt => pt.Tag.Name).ToList(),
 
-                Images = product.Images?.ToList()
+                Images = product.Images?.ToList(),
+                ProductComments = product.ProductComments?.Select(pc => new ProductCommentVM
+                {
+                    Id = pc.Id,
+                    Name = pc.Name,
+                    Email = pc.Email,
+                    Comment = pc.Comment,
+                    CreatedDate = pc.CreateDate,
+                    AppUserId = pc.AppUserId,
+                    ProductId = pc.ProductId
+                }).ToList()
             };
 
             return detailVM;
@@ -214,7 +226,7 @@ namespace Final_MozArt.Services
                 {
                     Image = fileName,
                     IsMain = i == 0,
-                    IsHover = i == 1,
+                    IsHover = photos.Count > 1 && i == 1,
                     Product = product
                 });
             }

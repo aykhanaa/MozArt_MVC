@@ -1,4 +1,4 @@
-﻿@model RegisterVM
+﻿@* @model RegisterVM
 
 @{
     ViewData["Title"] = "Register";
@@ -128,4 +128,173 @@
 
 @section scripts {
     <script src="~/assets/js/register/register.js"></script>
+} *@
+
+
+
+
+
+
+
+
+@model RegisterVM
+
+@{
+    ViewData["Title"] = "Register";
+}
+
+@section css {
+    <link rel="stylesheet" href="~/assets/css/register/register.css">
+}
+
+<main>
+    <section id="register-title-area">
+        <div class="page-title-size section" style="margin-bottom: 4pc;">
+            <div class="container">
+                <div class="row">
+                    <div class="col">
+                        <div class="page-title">
+                            <h1 class="title">Register</h1>
+                            <ul class="breadcrumb">
+                                <li class="breadcrumb-item"><a asp-controller="Home" asp-action="Index">Home</a></li>
+                                <li class="breadcrumb-item active">Register</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="register-area">
+        <div class="register-container">
+            <div class="decoration decoration-1"></div>
+            <div class="decoration decoration-2">
+                <i class="fas fa-leaf"></i>
+            </div>
+            <div class="decoration decoration-3">
+                <i class="fas fa-leaf"></i>
+            </div>
+            <div class="decoration decoration-4"></div>
+
+            <div class="register-wrapper">
+                <div class="register-card">
+                    <div class="top-border"></div>
+
+                    <div class="register-content">
+                        <div class="register-header">
+                            <div class="logo-container">
+                                <div class="logo">
+                                    <i class="fas fa-leaf"></i>
+                                    <div class="logo-accent"></div>
+                                </div>
+                            </div>
+                            <h2 class="register-title">Create Account</h2>
+                            <p class="register-subtitle">Join our handcrafted community!</p>
+                            <div class="title-divider"></div>
+                        </div>
+
+                        <div style="color:red;" asp-validation-summary="All"></div>
+                        <form method="post" asp-controller="Account" asp-action="Register">
+                            <div class="form-group">
+                                <label asp-for="FullName" class="form-label">Fullname</label>
+                                <input asp-for="FullName" type="text" id="fullname" required class="form-input">
+                            </div>
+
+                            <div class="form-group">
+                                <label asp-for="UserName" class="form-label">Username</label>
+                                <input asp-for="UserName" type="text" id="username" required class="form-input">
+                            </div>
+
+                            <div class="form-group">
+                                <label asp-for="Email" class="form-label">Email Address</label>
+                                <input type="email" id="email" asp-for="Email" required class="form-input">
+                            </div>
+
+                            <div class="form-group">
+                                <label asp-for="Password" class="form-label">Password</label>
+                                <div class="password-wrapper">
+                                    <input type="password" id="passwordInput" asp-for="Password" required class="form-input">
+                                    <button type="button" class="toggle-password" onclick="togglePassword('passwordInput', 'toggleIcon')">
+                                        <i class="fas fa-eye" id="toggleIcon"></i>
+                                    </button>
+                                </div>
+                                <div id="capsWarningPassword" style="display:none; color:orange; font-size: 0.9rem; margin-top: 5px;">
+                                    Caps Lock is on!
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label asp-for="ConfirmPassword" class="form-label">Confirm Password</label>
+                                <div class="password-wrapper">
+                                    <input type="password" id="confirmPasswordInput" asp-for="ConfirmPassword" required class="form-input">
+                                    <button type="button" class="toggle-password" onclick="togglePassword('confirmPasswordInput', 'confirmToggleIcon')">
+                                        <i class="fas fa-eye" id="confirmToggleIcon"></i>
+                                    </button>
+                                </div>
+                                <div id="capsWarningConfirm" style="display:none; color:orange; font-size: 0.9rem; margin-top: 5px;">
+                                    Caps Lock is on!
+                                </div>
+                            </div>
+
+                            <div class="form-submit">
+                                <button type="submit" class="register-btn">CREATE ACCOUNT</button>
+                            </div>
+
+                            <div class="login-link">
+                                <span>Already have an account?</span>
+                                <a asp-controller="Account" asp-action="Login">Sign In</a>
+                            </div>
+                        </form>
+                    </div>
+
+                    <div class="bottom-border"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+
+@section scripts {
+    <script src="~/assets/js/register/register.js"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            function setupCapsLockWarning(inputId, warningId) {
+                const input = document.getElementById(inputId);
+                const warning = document.getElementById(warningId);
+
+                if (input && warning) {
+                    input.addEventListener('keyup', function (e) {
+                        if (e.getModifierState && e.getModifierState('CapsLock')) {
+                            warning.style.display = 'block';
+                        } else {
+                            warning.style.display = 'none';
+                        }
+                    });
+
+                    input.addEventListener('blur', function () {
+                        warning.style.display = 'none';
+                    });
+                }
+            }
+
+            setupCapsLockWarning('passwordInput', 'capsWarningPassword');
+            setupCapsLockWarning('confirmPasswordInput', 'capsWarningConfirm');
+        });
+
+        function togglePassword(inputId, iconId) {
+            const input = document.getElementById(inputId);
+            const icon = document.getElementById(iconId);
+            if (input.type === 'password') {
+                input.type = 'text';
+                icon.classList.remove('fa-eye');
+                icon.classList.add('fa-eye-slash');
+            } else {
+                input.type = 'password';
+                icon.classList.remove('fa-eye-slash');
+                icon.classList.add('fa-eye');
+            }
+        }
+    </script>
 }

@@ -1,6 +1,6 @@
 ﻿using Final_MozArt.Models;
-using System;
-using System.Collections.Generic;
+using Final_MozArt.ViewModels.ProductComment;
+
 
 namespace Final_MozArt.ViewModels.Product
 {
@@ -27,6 +27,9 @@ namespace Final_MozArt.ViewModels.Product
         public DateTime CreateDate { get; set; }
 
         public Dictionary<string, string> Setting { get; set; }
+        public ProductVM Product { get; set; }
+        public List<ProductCommentVM>  ProductComments { get; set; }
+
     }
 
 }

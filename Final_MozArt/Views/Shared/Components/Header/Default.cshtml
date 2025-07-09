@@ -1,45 +1,47 @@
 ﻿
+
 @model HeaderVM
+@inject Microsoft.AspNetCore.Antiforgery.IAntiforgery Antiforgery
+@inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpContextAccessor
+
 <header>
     <section id="navbar">
+
+        <!-- DESKTOP NAVIGATION -->
         <div class="header-section header-menu-center section bg-white d-none d-xl-block">
             <div class="container">
                 <div class="row align-items-center">
 
+                    <!-- Logo -->
                     <div class="col">
                         <div class="header-logo">
-                             <a asp-controller="Home" asp-action="Index">
-                            <img style="margin-bottom: 20px;"
-                                     src="~/assets/img/home/@Model.Setting["HeaderImg"]" alt="Learts Logo">
-                            </a>  
+                            <a asp-controller="Home" asp-action="Index">
+                                <img style="margin-bottom: 20px;"
+                                     src="~/assets/img/home/@Model.Setting["HeaderImg"]"
+                                     alt="Learts Logo" />
+                            </a>
                         </div>
                     </div>
 
+                    <!-- Navigation Menu -->
                     <div class="col">
-                        <nav style="margin-left: -90px;"
-                             class="site-main-menu menu-height-100 justify-content-center">
+                        <nav class="site-main-menu menu-height-100 justify-content-center" style="margin-left: -90px;">
                             <ul>
-                                <li>
-                                    <a asp-controller="Home" asp-action="Index"><span>Home</span></a>
-                                </li>
+                                <li><a asp-controller="Home" asp-action="Index"><span>Home</span></a></li>
                                 <li><a asp-controller="Shop" asp-action="Index"><span class="menu-text">Shop</span></a></li>
-                                </li>
                                 <li><a asp-controller="About" asp-action="Index"><span class="menu-text">About</span></a></li>
-                                </li>
-                                <li>
-                                    <a asp-controller="Blog" asp-action="Index"><span class="menu-text">Blog</span></a>
-                                </li>
-                                <li>
-                                    <a asp-controller="Contact" asp-action="Index"><span class="menu-text">Contact us</span></a>
-                                </li>
+                                <li><a asp-controller="Blog" asp-action="Index"><span class="menu-text">Blog</span></a></li>
+                                <li><a asp-controller="Contact" asp-action="Index"><span class="menu-text">Contact us</span></a></li>
                             </ul>
                         </nav>
                     </div>
 
+                    <!-- Header Tools -->
                     <div class="col">
                         <div class="header-tools justify-content-end">
 
-                            <div style="width: 120px;" class="col-auto d-none d-xl-block">
+                            <!-- Search -->
+                            <div class="col-auto d-none d-xl-block" style="width: 120px;">
                                 <div class="header2-search">
                                     <form id="searchForm" method="get" action="/Shop/Index" class="search-form">
                                         <input id="searchInput" type="text" name="query" placeholder="Search"
@@ -50,55 +52,168 @@
                                     </form>
                                 </div>
                             </div>
-
                             <div id="searchResults"></div>
 
-
-                            @if (Model.UserFullName is not null)
-                            {
-                                 <div class="user-account-dropdown">
-                                    <a class="user-icon-btn" id="userAccountBtn">
-                                        <i class="fas fa-user"></i>
-                                    </a>
-                                    <div class="dropdown-menu" id="userDropdown" style="margin-right: -5pc; background-color: white;">
+                            <!-- User Account -->
+                            <div class="user-account-dropdown">
+                                <a class="user-icon-btn" id="userAccountBtn">
+                                    <i class="fas fa-user"></i>
+                                </a>
+                                <div class="dropdown-menu" id="userDropdown" style="margin-right: -5pc; background-color: white;">
+                                    @if (Model.UserFullName is not null)
+                                    {
                                         <a href="#">@Model.UserFullName</a>
-
-                                        <a asp-controller="MyAccount" asp-action="Index" class="dropdown-item">My-Account</a>
-                                    </div>
-                                </div>
-                            }
-                            else
-                            {
-                                <div class="user-account-dropdown">
-                                    <a class="user-icon-btn" id="userAccountBtn">
-                                        <i class="fas fa-user"></i>
-                                    </a>
-                                    <div class="dropdown-menu" id="userDropdown" style="margin-right: -5pc; background-color: white;">
+                                        <a asp-controller="MyAccount" asp-action="Index" class="dropdown-item">My Account</a>
+                                        <form asp-controller="Account" asp-action="Logout" asp-route-userId="@Model.UserId" method="post">
+                                            <button type="submit" style="background: none; margin-left: 16px; border: none; cursor: pointer; display: flex; align-items: center; gap: 5px;">
+                                                <span >Logout</span>
+                                                <i class="fa-solid fa-arrow-right-from-bracket" ></i>
+                                            </button>
+                                        </form>
+                                    }
+                                    else
+                                    {
                                         <a asp-controller="Account" asp-action="Login" class="dropdown-item">Login</a>
                                         <a asp-controller="Account" asp-action="Register" class="dropdown-item">Register</a>
-                                    </div>
+                                    }
                                 </div>
-                            }
+                            </div>
 
-
-
+                            <!-- Wishlist -->
                             <div class="header-wishlist">
                                 <a asp-controller="Wishlist" asp-action="Index" class="offcanvas-toggle">
-                                    <span class="wishlist-count">@Model.WishlistCount</span><i class="far fa-heart"></i>
+                                    <span class="wishlist-count">@Model.WishlistCount</span>
+                                    <i class="far fa-heart"></i>
                                 </a>
                             </div>
+
+                            <!-- Cart -->
                             <div class="header-cart">
                                 <a asp-controller="Basket" asp-action="Index" class="offcanvas-toggle">
-                                    <span class="cart-count basket-count">@Model.BasketCount</span><i class="fas fa-shopping-cart"></i>
+                                    <span class="cart-count basket-count">@Model.BasketCount</span>
+                                    <i class="fas fa-shopping-cart"></i>
                                 </a>
                             </div>
+
                         </div>
                     </div>
 
-
                 </div>
             </div>
-
         </div>
+
+        <!-- MOBILE NAVIGATION -->
+        <div class="mobile-header d-block d-xl-none bg-white border-bottom">
+            <div class="container">
+                <div class="d-flex justify-content-between align-items-center py-2">
+
+                    <!-- Logo -->
+                    <a asp-controller="Home" asp-action="Index">
+                        <img src="~/assets/img/home/@Model.Setting["HeaderImg"]" alt="Logo" style="height: 40px;" />
+                    </a>
+
+                    <!-- Mobile Tools -->
+                    <div class="d-flex align-items-center gap-3">
+
+                        <!-- Wishlist -->
+                        <div class="position-relative">
+                            <a href="#" id="wishlistBtn" class="text-dark">
+                                <i class="far fa-heart fs-5"></i>
+                                <span id="wishlistCountMobile" class="badge rounded-pill bg-danger"
+                                      style="position: absolute; top: -5px; right: -10px; font-size: 12px; background-color: #ddc11d !important; border-radius: 10px !important;">
+                                    @Model.WishlistCount
+                                </span>
+                            </a>
+                        </div>
+
+                        <!-- Cart -->
+                        <div class="position-relative">
+                            <a href="#" id="basketBtn" class="text-dark">
+                                <i class="fas fa-shopping-cart fs-5"></i>
+                                <span id="basketCountMobile" class="badge rounded-pill bg-danger"
+                                      style="position: absolute; top: -5px; right: -10px; font-size: 12px; background-color: #ddc11d !important; border-radius: 10px !important;">
+                                    @Model.BasketCount
+                                </span>
+                            </a>
+                        </div>
+
+                        <!-- Menu Toggle -->
+                        <button class="btn p-0" type="button" data-bs-toggle="collapse" data-bs-target="#mobileNav">
+                            <i class="fas fa-bars fs-5"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Collapsible Mobile Menu -->
+                <div class="collapse" id="mobileNav">
+                    <ul class="list-unstyled mb-2">
+                        <li><a asp-controller="Home" asp-action="Index">Home</a></li>
+                        <li><a asp-controller="Shop" asp-action="Index">Shop</a></li>
+                        <li><a asp-controller="About" asp-action="Index">About</a></li>
+                        <li><a asp-controller="Blog" asp-action="Index">Blog</a></li>
+                        <li><a asp-controller="Contact" asp-action="Index">Contact us</a></li>
+                    </ul>
+
+                    <form method="get" action="/Shop/Index" class="mb-3">
+                        <input class="form-control" type="text" name="query" placeholder="Search"
+                               value="@Context.Request.Query["query"]" />
+                    </form>
+
+                    @if (Model.UserFullName is not null)
+                    {
+                        <p>@Model.UserFullName</p>
+                        <a asp-controller="MyAccount" asp-action="Index" class="btn btn-sm btn-outline-dark w-100">My Account</a>
+                    }
+                    else
+                    {
+                        <div class="d-flex gap-2">
+                            <a asp-controller="Account" asp-action="Login" class="btn btn-sm btn-outline-dark w-50">Login</a>
+                            <a asp-controller="Account" asp-action="Register" class="btn btn-sm btn-outline-dark w-50">Register</a>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+
     </section>
 </header>
+
+@section Scripts {
+    <script>
+        const token = '@Antiforgery.GetAndStoreTokens(HttpContextAccessor.HttpContext).RequestToken';
+
+        document.getElementById('wishlistBtn').addEventListener('click', function (e) {
+            e.preventDefault();
+
+            fetch('@Url.Action("IncrementCount", "Wishlist")', {
+                method: 'POST',
+                headers: {
+                    'RequestVerificationToken': token,
+                    'Content-Type': 'application/json'
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('wishlistCountMobile').textContent = data.count;
+            });
+        });
+
+        document.getElementById('basketBtn').addEventListener('click', function (e) {
+            e.preventDefault();
+
+            fetch('@Url.Action("IncrementCount", "Basket")', {
+                method: 'POST',
+                headers: {
+                    'RequestVerificationToken': token,
+                    'Content-Type': 'application/json'
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('basketCountMobile').textContent = data.count;
+            });
+        });
+    </script>
+
+       
+}

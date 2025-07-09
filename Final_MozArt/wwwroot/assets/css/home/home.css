@@ -79,8 +79,13 @@ a:focus {
 }
 
 a:hover {
-  text-decoration: none;
-  color: #F8796C;
+    text-decoration: none;
+   color: #ddc11d;
+}
+@media (max-width: 1199.98px) {
+    #mobileNav a:hover {
+        color: #ddc11d !important;
+    }
 }
 
 button,

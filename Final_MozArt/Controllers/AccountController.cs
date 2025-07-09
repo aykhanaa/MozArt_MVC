@@ -5,6 +5,7 @@ using Final_MozArt.Services;
 using Final_MozArt.Services.Interfaces;
 using Final_MozArt.ViewModels.Account;
 using Final_MozArt.ViewModels.Basket;
+using Final_MozArt.ViewModels.Shop;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -19,13 +20,15 @@ namespace Final_MozArt.Controllers
         private readonly IAccountService _accountService;
         private readonly IBasketService _basketService;
         private readonly UserManager<AppUser> _userManager;
+        private readonly IWishlistService _wishlistService;
         private readonly AppDbContext _context;
-        public AccountController(IAccountService accountService, IBasketService basketService, UserManager<AppUser> userManager,AppDbContext context)
+        public AccountController(IAccountService accountService, IBasketService basketService, UserManager<AppUser> userManager,AppDbContext context, IWishlistService wishlistService)
         {
             _accountService = accountService;
             _basketService = basketService;
             _userManager = userManager;
             _context = context;
+            _wishlistService = wishlistService;
         }
 
         [HttpGet]
@@ -110,8 +113,6 @@ namespace Final_MozArt.Controllers
         }
 
 
-
-
         [HttpGet]
         public async Task<IActionResult> ConfirmEmail(string userId, string token)
         {
@@ -194,14 +195,11 @@ namespace Final_MozArt.Controllers
             return RedirectToAction(nameof(Login));
         }
 
-
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Logout(string userId)
+        public async Task<IActionResult> Logout()
         {
-            await _accountService.LogoutAsync();
+            string userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
 
-           
+            await _accountService.LogoutAsync();
 
             List<BasketVM> basket = _basketService.GetDatasFromCoockies();
             Basket dbBasket = await _basketService.GetByUserIdAsync(userId);
@@ -221,13 +219,12 @@ namespace Final_MozArt.Controllers
                         dbBasket.BasketProducts.Add(new BasketProduct()
                         {
                             ProductId = item.Id,
-                            BasketId = dbBasket.Id,
                             Count = item.Count
                         });
                     }
+
                     await _context.Baskets.AddAsync(dbBasket);
                     await _context.SaveChangesAsync();
-
                 }
                 else
                 {
@@ -238,13 +235,12 @@ namespace Final_MozArt.Controllers
                         basketProducts.Add(new BasketProduct()
                         {
                             ProductId = item.Id,
-                            BasketId = dbBasket.Id,
                             Count = item.Count
                         });
                     }
 
                     dbBasket.BasketProducts = basketProducts;
-                    _context.SaveChanges();
+                    await _context.SaveChangesAsync();
                 }
 
                 Response.Cookies.Delete("basket");
@@ -254,13 +250,60 @@ namespace Final_MozArt.Controllers
                 if (dbBasket is not null)
                 {
                     _context.Baskets.Remove(dbBasket);
-                    _context.SaveChanges();
+                    await _context.SaveChangesAsync();
                 }
-
             }
 
+            List<WishlistVM> wishlist = _wishlistService.GetDatasFromCookies();
+            Wishlist dbWishlist = await _wishlistService.GetByUserIdAsync(userId);
 
+            if (wishlist.Count != 0)
+            {
+                if (dbWishlist == null)
+                {
+                    dbWishlist = new()
+                    {
+                        AppUserId = userId,
+                        WishlistProducts = new List<WishlistProduct>()
+                    };
 
+                    foreach (var item in wishlist)
+                    {
+                        dbWishlist.WishlistProducts.Add(new WishlistProduct()
+                        {
+                            ProductId = item.Id
+                        });
+                    }
+
+                    await _context.Wishlists.AddAsync(dbWishlist);
+                    await _context.SaveChangesAsync();
+                }
+                else
+                {
+                    List<WishlistProduct> wishlistProducts = new();
+
+                    foreach (var item in wishlist)
+                    {
+                        wishlistProducts.Add(new WishlistProduct()
+                        {
+                            ProductId = item.Id
+                        });
+                    }
+
+                    dbWishlist.WishlistProducts = wishlistProducts;
+                    await _context.SaveChangesAsync();
+                }
+
+                Response.Cookies.Delete("wishlist");
+            }
+            else
+            {
+                if (dbWishlist is not null)
+                {
+                    _context.Wishlists.Remove(dbWishlist);
+                    await _context.SaveChangesAsync();
+                }
+            }
             return RedirectToAction("Index", "Home");
         }
 

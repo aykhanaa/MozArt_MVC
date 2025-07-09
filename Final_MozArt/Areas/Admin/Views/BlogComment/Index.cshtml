@@ -1,5 +1,4 @@
-﻿@using Final_MozArt.ViewModels.BlogComment
-
+﻿
 @model List<BlogCommentVM>
 
 
@@ -39,11 +38,7 @@
                      <td>
                          @item.Comment
                      </td>
-                     <td>
-                         @item.CreatedDate.ToString("dd/MM/yyyy")
-                     </td>
-
-                     <td>                  
+                     <td>                 
                          @if (User.Identity.IsAuthenticated && User.IsInRole("SuperAdmin"))
                          {
                              <button class="btn btn-danger"  onclick="deleteComment(@item.Id)">Delete</button>

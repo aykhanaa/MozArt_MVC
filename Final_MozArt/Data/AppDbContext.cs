@@ -35,5 +35,8 @@ namespace Final_MozArt.Data
         public DbSet<BlogComment> BlogComments { get; set; }
         public DbSet<Wishlist> Wishlists { get; set; }
         public DbSet<WishlistProduct> WishlistProducts { get; set; }
+        public DbSet<ProductComment>  ProductComments { get; set; }
+        public DbSet<Order>  Orders { get; set; }
+        public DbSet<OrderItem>  OrderItems { get; set; }
     }
 }

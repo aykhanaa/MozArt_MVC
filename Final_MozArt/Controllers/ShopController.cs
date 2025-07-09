@@ -1,12 +1,11 @@
-﻿using Final_MozArt.Models;
-using Final_MozArt.Services;
+﻿using Final_MozArt.Services.Implementations;
 using Final_MozArt.Services.Interfaces;
+using Final_MozArt.ViewModels.BlogComment;
 using Final_MozArt.ViewModels.Product;
+using Final_MozArt.ViewModels.ProductComment;
 using Final_MozArt.ViewModels.UI;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using System.Threading.Tasks;
+
 
 namespace Final_MozArt.Controllers
 {
@@ -19,6 +18,7 @@ namespace Final_MozArt.Controllers
         private  readonly ITagService _tagService;
         private readonly IBasketService _basketService;
         private readonly IWishlistService _wishlistService; 
+        private readonly IProductCommentService _productCommentService;
 
 
 
@@ -28,7 +28,8 @@ namespace Final_MozArt.Controllers
                               IBrandService brandService,
                               ITagService tagService,
                               IBasketService basketService,
-                              IWishlistService wishlistService)
+                              IWishlistService wishlistService,
+                              IProductCommentService productCommentService)
         {
             _settingService = settingService;
             _productService = productService;
@@ -37,74 +38,8 @@ namespace Final_MozArt.Controllers
             _tagService = tagService;
             _basketService = basketService;
             _wishlistService = wishlistService;
+            _productCommentService = productCommentService;
         }
-
-
-        //[HttpGet]
-        //public async Task<IActionResult> Index(string? sortKey, string? categoryName, string? brandName, string? tagName, string? query)
-        //{
-        //    var setting = _settingService.GetSettings();
-        //    var allProducts = await _productService.GetAllAsync();
-        //    ICollection<ProductVM> products;
-
-        //    // Normalizasiya
-        //    query = query?.Trim().ToLower();
-        //    categoryName = categoryName?.Trim().ToLower();
-        //    brandName = brandName?.Trim().ToLower();
-        //    tagName = tagName?.Trim().ToLower();
-
-        //    if (!string.IsNullOrWhiteSpace(query))
-        //    {
-        //        products = allProducts
-        //            .Where(p => (p.Name != null && p.Name.ToLower().Contains(query)) ||
-        //                        (p.CategoryName != null && p.CategoryName.ToLower().Contains(query)))
-        //            .ToList();
-
-        //        if (products == null || products.Count == 0)
-        //        {
-        //            return RedirectToAction("Index", "NotFound");
-        //        }
-        //    }
-        //    else if (!string.IsNullOrWhiteSpace(sortKey))
-        //    {
-        //        products = await _productService.SortAsync(sortKey);
-        //    }
-        //    else if (!string.IsNullOrWhiteSpace(categoryName) || !string.IsNullOrWhiteSpace(brandName) || !string.IsNullOrWhiteSpace(tagName))
-        //    {
-        //        products = await _productService.FilterAsync(categoryName, brandName, tagName);
-
-        //        if (products == null || products.Count == 0)
-        //        {
-        //            return RedirectToAction("Index", "NotFound");
-        //        }
-        //    }
-        //    else
-        //    {
-        //        products = allProducts;
-        //    }
-
-        //    var categories = await _categoryService.GetAllAsync();
-        //    var categoryiesWithProductCount = await _categoryService.GetProductCountByCategoryNameAsync();
-        //    var brandWithProductCount = await _brandService.GetProductCountByBrandNameAsync();
-        //    var brands = await _brandService.GetAllAsync();
-        //    var tags = await _tagService.GetAllAsync();
-
-        //    var model = new ShopVM
-        //    {
-        //        Setting = setting,
-        //        Products = products,
-        //        Categories = categories,
-        //        ProductCount = categoryiesWithProductCount,
-        //        Brands = brands,
-        //        Tags = tags,
-        //        BrandsProductCount = brandWithProductCount,
-        //        AllProducts = allProducts
-        //    };
-
-        //    return View(model);
-        //}
-
-
 
         [HttpGet]
         public async Task<IActionResult> Index(string? sortKey, string? categoryName, string? brandName, string? tagName, string? query)
@@ -250,7 +185,40 @@ namespace Final_MozArt.Controllers
             }
         }
 
-        
+        [HttpPost]
+        public async Task<IActionResult> Create([FromForm] ProductCommentCreateVM commentVM)
+        {
+            if (!ModelState.IsValid)
+            {
+                // Model validation error-larını JSON formatında qaytarırıq
+                var errors = ModelState.Values.SelectMany(v => v.Errors)
+                                              .Select(e => e.ErrorMessage)
+                                              .ToList();
+                return Json(new { success = false, message = "Validation failed.", errors });
+            }
+
+            try
+            {
+                string userId = null;
+
+                if (User.Identity.IsAuthenticated)
+                {
+                    userId = User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value;
+                }
+
+                var success = await _productCommentService.CreateAsync(commentVM, userId);
+
+                if (success)
+                    return Json(new { success = true, message = "Comment submitted successfully." });
+                else
+                    return Json(new { success = false, message = "Failed to submit comment." });
+            }
+            catch (Exception ex)
+            {
+                // Log exception burda edilə bilər (əgər log sistemi varsa)
+                return Json(new { success = false, message = "An unexpected error occurred." });
+            }
+        }
 
         [HttpPost]
         public async Task<IActionResult> AddBasket(int? id)

@@ -83,6 +83,12 @@ a:hover {
   color: #F8796C;
 }
 
+@media (max-width: 1199.98px) {
+    #mobileNav a:hover {
+        color: #ddc11d !important;
+    }
+}
+
 button,
 input[type=submit] {
   cursor: pointer;
@@ -270,6 +276,25 @@ input[type=submit] {
   color: #333333;
 }
 
+
+.product-thumb img.image-hover {
+    display: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    transition: opacity 0.3s ease;
+}
+
+.product-thumb.has-hover {
+    position: relative;
+}
+
+    .product-thumb.has-hover:hover img.image-hover {
+        display: block;
+    }
+
+
+
 #shop-product-area .product-filter-toggle {
   font-size: 16px;
   font-weight: 400;
@@ -327,6 +352,14 @@ input[type=submit] {
   right: auto;
   left: 0;
   width: 100%;
+}
+
+.product-thumb .image-hover {
+    display: none;
+}
+
+.product-thumb.has-hover:hover .image-hover {
+    display: block;
 }
 
 #shop-product-area .product-filter {

@@ -83,6 +83,12 @@ a:hover {
   color: #F8796C;
 }
 
+@media (max-width: 1199.98px) {
+    #mobileNav a:hover {
+        color: #ddc11d !important;
+    }
+}
+
 button,
 input[type=submit] {
   cursor: pointer;
@@ -254,7 +260,6 @@ only screen and (min-width: 768px) and (max-width: 991px) {
 
 
 
-/* SİZİN DƏQIQ CSS KODUNUZ */
 #video-banner-area .video-banner {
   display: -webkit-box;
   display: -webkit-flex;
@@ -300,7 +305,6 @@ only screen and (min-width: 768px) and (max-width: 991px) {
   }
 }
 
-/* SADƏCƏ MODAL ÜÇÜN ƏLAVƏ CSS */
 .video-modal {
   display: none;
   position: fixed;
@@ -394,7 +398,6 @@ only screen and (min-width: 768px) and (max-width: 991px) {
 
 
 
-/* Section Title Styles */
 #insta-area .insta-title {
   margin-bottom: 80px;
   text-align: center;
@@ -417,7 +420,6 @@ only screen and (min-width: 768px) and (max-width: 991px) {
   color: #333333;
 }
 
-/* Slider Container */
 #insta-area .insta-slider-container {
   position: relative;
   overflow: visible;
@@ -517,7 +519,6 @@ only screen and (min-width: 768px) and (max-width: 991px) {
   visibility: hidden;
 }
 
-/* Arrow Icon Styling */
 #insta-area .arrow-icon {
   font-size: 65px;
   font-weight: 100;
@@ -526,7 +527,6 @@ only screen and (min-width: 768px) and (max-width: 991px) {
   color: grey;
 }
 
-/* Show arrows on container hover */
 #insta-area .insta-slider-container:hover .slider-btn {
   opacity: 1;
   visibility: visible;
@@ -550,7 +550,6 @@ only screen and (min-width: 768px) and (max-width: 991px) {
   right: -60px;
 }
 
-/* Responsive Design */
 @media only screen and (max-width: 1199px) {
   #insta-area .instafeed-item {
     width: calc(25% - 7.5px);
@@ -721,6 +720,41 @@ only screen and (min-width: 768px) and (max-width: 991px) {
 #insta-area .product-thumb-slider-vertical .slick-arrow.slick-prev {
   left: 0;
 }
+
+.insta-slider-container {
+    max-width: 100%;
+}
+
+.instafeed-carousel {
+    scrollbar-width: none;
+}
+
+    .instafeed-carousel::-webkit-scrollbar {
+        display: none; 
+    }
+
+.instafeed-item img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+.slider-btn {
+    background-color: rgba(0, 0, 0, 0.3);
+    border: none;
+    color: white;
+    font-size: 2rem;
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
+    border-radius: 50%;
+    transition: background-color 0.3s ease;
+}
+
+    .slider-btn:hover {
+        background-color: rgba(0, 0, 0, 0.6);
+    }
+
 
 
 #footer-area.footer-section {

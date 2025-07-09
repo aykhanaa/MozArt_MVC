@@ -94,102 +94,37 @@
                                 <h2 class="title">Comments</h2>
                             </div>
                             <ul class="comment-list">
-                               @foreach (var item in Model.BlogComments)
+                                @if (Model.BlogComments != null && Model.BlogComments.Any())
                                 {
-                                    <li>
-                                        <div class="comment">
-                                            <div class="content">
-                                                <h4 class="name">@item.Name</h4>
-                                                <p>
-                                                    @item.Comment
-                                                </p>
-                                                <div class="actions">
-                                                    <span class="date">@item.CreatedDate</span>
+                                        @foreach (var item in Model.BlogComments)
+                                    {
+                                        <li>
+                                            <div class="comment">
+                                                <div class="content">
+                                                    <h4 class="name">@item.Name</h4>
+                                                    <p>
+                                                        @item.Comment
+                                                    </p>
+                                                    <div class="actions">
+                                                        <span class="date">@item.CreatedDate</span>
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                    </li>
+                                        </li>
+                                    }
                                 }
+                                else
+                                {
+                                    <p>No reviews yet.</p>
+                                }
+
+                                
                             </ul>
                             <div class="block-title pb-0 border-bottom-0">
                                 <h2 class="title">Leave your thought here</h2>
                             </div>
                             <div class="comment-form">
-                                @*  <form action="#">
-                                    <div class="row learts-mb-n20">
-                                        <div class="col-md-6 col-12 learts-mb-20">
-                                            <input type="text" placeholder="Your name (*)">
-                                        </div>
-                                        <div class="col-md-6 col-12 learts-mb-20">
-                                            <input type="text" placeholder="Mail (*)">
-                                        </div>
-                                        <div class="col-12 learts-mb-20">
-                                            <textarea placeholder="Message"></textarea>
-                                        </div>
-                                        <div class="col-12 text-center learts-mb-20 learts-mt-20">
-                                            <button class="btn btn-dark btn-outline-hover-dark">Submit</button>
-                                        </div>
-                                    </div>
-                                </form>  *@
-
-                                @* <form id="commentForm">
-                                    <div class="row learts-mb-n20">
-                                        <div class="col-md-6 col-12 learts-mb-20">
-                                            <input type="text" name="Name" placeholder="Your name (*)" required>
-                                        </div>
-                                        <div class="col-md-6 col-12 learts-mb-20">
-                                            <input type="email" name="Email" placeholder="Mail (*)" required>
-                                        </div>
-                                        <div class="col-12 learts-mb-20">
-                                            <textarea name="Comment" placeholder="Message" required></textarea>
-                                        </div>
-                                        <div class="col-12 text-center learts-mb-20 learts-mt-20">
-                                            <button type="submit" class="btn btn-dark btn-outline-hover-dark">Submit</button>
-                                        </div>
-                                    </div>
-                                </form>
-
-                                <div id="messageBox"></div>
-                                
-
-                                <ul class="comment-list" id="commentList">
-                                </ul>
-
-                                <script>
-                                    var YOUR_BLOG_ID = @Model.Blog.Id;
-
-                                    document.getElementById('commentForm').addEventListener('submit', async function (e) {
-                                        e.preventDefault();
-
-                                        const formData = new FormData(this);
-                                        formData.append('BlogId', YOUR_BLOG_ID);
-
-                                        try {
-                                            const response = await fetch('/Blog/Create', {  // controller route doğru olsun
-                                                method: 'POST',
-                                                body: formData
-                                            });
-
-                                            const result = await response.json();
-                                            const messageBox = document.getElementById('messageBox');
-
-                                            if (result.success) {
-                                                messageBox.innerText = result.message;
-                                                messageBox.style.color = 'green';
-                                                this.reset();
-                                            } else {
-                                                messageBox.innerText = result.message || 'Failed to submit comment.';
-                                                messageBox.style.color = 'red';
-                                            }
-                                        } catch (error) {
-                                            const messageBox = document.getElementById('messageBox');
-                                            messageBox.innerText = 'An unexpected error occurred.';
-                                            messageBox.style.color = 'red';
-                                        }
-                                    });
-                                </script> *@
-
-
+                               
                                 <form id="commentForm">
                                     <div class="row learts-mb-n20">
                                         <div class="col-md-6 col-12 learts-mb-20">
@@ -252,7 +187,6 @@
                                         }
                                     });
                                 </script>
-
 
                             </div>
                         </div>  

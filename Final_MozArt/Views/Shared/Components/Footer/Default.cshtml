@@ -1,4 +1,4 @@
-﻿  @model Dictionary<string,string>
+﻿@*   @model Dictionary<string,string>
 
 <footer>
     <section id="footer-area">
@@ -30,7 +30,7 @@
                                     <li><a href="#">@Model["Mobile"]</a></li>
                                     <li><a href="#">@Model["Mail"]</a></li>
                                     <li><a href="#">Hotline:@Model["Hotline"]</a></li>
-                                    <li><a href="#">@Model["Adress"] </a></li>
+                                    <li><a href="#">@Model["Address"] </a></li>
                                 </ul>
                             </div>
                         </div>
@@ -56,3 +56,320 @@
 </footer>
 
 
+ *@
+
+
+@model Dictionary<string,string>
+<footer>
+    <section id="footer-area">
+        <div class="footer-section section section-padding">
+            <div class="container">
+                <div class="footer-content">
+                    <!-- About Section -->
+                    <div class="footer-about">
+                        <div class="widget-about">
+                            <img src="~/assets/img/home/@Model["FooterImg"]" alt="" class="footer-logo">
+                            <p class="footer-description">
+                                @Model["FooterDesc"]
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Navigation and Contact Section -->
+                    <div class="footer-links">
+                        <div class="footer-nav">
+                            <h6 class="widget-title" style="color:#999">Quick Links</h6>
+                            <ul class="widget-list">
+                                <li><a asp-controller="About" asp-action="Index">About us</a></li>
+                                <li><a asp-controller="Shop" asp-action="Index">Shop</a></li>
+                                <li><a asp-controller="Contact" asp-action="Index">Contact</a></li>
+                                <li><a asp-controller="Blog" asp-action="Index">Blog</a></li>
+                            </ul>
+                        </div>
+
+                        <div class="footer-contact" style="margin-right: -7pc;">
+                            <h6 class="widget-title" style="color:#999">Contact Info</h6>
+                            <ul class="widget-list">
+                                <li>
+                                    <i class="fas fa-phone"></i>
+                                    <a href="tel:@Model["Mobile"]">@Model["Mobile"]</a>
+                                </li>
+                                <li>
+                                    <i class="fas fa-envelope"></i>
+                                    <a href="mailto:@Model["Mail"]">@Model["Mail"]</a>
+                                </li>
+                                <li>
+                                    <i class="fas fa-phone-alt"></i>
+                                    <a href="tel:@Model["Hotline"]">Hotline: @Model["Hotline"]</a>
+                                </li>
+                                <li>
+                                    <i class="fas fa-map-marker-alt"></i>
+                                    <span style="color:#999">@Model["Address"]</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Social Media Section -->
+                    <div class="footer-social" style="margin-left: 6pc;">
+                        <h6 class="widget-title" style="color:#999">Follow Us</h6>
+                        <ul class="widget-list">
+                            <li>
+                                <i class="fab fa-twitter"></i>
+                                <a href="https://www.twitter.com/" target="_blank" rel="noopener">Twitter</a>
+                            </li>
+                            <li>
+                                <i class="fab fa-facebook-f"></i>
+                                <a href="https://www.facebook.com/" target="_blank" rel="noopener">Facebook</a>
+                            </li>
+                            <li>
+                                <i class="fab fa-instagram"></i>
+                                <a href="https://www.instagram.com/" target="_blank" rel="noopener">Instagram</a>
+                            </li>
+                            <li>
+                                <i class="fab fa-youtube"></i>
+                                <a href="https://www.youtube.com/" target="_blank" rel="noopener">Youtube</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</footer>
+
+<style>
+    /* Container */
+    .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 20px;
+    }
+
+    /* Footer Section */
+    .footer-section {
+        background-color: #f8f8f8;
+        margin-top: 170px;
+        padding: 60px 0;
+    }
+
+    /* Footer Content Grid */
+    .footer-content {
+        display: grid;
+        grid-template-columns: 1fr 1fr 300px;
+        gap: 40px;
+        align-items: start;
+    }
+
+    /* About Section */
+    .footer-about {
+        max-width: 100%;
+    }
+
+    .footer-logo {
+        max-width: 200px;
+        height: auto;
+        margin-bottom: 20px;
+        display: block;
+    }
+
+    .footer-description {
+        opacity: 0.60;
+        font-size: 16px;
+        line-height: 1.6;
+        margin: 0;
+    }
+
+    /* Links Section */
+    .footer-links {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 30px;
+    }
+
+    /* Widget Styles */
+    .widget-title {
+        font-size: 18px;
+        font-weight: 600;
+        color: #333;
+        margin-bottom: 20px;
+        margin-top: 0;
+    }
+
+    .widget-list {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+
+        .widget-list li {
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+        }
+
+        .widget-list i {
+            width: 20px;
+            margin-right: 8px;
+            color: #666;
+            font-size: 14px;
+        }
+
+        .widget-list a {
+            color: #666;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+            .widget-list a:hover {
+                color: #333;
+            }
+
+        .widget-list span {
+            color: #666;
+        }
+
+    /* Tablet Styles */
+    media (max-width: 992px) {
+        .footer-section
+
+    {
+        margin-top: 100px;
+        padding: 40px 0;
+    }
+
+    .footer-content {
+        grid-template-columns: 1fr;
+        gap: 30px;
+    }
+
+    .footer-links {
+        grid-template-columns: 1fr 1fr;
+        gap: 20px;
+    }
+
+    .footer-about {
+        text-align: center;
+    }
+
+    .footer-logo {
+        margin: 0 auto 20px;
+    }
+
+    }
+
+    /* Mobile Styles */
+    media (max-width: 768px) {
+        .footer-section
+
+    {
+        margin-top: 60px;
+        padding: 30px 0;
+    }
+
+    .footer-content {
+        gap: 25px;
+    }
+
+    .footer-links {
+        grid-template-columns: 1fr;
+        gap: 25px;
+    }
+
+    .widget-title {
+        font-size: 16px;
+        margin-bottom: 15px;
+    }
+
+    .widget-list li {
+        margin-bottom: 10px;
+    }
+
+    .footer-logo {
+        max-width: 150px;
+    }
+
+    .footer-description {
+        font-size: 14px;
+    }
+
+    }
+
+    /* Small Mobile Styles */
+    media (max-width: 480px) {
+        .container
+
+    {
+        padding: 0 15px;
+    }
+
+    .footer-section {
+        margin-top: 40px;
+        padding: 25px 0;
+    }
+
+    .footer-content {
+        gap: 20px;
+    }
+
+    .footer-logo {
+        max-width: 120px;
+    }
+
+    .widget-title {
+        font-size: 15px;
+        margin-bottom: 12px;
+    }
+
+    .widget-list li {
+        margin-bottom: 8px;
+        font-size: 14px;
+    }
+
+    .widget-list i {
+        width: 16px;
+        font-size: 12px;
+    }
+
+    }
+
+    /* Utility Classes */
+    .section {
+        position: relative;
+    }
+
+    .section-padding {
+        padding: 40px 0;
+    }
+
+    /* Responsive Typography */
+    media (max-width: 768px) {
+        .footer-description
+
+    {
+        text-align: center;
+    }
+
+    }
+
+    /* Focus States for Accessibility */
+    .widget-list a:focus {
+        outline: 2px solid #007bff;
+        outline-offset: 2px;
+    }
+
+    /* Print Styles */
+    media print {
+        .footer-section
+
+    {
+        margin-top: 20px;
+        background-color: transparent !important;
+    }
+
+    .widget-list a {
+        color: #000 !important;
+    }
+
+    }
+</style>

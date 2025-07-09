@@ -32,7 +32,6 @@ namespace Final_MozArt.ViewModels.Product
 
         public ICollection<ProductImage>? Images { get; set; }
 
-        [Required(ErrorMessage = "Please upload an image.")]
         public ICollection<IFormFile>? Photos { get; set; }
     }
 }

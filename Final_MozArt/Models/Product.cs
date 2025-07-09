@@ -14,5 +14,9 @@
         public ICollection<ProductTag> ProductTags { get; set; }
         public List<BasketProduct> BasketProducts { get; set; }
         public List<WishlistProduct> WishlistProducts { get; set; }
+        public List<ProductComment> ProductComments { get; set; }
+        public List<OrderItem> OrderItems { get; set; }
+
+
     }
 }

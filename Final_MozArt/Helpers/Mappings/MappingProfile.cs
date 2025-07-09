@@ -12,6 +12,7 @@ using Final_MozArt.ViewModels.ContactIntro;
 using Final_MozArt.ViewModels.ContactMessage;
 using Final_MozArt.ViewModels.Instagram;
 using Final_MozArt.ViewModels.Product;
+using Final_MozArt.ViewModels.ProductComment;
 using Final_MozArt.ViewModels.Setting;
 using Final_MozArt.ViewModels.Slider;
 using Final_MozArt.ViewModels.Support;
@@ -122,17 +123,10 @@ namespace Final_MozArt.Helpers.Mappings
 
 
             CreateMap<BlogComment, BlogCommentVM>();
-
             CreateMap<BlogCommentCreateVM, BlogComment>();
 
-
-
-
-
-
-
-
-
+            CreateMap<ProductComment, ProductCommentVM>();
+            CreateMap<ProductCommentCreateVM, ProductComment>();
 
         }
     }

@@ -61,26 +61,34 @@
 
                             @foreach (var item in productsToShow)
                             {
-                                <div class="grid-item col featured product-item">
-                                    <div class="product">
-                                        <div class="product-thumb">
-                                            <a asp-controller="Shop" asp-action="Detail" asp-route-id="@item.Id" class="image">
-                                                <img src="~/assets/img/product-details/@item.Image" alt="Product Image">
-                                                <img class="image-hover" src="~/assets/img/product-details/@item.Hower" alt="Product Image">
-                                            </a>
-                                        </div>
-                                        <div class="product-info">
-                                            <h6 class="title">
-                                                <a asp-controller="Shop" asp-action="Detail" asp-route-id="@item.Id">@item.Name</a>
-                                            </h6>
-                                            <span class="price">$@item.Price</span>
-                                            <div class="product-buttons">
-                                                <a asp-controller="Shop" asp-action="Detail" asp-route-id="@item.Id" class="product-button hintT-top" data-hint="View"><i class="fas fa-search"></i></a>
-                                                <a asp-controller="Shop" asp-action="Detail" asp-route-id="@item.Id" class="product-button hintT-top" data-hint="Add to Cart"><i class="fas fa-shopping-cart"></i></a>
+                                    <div class="grid-item col featured product-item">
+                                        <div class="product">
+                                            <div class="product-thumb @(string.IsNullOrEmpty(item.Hower) ? "" : "has-hover")">
+                                                <a asp-controller="Shop" asp-action="Detail" asp-route-id="@item.Id" class="image">
+                                                    <img src="~/assets/img/product-details/@item.Image" alt="Product Image" />
+                                                    @if (!string.IsNullOrEmpty(item.Hower))
+                                                    {
+                                                        <img class="image-hover" src="~/assets/img/product-details/@item.Hower" alt="Product Hover Image" />
+                                                    }
+                                                </a>
+                                            </div>
+                                            <div class="product-info">
+                                                <h6 class="title">
+                                                    <a asp-controller="Shop" asp-action="Detail" asp-route-id="@item.Id">@item.Name</a>
+                                                </h6>
+                                                <span class="price">$@item.Price</span>
+                                                <div class="product-buttons">
+                                                    <a asp-controller="Shop" asp-action="Detail" asp-route-id="@item.Id" class="product-button hintT-top" data-hint="View">
+                                                        <i class="fas fa-search"></i>
+                                                    </a>
+                                                    <a asp-controller="Shop" asp-action="Detail" asp-route-id="@item.Id" class="product-button hintT-top" data-hint="Add to Cart">
+                                                        <i class="fas fa-shopping-cart"></i>
+                                                    </a>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
+
                             }
                         </div>
 
@@ -210,9 +218,6 @@
                                 <a href="/Shop/Detail/${product.Id}" class="image">
                                     <img src="/assets/img/product-details/${product.Image}" alt="Product Image">
                                     <img class="image-hover" src="/assets/img/product-details/${product.Hower || product.Image}" alt="Product Image">
-                                </a>
-                                <a href="wishlist.html" class="add-to-wishlist hintT-left" data-hint="Add to wishlist">
-                                    <i class="far fa-heart"></i>
                                 </a>
                             </div>
                             <div class="product-info">

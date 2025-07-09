@@ -3,6 +3,7 @@ using Final_MozArt.Helpers;
 using Final_MozArt.Models;
 using Final_MozArt.Services.Interfaces;
 using Final_MozArt.ViewModels.Basket;
+using Final_MozArt.ViewModels.Order;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
@@ -18,13 +19,15 @@ namespace Final_MozArt.Controllers
         private readonly EmailSettings _emailSettings;
         private readonly IEmailService _emailService;
         private readonly IBasketService _basketService;
-        public PaymentController(AppDbContext context, UserManager<AppUser> userManager, IOptions<EmailSettings> emailSettings,IEmailService emailService, IBasketService basketService)
+        private readonly IOrderService _orderService;
+        public PaymentController(AppDbContext context, UserManager<AppUser> userManager, IOptions<EmailSettings> emailSettings,IEmailService emailService, IBasketService basketService, IOrderService orderService)
         {
             _context = context;
             _userManager = userManager;
             _emailSettings = emailSettings.Value;
             _emailService = emailService;
             _basketService = basketService;
+            _orderService = orderService;
         }
 
         public async Task<IActionResult> Checkout()
@@ -32,10 +35,54 @@ namespace Final_MozArt.Controllers
             return View();
         }
 
+        //[HttpGet]
+        //public async Task<IActionResult> CheckOut()
+        //{
+        //    var basketDetails = await _basketService.GetBasketDatasAsync(); // burdan gəlməlidir
+
+        //    if (basketDetails == null || !basketDetails.Any())
+        //    {
+        //        return RedirectToAction("Index", "Basket");
+        //    }
+
+        //    var domain = "https://localhost:7286/";
+
+        //    var options = new SessionCreateOptions
+        //    {
+        //        SuccessUrl = domain + "payment/success",
+        //        CancelUrl = domain + "payment/failed",
+        //        LineItems = new List<SessionLineItemOptions>(),
+        //        Mode = "payment",
+        //    };
+
+        //    foreach (var item in basketDetails)
+        //    {
+        //        options.LineItems.Add(new SessionLineItemOptions
+        //        {
+        //            PriceData = new SessionLineItemPriceDataOptions
+        //            {
+        //                UnitAmount = (long)(item.Price * 100), // price * 100 cent
+        //                Currency = "usd",
+        //                ProductData = new SessionLineItemPriceDataProductDataOptions
+        //                {
+        //                    Name = item.Name
+        //                }
+        //            },
+        //            Quantity = item.Count
+        //        });
+        //    }
+
+        //    var service = new SessionService();
+        //    Session session = service.Create(options);
+
+        //    Response.Headers.Add("Location", session.Url);
+        //    return new StatusCodeResult(303);
+        //}
+
         [HttpGet]
         public async Task<IActionResult> CheckOut()
         {
-            var basketDetails = await _basketService.GetBasketDatasAsync(); // burdan gəlməlidir
+            var basketDetails = await _basketService.GetBasketDatasAsync();
 
             if (basketDetails == null || !basketDetails.Any())
             {
@@ -46,7 +93,7 @@ namespace Final_MozArt.Controllers
 
             var options = new SessionCreateOptions
             {
-                SuccessUrl = domain + "payment/success",
+                SuccessUrl = domain + "payment/success?sessionId={CHECKOUT_SESSION_ID}", // buraya sessionId gələcək
                 CancelUrl = domain + "payment/failed",
                 LineItems = new List<SessionLineItemOptions>(),
                 Mode = "payment",
@@ -58,7 +105,7 @@ namespace Final_MozArt.Controllers
                 {
                     PriceData = new SessionLineItemPriceDataOptions
                     {
-                        UnitAmount = (long)(item.Price * 100), // price * 100 cent
+                        UnitAmount = (long)(item.Price * 100),
                         Currency = "usd",
                         ProductData = new SessionLineItemPriceDataProductDataOptions
                         {
@@ -72,37 +119,80 @@ namespace Final_MozArt.Controllers
             var service = new SessionService();
             Session session = service.Create(options);
 
+            // Redirect üçün 303 status və Location header istifadə olunur
             Response.Headers.Add("Location", session.Url);
             return new StatusCodeResult(303);
         }
 
 
-        public async Task<IActionResult> Success()
-        {
-            var basketCookie = Request.Cookies["basket"];
 
-            if (string.IsNullOrEmpty(basketCookie))
+
+
+
+
+
+
+
+        //public async Task<IActionResult> Success()
+        //{
+        //    var basketCookie = Request.Cookies["basket"];
+
+        //    if (string.IsNullOrEmpty(basketCookie))
+        //    {
+        //        return RedirectToAction("Index", "Home");
+        //    }
+
+        //    var basketItems = JsonConvert.DeserializeObject<List<BasketDetailVM>>(basketCookie);
+
+        //    Response.Cookies.Delete("basket");
+
+        //    // Email göndərmə zamanı xəta baş verərsə, ödəniş prosesinə təsir etməsin
+        //    try
+        //    {
+        //        await SendSuccessEmailAsync(basketItems);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        // Log the error but continue with success page
+        //        // _logger.LogError(ex, "Email göndərmə zamanı xəta baş verdi");
+        //    }
+
+        //    return RedirectToAction("Index", "Home", new { payment = "success" });
+        //}
+
+
+
+        public async Task<IActionResult> Success(string sessionId)
+        {
+            var user = await _userManager.GetUserAsync(User);
+            if (user == null)
             {
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("Login", "Account");
             }
 
-            var basketItems = JsonConvert.DeserializeObject<List<BasketDetailVM>>(basketCookie);
+            // Burada artıq Stripe session ID əlində var
+            await _orderService.CreateOrderFromCookieAsync(user.Id, sessionId, HttpContext);
 
-            Response.Cookies.Delete("basket");
+            var basketCookie = Request.Cookies["basket"];
+            if (!string.IsNullOrEmpty(basketCookie))
+            {
+                Response.Cookies.Delete("basket");
+            }
 
-            // Email göndərmə zamanı xəta baş verərsə, ödəniş prosesinə təsir etməsin
             try
             {
+                var basketItems = JsonConvert.DeserializeObject<List<BasketDetailVM>>(basketCookie);
                 await SendSuccessEmailAsync(basketItems);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                // Log the error but continue with success page
-                // _logger.LogError(ex, "Email göndərmə zamanı xəta baş verdi");
+                // Email error ignored
             }
 
             return RedirectToAction("Index", "Home", new { payment = "success" });
         }
+
+
 
         private async Task SendSuccessEmailAsync(List<BasketDetailVM> basketItems)
         {

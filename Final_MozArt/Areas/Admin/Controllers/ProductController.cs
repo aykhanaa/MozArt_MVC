@@ -70,27 +70,6 @@ namespace Final_MozArt.Controllers
         }
 
 
-      
-        //public async Task<IActionResult> Filter(int minPrice, int maxPrice, int page = 1, int take = 10)
-        //{
-        //    var products = await _productService.FilterAsync(minPrice, maxPrice);
-        //    var totalCount = await _productService.FilterCountAsync(minPrice, maxPrice);
-        //    var totalPages = (int)Math.Ceiling((double)totalCount / take);
-
-        //    var paginatedProducts = products.Skip((page - 1) * take).Take(take).ToList();
-
-        //    var paginatedResult = new Paginate<ProductVM>(
-        //        paginatedProducts,
-        //        page,
-        //        totalPages
-        //    );
-
-        //    ViewBag.MinPrice = minPrice;
-        //    ViewBag.MaxPrice = maxPrice;
-        //    ViewBag.IsFilter = true;
-        //    return View("Index", paginatedResult);
-        //}
-
         [Authorize(Roles = "Admin,SuperAdmin")]
 
         public async Task<IActionResult> Details(int id)
@@ -99,6 +78,7 @@ namespace Final_MozArt.Controllers
             if (product == null) return NotFound();
             return View(product);
         }
+
         [Authorize(Roles = "SuperAdmin")]
         public async Task<IActionResult> Create()
         {

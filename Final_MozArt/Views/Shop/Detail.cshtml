@@ -77,9 +77,6 @@
                         @if (User.Identity.IsAuthenticated)
                         {
                             <div class="product-buttons cart">
-                                @* <a href="" class="btn btn-icon btn-outline-body btn-hover-dark hintT-top"
-                                   data-hint="Add to Wishlist"><i class="far fa-heart"></i></a> *@
-
                                 <a href="#" class="wishlist-add btn btn-icon btn-outline-body btn-hover-dark hintT-top"
                                    data-id="@Model.Id" data-hint="Add to Wishlist"><i class="far fa-heart"></i></a>
 
@@ -175,76 +172,57 @@
                 <div class="tab-pane fade" id="tab-reviews">
                     <div class="product-review-wrapper">
                         <ul class="product-review-list">
-                            <li>
-                                <div class="product-review">
-                                    <div class="thumb"><img src="/assets/img/product-details/review-1.webp" alt=""></div>
-                                    <div class="content">
-                                        <div class="ratings">
+                          
+
+                            @if (Model.ProductComments != null && Model.ProductComments.Any())
+                            {
+                                foreach (var item in Model.ProductComments)
+                                {
+                                    <li>
+                                        <div class="product-review">
+                                            
+                                            <div class="content">
+                                                <div class="ratings"></div>
+                                                <div class="meta">
+                                                    <h5 class="title">@item.Name</h5>
+                                                    <span class="date">@item.CreatedDate</span>
+                                                </div>
+                                                <p>@item.Comment</p>
+                                            </div>
                                         </div>
-                                        <div class="meta">
-                                            <h5 class="title">Edna Watson</h5>
-                                            <span class="date">November 27, 2020</span>
-                                        </div>
-                                        <p>
-                                            Thanks for always keeping your WordPress themes up to date. Your level of
-                                            support
-                                            and dedication is second to none.
-                                        </p>
-                                    </div>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="product-review">
-                                    <div class="thumb"><img src="/assets/img/product-details/review-2.webp" alt=""></div>
-                                    <div class="content">
-                                        <div class="meta">
-                                            <h5 class="title">Scott James</h5>
-                                            <span class="date">November 27, 2020</span>
-                                        </div>
-                                        <p>
-                                            Thanks for always keeping your WordPress themes up to date. Your level of
-                                            support
-                                            and dedication is second to none.
-                                        </p>
-                                    </div>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="product-review">
-                                    <div class="thumb"><img src="/assets/img/product-details/review-3.webp" alt=""></div>
-                                    <div class="content">
-                                        <div class="meta">
-                                            <h5 class="title">Owen Christ</h5>
-                                            <span class="date">November 27, 2020</span>
-                                        </div>
-                                        <p>Good Product!</p>
-                                    </div>
-                                </div>
-                            </li>
+                                    </li>
+                                }
+                            }
+                            else
+                            {
+                                <p>No reviews yet.</p>
+                            }
+
+                       
                         </ul>
                         <span class="title">Add a review</span>
                         <div class="review-form">
-                            <p class="note">Your email address will not be published. Required fields are marked *</p>
-                            <form action="#">
+                            <form id="reviewForm">
+                                <input type="hidden" name="ProductId" value="@Model.Id" />
                                 <div class="row learts-mb-n30">
                                     <div class="col-md-6 col-12 learts-mb-30">
-                                        <input type="text" placeholder="Name *">
+                                        <input type="text" name="Name" placeholder="Name *" required />
                                     </div>
                                     <div class="col-md-6 col-12 learts-mb-30">
-                                        <input type="email" placeholder="Email *">
-                                    </div>
-                                    <div class="col-12 learts-mb-10">
+                                        <input type="email" name="Email" placeholder="Email *" required />
                                     </div>
                                     <div class="col-12 learts-mb-30">
-                                        <textarea placeholder="Your Review *"></textarea>
+                                        <textarea name="Comment" placeholder="Your Review *" required></textarea>
                                     </div>
                                     <div class="col-12 text-center learts-mb-30">
-                                        <button class="btn btn-dark btn-outline-hover-dark">
-                                            Submit
-                                        </button>
+                                        <button type="submit" class="btn btn-dark btn-outline-hover-dark">Submit</button>
                                     </div>
                                 </div>
                             </form>
+
+                            <div id="reviewMessageBox"></div>
+
+
                         </div>
                     </div>
                 </div>
@@ -297,6 +275,48 @@
     });
 </script>
 
+<script>
+    const isUserAuthenticated = @User.Identity.IsAuthenticated.ToString().ToLower(); // true / false
+    const PRODUCT_ID = @Model.Id;
+
+    document.getElementById('reviewForm').addEventListener('submit', async function (e) {
+        e.preventDefault();
+
+        const messageBox = document.getElementById('reviewMessageBox');
+
+        if (!isUserAuthenticated) {
+            messageBox.innerText = "Please login before commenting.";
+            messageBox.style.color = 'red';
+            return;
+        }
+
+        const formData = new FormData(this);
+        formData.append('ProductId', PRODUCT_ID);
+
+        try {
+            const response = await fetch('/Shop/Create', {
+                method: 'POST',
+                body: formData
+            });
+
+            const result = await response.json();
+
+            if (result.success) {
+                messageBox.innerText = result.message;
+                messageBox.style.color = 'green';
+                this.reset();
+                // location.reload(); // əvəzinə, dinamik əlavə etmək də olar
+            } else {
+                messageBox.innerText = result.message || 'Failed to submit comment.';
+                messageBox.style.color = 'red';
+            }
+        } catch (error) {
+            messageBox.innerText = 'An unexpected error occurred.';
+            messageBox.style.color = 'red';
+            console.error("Review Error:", error);
+        }
+    });
+</script>
 
 
 @section scripts {

@@ -27,91 +27,6 @@
         </div>
     </section>
 
-      @if (Model.ContactIntros != null && Model.ContactIntros.Any())
-    {
-    <section id="information-map-area">
-            <div class="information-map-size section-padding">
-                <div class="container">
-
-                    @if (Model.ContactIntros != null && Model.ContactIntros.Any())
-                    {
-                        <div class="section-title text-center">
-                            <h2 class="title" style="font-family: system-ui;font-weight: 400;font-size: 33px;">
-                        @Model.ContactIntros.FirstOrDefault()?.Title
-                    </h2>
-                    <p style="width: 40pc; margin-left: 16pc; line-height: 2.0; font-family: system-ui; margin-top: 28px;">
-                        @Model.ContactIntros.FirstOrDefault()?.Description
-                    </p>
-
-                </div>
-                }
-
-
-                <div class="row learts-mb-n30" style="margin-top: 4pc;">
-                    <div class="col-lg-4 col-md-6 col-12 learts-mb-30">
-                        <div class="contact-info">
-                            <h4 class="title" style="font-family: system-ui;">ADDRESS</h4>
-                            <span class="info" style="font-family: system-ui;font-size: 16px;">
-                                    @if (Model.Setting?.TryGetValue("Adress", out var address) == true && !string.IsNullOrWhiteSpace(address))
-                                {
-                                <i class="icon fas fa-map-marker-alt"></i> @address
-                                }
-                            </span>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-md-6 col-12 learts-mb-30">
-                        <div class="contact-info">
-                            <h4 class="title" style="font-family: system-ui;">CONTACT</h4>
-                             <span class="info" style="font-family: system-ui;font-size: 16px;">
-                                <i class="icon fas fa-phone-alt"></i> Mobile: @Model.Setting["Mobile"] <br> Hotline:
-                                @Model.Setting["Hotline"]
-                            </span> 
-                                @{
-                                    string mobile = null;
-                                    string hotline = null;
-
-                                    if (Model.Setting != null)
-                                    {
-                                        Model.Setting.TryGetValue("Mobile", out mobile);
-                                        Model.Setting.TryGetValue("Hotline", out hotline);
-                                    }
-                                }
-
-                               
-
-
-                            <span class="info" style="font-family: system-ui;font-size: 16px;">
-                                <i class="icon far fa-envelope"></i> Mail: <a href="#">@Model.Setting["Mail"]</a>
-                            </span>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-md-6 col-12 learts-mb-30">
-                        <div class="contact-info">
-                            <h4 class="title" style="font-family: system-ui;"> HOUR OF OPERATION</h4>
-                            <span class="info" style="font-family: system-ui;font-size: 16px;">
-                                <i class="icon far fa-clock"></i> Monday – Friday : @Model.Setting["Weekday"] <br> Sunday &
-                                Saturday: @Model.Setting["Weekend"]
-                            </span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="row learts-mt-60">
-                    <div class="col">
-                        <iframe class="contact-map"
-                                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d5778.080553758315!2d49.8513705758253!3d40.37719087144594!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x40307d079efb5163%3A0xc20aa51a5f0b5e01!2sCode%20Academy!5e1!3m2!1sen!2saz!4v1748341545690!5m2!1sen!2saz"
-                                width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy"
-                                referrerpolicy="no-referrer-when-downgrade"></iframe>
-                    </div>
-
-                </div>
-
-            </div>
-        </div>
-    </section>
-    }
-
-
     <section id="contact-area">
         <div class="contact-size section-padding pt-0">
             <div class="container">
@@ -119,7 +34,7 @@
                     <h2 class="title">Send a message</h2>
                 </div>
 
-                <div class="row">
+                <div class="row" style="margin-top: 3pc;">
                     <div class="col-lg-8 col-12 mx-auto">
                         <div class="contact-form">
                             <form action="assets/php/contact-mail.php" id="contactForm" method="post">
@@ -176,6 +91,116 @@
             </div>
         </div>
     </section>
+
+      @if (Model.ContactIntros != null && Model.ContactIntros.Any())
+    {
+    <section id="information-map-area">
+         <div class="information-map-size section-padding">
+            <div class="container">
+
+                    @if (Model.ContactIntros != null && Model.ContactIntros.Any())
+                    {
+                        var contactIntro = Model.ContactIntros.FirstOrDefault();
+                        <div class="section-title text-center">
+                            <h2 class="title" style="font-family: system-ui; font-weight: 400; font-size: 33px;">
+                                @contactIntro?.Title
+                            </h2>
+                            <p class="mx-auto mt-4" style="max-width: 640px; line-height: 2; font-family: system-ui;">
+                                @contactIntro?.Description
+                            </p>
+                        </div>
+                    }
+
+
+
+                    <div class="row gy-4 mt-5 justify-content-center">
+                        <div class="col-lg-4 col-md-6 col-12">
+                            <div class="contact-info text-center p-4 rounded shadow-sm h-100">
+                                <h4 class="title" style="font-family: system-ui;">ADDRESS</h4>
+                                @if (Model.Setting?.TryGetValue("Address", out var address) == true && !string.IsNullOrWhiteSpace(address))
+                                {
+                                    <span class="info d-block mt-2" style="font-family: system-ui; font-size: 16px;">
+                                        <i class="icon fas fa-map-marker-alt me-2"></i> @address
+                                    </span>
+                                }
+                            </div>
+                        </div>
+
+                        <div class="col-lg-4 col-md-6 col-12">
+                            <div class="contact-info text-center p-4 rounded shadow-sm h-100">
+                                <h4 class="title" style="font-family: system-ui;">CONTACT</h4>
+                                @{
+                                    string mobile = null;
+                                    string hotline = null;
+                                    string mail = null;
+
+                                    if (Model.Setting != null)
+                                    {
+                                        Model.Setting.TryGetValue("Mobile", out mobile);
+                                        Model.Setting.TryGetValue("Hotline", out hotline);
+                                        Model.Setting.TryGetValue("Mail", out mail);
+                                    }
+                                }
+
+                                @if (!string.IsNullOrWhiteSpace(mobile))
+                                {
+                                    <span class="info d-block mt-2" style="font-family: system-ui; font-size: 16px;">
+                                        <i class="icon fas fa-phone-alt me-2"></i>
+                                        <a href="tel:@mobile">@mobile</a>
+                                    </span>
+                                }
+
+                                @if (!string.IsNullOrWhiteSpace(hotline))
+                                {
+                                    <span class="info d-block mt-2" style="font-family: system-ui; font-size: 16px;">
+                                        <i class="icon fas fa-phone me-2"></i>
+                                        <a href="tel:@hotline">@hotline</a>
+                                    </span>
+                                }
+
+                                @if (!string.IsNullOrWhiteSpace(mail))
+                                {
+                                    <span class="info d-block mt-2" style="font-family: system-ui; font-size: 16px;">
+                                        <i class="icon far fa-envelope me-2"></i>
+                                        <a href="mailto:@mail">@mail</a>
+                                    </span>
+                                }
+                            </div>
+                        </div>
+
+                        <div class="col-lg-4 col-md-6 col-12">
+                            <div class="contact-info text-center p-4 rounded shadow-sm h-100">
+                                <h4 class="title" style="font-family: system-ui;">HOUR OF OPERATION</h4>
+                                @if (Model.Setting != null)
+                                {
+                                    <span class="info d-block mt-2" style="font-family: system-ui; font-size: 16px;">
+                                        <i class="icon far fa-clock me-2"></i>
+                                        Monday – Friday: @Model.Setting["Weekday"]<br />
+                                        Saturday & Sunday: @Model.Setting["Weekend"]
+                                    </span>
+                                }
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="row learts-mt-60" style="margin-top: 120px;margin-bottom: -9pc;">
+                    <div class="col">
+                        <iframe class="contact-map"
+                                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d5778.080553758315!2d49.8513705758253!3d40.37719087144594!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x40307d079efb5163%3A0xc20aa51a5f0b5e01!2sCode%20Academy!5e1!3m2!1sen!2saz!4v1748341545690!5m2!1sen!2saz"
+                                width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy"
+                                referrerpolicy="no-referrer-when-downgrade"></iframe>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </section>
+    }
+
+
+
 
 
 </main>
