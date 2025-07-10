@@ -451,6 +451,12 @@ namespace Final_MozArt.Migrations
                     b.Property<DateTime>("CreateDate")
                         .HasColumnType("datetime2");
 
+                    b.Property<bool>("IsCanceled")
+                        .HasColumnType("bit");
+
+                    b.Property<bool?>("Status")
+                        .HasColumnType("bit");
+
                     b.Property<string>("StripeId")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");

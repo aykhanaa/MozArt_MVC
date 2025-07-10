@@ -28,7 +28,7 @@ namespace Final_MozArt.Controllers
             var setting = _settingService.GetSettings();
             var userId = _userManager.GetUserId(User); 
             var user = await _accountService.GetUserByIdAsync(userId); 
-            var orders = await _orderService.GetAllAsync();
+            var orders = await _orderService.GetByUserIdAsync(userId);
 
 
 

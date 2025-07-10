@@ -1,58 +1,381 @@
-﻿@model List<OrderVM>
+﻿@* 
+@model List<Order>
 
+@{
+    int count = 1;
+}
+<h1 class="text-center my-4">Orders</h1>
 
-<div class="container my-5" style="margin-left: 22pc !important; width: 68pc !important; margin-top: 120px !important;">
-    <h1 class="text-center mt-3 mb-3" style="margin-left:200px; margin-top:150px;">Order</h1>
-   
-    <div class="table-responsive">
-        <table class="table table-striped">
-            <thead>
-                <tr>
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-lg-12">
+            <div class="card shadow">
+                <div class="card-body">
 
-                   
-                    <th>
-                        Products
-                    </th>
-                    <th>
-                        Total
-                    </th>
-                    <th>
-                        Date
-                    </th>
-                   
-
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var item in Model)
-                {
-                    <tr data-id="@item.Id">
-                        <td>
-                            <ul>
-                                @foreach (var product in item.Items)
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-striped">
+                            <thead class="table-dark">
+                                <tr>
+                                    <th>#</th>
+                                    <th>Username</th>
+                                    <th>Status</th>
+                                    <th>Ordered Time</th>
+                                    <th colspan="4" class="text-center">Operations</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var order in Model)
                                 {
-                                    <li>@product.ProductName - @product.Quantity item - @product.Price $</li>
+                                    <tr>
+                                        <td>@(count++)</td>
+                                        <td>@(order.AppUser.UserName)</td>
+                                        <td>
+                                            @if (order.IsCanceled)
+                                            {
+                                                <span class="btn btn-danger btn-sm statusOutput cancelOutput">Is canceled</span>
+                                            }
+                                            else if (order.Status == true)
+                                            {
+                                                <span class="btn btn-success btn-sm statusOutput">Delivered</span>
+                                            }
+                                            else if (order.Status == false)
+                                            {
+                                                <span class="btn btn-secondary btn-sm statusOutput">Is ordered</span>
+                                            }
+                                            else
+                                            {
+                                                <span class="btn btn-warning btn-sm statusOutput">On the way</span>
+                                            }
+                                        </td>
+                                        <td>@order.CreateDate.ToShortDateString()</td>
+
+                                        <td>
+                                            <a class="btn btn-outline-secondary btn-sm prevBtn"
+                                               data-status="@order.Status"
+                                               data-iscancel="@order.IsCanceled"
+                                               asp-action="Prev"
+                                               asp-route-id="@order.Id">Prev</a>
+                                        </td>
+                                        <td>
+                                            <a class="btn btn-outline-primary btn-sm nextBtn"
+                                               data-status="@order.Status"
+                                               data-iscancel="@order.IsCanceled"
+                                               asp-action="Next"
+                                               asp-route-id="@order.Id">Next</a>
+                                        </td>
+                                        <td>
+                                            <a class="btn btn-sm @(order.IsCanceled ? "btn-primary" : "btn-danger") cancelRepairBtn"
+                                               data-isCancel="@order.IsCanceled"
+                                               asp-action="CancelOrRepair"
+                                               asp-route-id="@order.Id">
+                                                @(order.IsCanceled ? "Repair Order" : "Cancel Order")
+                                            </a>
+                                        </td>
+                                        <td>
+                                            <a class="btn btn-success btn-sm"
+                                               asp-action="Detail"
+                                               asp-route-id="@order.Id">Detail</a>
+                                        </td>
+                                    </tr>
                                 }
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="d-flex justify-content-end mt-3">
+                        <nav>
+                            <ul class="pagination">
+                                <li class="page-item @(ViewBag.CurrentPage == 1 ? "disabled" : "")">
+                                    <a class="page-link" asp-action="Index" asp-route-page="@(ViewBag.CurrentPage - 1)">Previous</a>
+                                </li>
+                                @for (int i = 1; i <= ViewBag.PageCount; i++)
+                                {
+                                    <li class="page-item @(ViewBag.CurrentPage == i ? "active" : "")">
+                                        <a class="page-link" asp-action="Index" asp-route-page="@i">@i</a>
+                                    </li>
+                                }
+                                <li class="page-item @(ViewBag.CurrentPage == ViewBag.PageCount ? "disabled" : "")">
+                                    <a class="page-link" asp-action="Index" asp-route-page="@(ViewBag.CurrentPage + 1)">Next</a>
+                                </li>
                             </ul>
-                        </td>
+                        </nav>
+                    </div>
 
-                       
-                        <td>
-                            @item.TotalPrice $
-                        </td>
-
-                        <td>
-                            @item.CreatedDate
-                        </td>
-                      
-                    </tr>
-                }
-            </tbody>
-        </table>
-        @Html.AntiForgeryToken()
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 
+
+
+<script>
+    const prevButtons = document.querySelectorAll('.prevBtn');
+    const nextButtons = document.querySelectorAll('.nextBtn');
+
+    const statusButtons = document.querySelectorAll('.statusOutput');
+
+    prevButtons.forEach((btn, i) => {
+        btn.addEventListener('click', (e) => {
+            e.preventDefault();
+
+            if (btn.dataset.iscancel=="False") {
+
+            if (btn.dataset.status != 'False') {
+
+                const response = fetch(btn.href)
+                if (btn.dataset.status == 'True') {
+                    statusButtons[i].classList.remove('btn-success')
+                    statusButtons[i].classList.add('btn-warning')
+                    statusButtons[i].innerHTML = 'On the way'
+                    btn.dataset.status = "null"
+                    nextButtons[i].dataset.status = 'null'
+                }
+                else {
+                    statusButtons[i].classList.remove('btn-warning')
+                    statusButtons[i].classList.add('btn-secondary')
+                    statusButtons[i].innerHTML = 'Is ordered'
+                    btn.dataset.status = "False";
+                    nextButtons[i].dataset.status = "False";
+                }
+            }
+            }
+
+        })
+    })
+
+
+    nextButtons.forEach((btn, i) => {
+        btn.addEventListener('click', (e) => {
+            e.preventDefault();
+
+            if (btn.dataset.iscancel=="False") {
+
+            if (btn.dataset.status != 'True') {
+
+                const response = fetch(btn.href)
+                if (btn.dataset.status == 'False') {
+                    statusButtons[i].classList.remove('btn-secondary')
+                    statusButtons[i].classList.add('btn-warning')
+                    statusButtons[i].innerHTML = 'On the way'
+                    btn.dataset.status = "null"
+                    prevButtons[i].dataset.status = 'null'
+                }
+                else {
+                    statusButtons[i].classList.remove('btn-warning')
+                    statusButtons[i].classList.add('btn-success')
+                    statusButtons[i].innerHTML = 'Delivered'
+                    btn.dataset.status = "True"
+                    prevButtons[i].dataset.status = 'True'
+                }
+            }
+
+            }
+        })
+    })</script> *@
+
+
+@model List<Order>
+
+@{
+    int count = 1;
 }
 
+<div class="container my-5" style="margin-left: 22pc !important; width: 68pc !important; margin-top: 120px !important;">
+    <h1 class="text-center mt-3 mb-3" style="margin-left:200px; margin-top:150px;">Orders</h1>
 
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead class="table">
+                <tr>
+                    <th>Username</th>
+                    <th>Status</th>
+                    <th>Ordered Time</th>
+                    <th colspan="4" class="text-center">Operations</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var order in Model)
+                {
+                    <tr data-order-id="@order.Id">
+                        <td>@order.AppUser.UserName</td>
+                        <td id="order-status-@order.Id">
+                            @if (order.IsCanceled)
+                            {
+                                <span class="badge bg-danger statusOutput">Is canceled</span>
+                            }
+                            else if (order.Status == true)
+                            {
+                                <span class="badge bg-success statusOutput">Delivered</span>
+                            }
+                            else if (order.Status == false)
+                            {
+                                <span class="badge bg-secondary statusOutput">Is ordered</span>
+                            }
+                            else
+                            {
+                                <span class="badge bg-warning text-dark statusOutput">On the way</span>
+                            }
+                        </td>
+
+                        <td>@order.CreateDate.ToString("dd/MM/yyyy")</td>
+                        <td>
+                            <a class="btn btn-outline-secondary btn-sm prevBtn"
+                               data-status="@order.Status.ToString().ToLower()"
+                               data-iscancel="@order.IsCanceled.ToString().ToLower()"
+                               asp-action="Prev"
+                               asp-route-id="@order.Id">Prev</a>
+                        </td>
+                        <td>
+                            <a class="btn btn-outline-primary btn-sm nextBtn"
+                               data-status="@order.Status.ToString().ToLower()"
+                               data-iscancel="@order.IsCanceled.ToString().ToLower()"
+                               asp-action="Next"
+                               asp-route-id="@order.Id">Next</a>
+                        </td>
+                        <td>
+                            <a class="btn btn-sm @(order.IsCanceled ? "btn-primary" : "btn-danger") cancelRepairBtn"
+                               data-iscancel="@order.IsCanceled.ToString().ToLower()"
+                               asp-action="CancelOrRepair"
+                               asp-route-id="@order.Id">
+                                @(order.IsCanceled ? "Repair Order" : "Cancel Order")
+                            </a>
+                        </td>
+                        <td>
+                            <a class="btn btn-success btn-sm"
+                               asp-action="Detail"
+                               asp-route-id="@order.Id">Detail</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+
+        </table>
+
+        <!-- Simple Pagination -->
+        <div class="d-flex justify-content-center mt-4">
+            <nav>
+                <ul class="pagination justify-content-center">
+                    <li class="page-item @(ViewBag.CurrentPage == 1 ? "disabled" : "")">
+                        <a class="page-link" asp-action="Index" asp-route-page="@(ViewBag.CurrentPage - 1)">Previous</a>
+                    </li>
+                    @for (int i = 1; i <= ViewBag.PageCount; i++)
+                    {
+                        <li class="page-item @(ViewBag.CurrentPage == i ? "active" : "")">
+                            <a class="page-link" asp-action="Index" asp-route-page="@i">@i</a>
+                        </li>
+                    }
+                    <li class="page-item @(ViewBag.CurrentPage == ViewBag.PageCount ? "disabled" : "")">
+                        <a class="page-link" asp-action="Index" asp-route-page="@(ViewBag.CurrentPage + 1)">Next</a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        // Helper function fetch POST JSON
+        async function postAndGetJson(url) {
+            const response = await fetch(url, { method: 'POST' });
+            if (!response.ok) throw new Error('Network response was not ok');
+            return await response.json();
+        }
+
+        // Yenilənmiş statusları UI-də göstərmək funksiyası
+        function updateStatusUI(orderId, data) {
+            const badge = document.querySelector(`#order-status-${orderId} .statusOutput`);
+            if (!badge) return;
+
+            if (data.isCanceled) {
+                badge.className = 'badge bg-danger statusOutput';
+                badge.textContent = 'Is canceled';
+            } else if (data.status === true) {
+                badge.className = 'badge bg-success statusOutput';
+                badge.textContent = 'Delivered';
+            } else if (data.status === false) {
+                badge.className = 'badge bg-secondary statusOutput';
+                badge.textContent = 'Is ordered';
+            } else {
+                badge.className = 'badge bg-warning text-dark statusOutput';
+                badge.textContent = 'On the way';
+            }
+
+            // Eyni zamanda düymələrin data-status və data-iscancel atributlarını da yeniləyək
+            const row = document.querySelector(`tr[data-order-id='${orderId}']`);
+            if (!row) return;
+
+            const prevBtn = row.querySelector('.prevBtn');
+            const nextBtn = row.querySelector('.nextBtn');
+            const cancelRepairBtn = row.querySelector('.cancelRepairBtn');
+
+            if (prevBtn) {
+                prevBtn.dataset.status = data.status === null ? 'null' : data.status.toString();
+                prevBtn.dataset.iscancel = data.isCanceled.toString();
+            }
+            if (nextBtn) {
+                nextBtn.dataset.status = data.status === null ? 'null' : data.status.toString();
+                nextBtn.dataset.iscancel = data.isCanceled.toString();
+            }
+            if (cancelRepairBtn) {
+                cancelRepairBtn.dataset.iscancel = data.isCanceled.toString();
+                // Düğmenin texti də yenilənə bilər
+                cancelRepairBtn.textContent = data.isCanceled ? 'Repair Order' : 'Cancel Order';
+                cancelRepairBtn.className = data.isCanceled ? 'btn btn-primary btn-sm cancelRepairBtn' : 'btn btn-danger btn-sm cancelRepairBtn';
+            }
+        }
+
+        // Prev düymələri
+        document.querySelectorAll('.prevBtn').forEach(btn => {
+            btn.addEventListener('click', async e => {
+                e.preventDefault();
+
+                if (btn.dataset.iscancel === 'false') {
+                    try {
+                        const data = await postAndGetJson(btn.href);
+                        if (data.success) {
+                            updateStatusUI(data.id, data);
+                        }
+                    } catch (error) {
+                        console.error('Error updating status on Prev:', error);
+                    }
+                }
+            });
+        });
+
+        // Next düymələri
+        document.querySelectorAll('.nextBtn').forEach(btn => {
+            btn.addEventListener('click', async e => {
+                e.preventDefault();
+
+                if (btn.dataset.iscancel === 'false') {
+                    try {
+                        const data = await postAndGetJson(btn.href);
+                        if (data.success) {
+                            updateStatusUI(data.id, data);
+                        }
+                    } catch (error) {
+                        console.error('Error updating status on Next:', error);
+                    }
+                }
+            });
+        });
+
+        // Cancel or Repair düymələri (isteğe bağlı, əlavə etmək istəyirsənsə)
+        document.querySelectorAll('.cancelRepairBtn').forEach(btn => {
+            btn.addEventListener('click', async e => {
+                e.preventDefault();
+
+                try {
+                    const data = await postAndGetJson(btn.href);
+                    if (data.success) {
+                        updateStatusUI(data.id, data);
+                    }
+                } catch (error) {
+                    console.error('Error updating status on CancelOrRepair:', error);
+                }
+            });
+        });
+    </script>
+}

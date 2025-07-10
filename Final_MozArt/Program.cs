@@ -16,7 +16,7 @@ builder.Services.AddAutoMapper(typeof(Program));
 
 builder.Services.Configure<EmailSettings>(builder.Configuration.GetSection("EmailConfig"));
 
-
+builder.Services.AddSignalR();
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
@@ -127,4 +127,5 @@ app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
 
+app.MapHub<OrderHub>("/orderHub");  // <-- burda əlavə et
 app.Run();

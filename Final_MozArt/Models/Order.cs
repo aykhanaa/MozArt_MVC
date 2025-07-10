@@ -9,6 +9,6 @@
         public List<OrderItem> OrderItems { get; set; }
 
         public bool? Status { get; set; }
-        //public bool  { get; set; }
+        public bool IsCanceled  { get; set; }
     }
 }

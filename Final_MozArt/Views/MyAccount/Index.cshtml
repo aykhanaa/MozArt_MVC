@@ -1,13 +1,39 @@
-﻿﻿
+﻿@using Microsoft.AspNetCore.Identity
+@inject UserManager<AppUser> UserManager
 @model MyAccountVM
 
 @section css {
     <link rel="stylesheet" href="~/assets/css/my-account/my-account.css">
+    <style>
+        .toast-slide-in {
+            animation: slideInFromRight 0.3s ease-out;
+        }
+
+        @@keyframes slideInFromRight {
+            from {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        .toast-notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 9999;
+            min-width: 300px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            border-radius: 8px;
+        }
+    </style>
 }
 
-
 <main>
-
     <section id="my-account-title-area">
         <div class="page-title-size section" style="margin-bottom: 3pc;">
             <div class="container">
@@ -17,11 +43,9 @@
                             <h1 class="title">My Account</h1>
                             <ul class="breadcrumb">
                                 <li class="breadcrumb-item"><a href="home.html">Home</a></li>
-                                <li class="breadcrumb-item active"><a href="my-account.html">My Account</a></li>
-                                </li>
+                                <li class="breadcrumb-item active">My Account</li>
                             </ul>
                         </div>
-
                     </div>
                 </div>
             </div>
@@ -32,48 +56,31 @@
         <div class="my-account-size section-padding">
             <div class="container">
                 <div class="row learts-mb-n30">
-
                     <div class="col-lg-4 col-12 learts-mb-30">
                         <div class="myaccount-tab-list nav">
                             <a href="#dashboad" class="active" data-bs-toggle="tab">
                                 Dashboard <i class="fa-solid fa-house-chimney"></i>
                             </a>
                             <a href="#orders" data-bs-toggle="tab">Orders <i class="fa-solid fa-file-lines"></i></a>
-                            <a href="#address" data-bs-toggle="tab">
-                                New Password <i class="fa-solid fa-key"></i>
-                            </a>
-                            <a href="#account-info" data-bs-toggle="tab">
-                                Account Details <i class="fa-solid fa-user-tie"></i>
-                            </a>
-
-                            <a href="login-register.html">
-                                <form asp-controller="Account" asp-action="Logout" asp-route-userId="@Model.UserId" method="post" style="margin: 0;">
-                                    <button type="submit" style="background: none; border: none; cursor: pointer; display: flex; align-items: center; gap: 14rem;">
-                                        Logout <i class="fa-solid fa-arrow-right-from-bracket"></i>
-
-                                    </button>
-                                </form>
-                            </a>
+                            <a href="#address" data-bs-toggle="tab">New Password <i class="fa-solid fa-key"></i></a>
+                            <a href="#account-info" data-bs-toggle="tab">Account Details <i class="fa-solid fa-user-tie"></i></a>
+                            <form asp-controller="Account" asp-action="Logout" asp-route-userId="@Model.AppUser.Id" method="post" style="margin-top: 5px;">
+                                <button type="submit" style="background: none; border: none; cursor: pointer; display: flex; align-items: center; gap: 14pc;margin-left: 11px;">
+                                    Logout <i class="fa-solid fa-arrow-right-from-bracket" style="margin-left: 5px;"></i>
+                                </button>
+                            </form>
                         </div>
                     </div>
 
                     <div class="col-lg-8 col-12 learts-mb-30">
                         <div class="tab-content">
-
-
                             <div class="tab-pane fade show active" id="dashboad">
                                 <div class="myaccount-content dashboad">
-                                    <p>
-                                        Hello <strong>@Model.AppUser.FullName</strong>
-                                    </p>
+                                    <p>Hello <strong>@Model.AppUser.FullName</strong></p>
                                     <p>
                                         From your account dashboard you can view your <span>recent orders</span>,
-                                        manage
-                                        your <span>shipping and billing addresses</span>, and <span>
-                                            edit your
-                                            password
-                                            and account details
-                                        </span>.
+                                        manage your <span>shipping and billing addresses</span>, and
+                                        <span>edit your password and account details</span>.
                                     </p>
                                 </div>
                             </div>
@@ -87,8 +94,8 @@
                                                     <th>Order</th>
                                                     <th>Date</th>
                                                     <th>Total</th>
+                                                    <th>Status</th>
                                                     <th>Products</th>
-
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -96,10 +103,30 @@
                                                 {
                                                     foreach (var order in Model.Orders)
                                                     {
-                                                        <tr>
+                                                        <tr data-order-id="@order.Id">
                                                             <td>@order.Id</td>
                                                             <td>@order.CreatedDate.ToString("MMM dd, yyyy")</td>
                                                             <td>$@order.TotalPrice.ToString("F2")</td>
+                                                            <td>
+                                                                <span id="order-status-@order.Id" class="order-status-badge">
+                                                                    @if (order.IsCanceled)
+                                                                    {
+                                                                        <span class="badge bg-danger">Is canceled</span>
+                                                                    }
+                                                                    else if (order.Status == true)
+                                                                    {
+                                                                        <span class="badge bg-success">Delivered</span>
+                                                                    }
+                                                                    else if (order.Status == false)
+                                                                    {
+                                                                        <span class="badge bg-secondary">Is ordered</span>
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        <span class="badge bg-warning text-dark">On the way</span>
+                                                                    }
+                                                                </span>
+                                                            </td>
                                                             <td>
                                                                 <ul style="list-style-type: none; padding-left: 0;">
                                                                     @foreach (var product in order.Items)
@@ -112,7 +139,6 @@
                                                                     }
                                                                 </ul>
                                                             </td>
-                                                          
                                                         </tr>
                                                     }
                                                 }
@@ -122,42 +148,33 @@
                                                         <td colspan="5">No orders found.</td>
                                                     </tr>
                                                 }
-
                                             </tbody>
                                         </table>
                                     </div>
                                 </div>
                             </div>
 
-
                             <div class="tab-pane fade" id="address">
                                 <div class="forgot-password-container">
                                     <div class="forgot-password-wrapper">
                                         <div class="forgot-password-card">
                                             <div class="top-border"></div>
-
                                             <div class="forgot-password-content">
                                                 <div class="forgot-password-header">
                                                     <h2 class="forgot-password-title">New Password</h2>
                                                     <p class="forgot-password-subtitle">Enter your email to change your password</p>
                                                     <div class="title-divider"></div>
                                                 </div>
-
-
                                                 <form method="post" asp-controller="Account" asp-action="ForgotPassword">
                                                     <div class="form-group">
                                                         <label for="email" class="form-label">Email Address</label>
-                                                        <input type="email" id="email" asp-for="Email" required class="form-input">
+                                                        <input type="email" id="email" asp-for="Email" required class="form-input" />
                                                     </div>
-
                                                     <div class="form-submit">
-                                                        <button href="new-password.html" type="submit" class="button btn btn-primary" style="margin-top:20px;">
-                                                            SEND RESET LINK
-                                                        </button>
+                                                        <button type="submit" class="btn btn-primary" style="margin-top:20px;">SEND RESET LINK</button>
                                                     </div>
                                                 </form>
                                             </div>
-
                                             <div class="bottom-border"></div>
                                         </div>
                                     </div>
@@ -172,15 +189,13 @@
                                             <legend>Change Email</legend>
                                             <input name="NewEmail" class="form-control" autocomplete="off" style="margin-bottom: 20px;" value="@Model.AppUser.Email" />
                                             <p class="form-row">
-                                                <button type="submit" class="button btn btn-primary">Save</button>
+                                                <button type="submit" class="btn btn-primary">Save</button>
                                             </p>
                                         </fieldset>
                                     </form>
-
                                     <div id="emailResult"></div>
 
                                     <hr />
-
 
                                     <form id="usernameForm" asp-action="UpdateUsername" asp-controller="MyAccount" method="post">
                                         @Html.AntiForgeryToken()
@@ -188,115 +203,153 @@
                                             <legend>Change Username</legend>
                                             <input name="NewUsername" class="form-control" autocomplete="off" style="margin-bottom: 20px;" value="@Model.AppUser.UserName" />
                                             <p class="form-row">
-                                                <button type="submit" class="button btn btn-primary">Save</button>
+                                                <button type="submit" class="btn btn-primary">Save</button>
                                             </p>
                                         </fieldset>
                                     </form>
-
                                     <div id="usernameResult"></div>
-
                                 </div>
                             </div>
-
-
                         </div>
                     </div>
                 </div>
             </div>
+        </div>
     </section>
-
-
 </main>
 
+@section Scripts {
+    <script src="~/lib/signalr/signalr.js"></script>
+    <script>
+        // SignalR connection
+        const connection = new signalR.HubConnectionBuilder()
+            .withUrl("/orderHub")
+            .build();
 
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script>
-    $(function () {
-        $("#usernameForm").submit(function (e) {
-            e.preventDefault();
+        // Connection start
+        connection.start().then(function () {
+            console.log("SignalR connected successfully");
 
-            let form = $(this);
-            let data = form.serialize();
-
-            $.ajax({
-                type: "POST",
-                url: form.attr("action"),
-                data: data,
-                success: function (res) {
-                    $("#usernameResult").html(`<div class="alert alert-success">${res.message}</div>`);
-
-                    if (res.redirectToLogin) {
-                        setTimeout(() => {
-                            window.location.href = "/Account/Login";
-                        }, 2000);
-                    }
-                },
-                error: function (xhr) {
-                    const msg = xhr.responseJSON?.message ?? "An error occurred.";
-                    $("#usernameResult").html(`<div class="alert alert-danger">${msg}</div>`);
-                }
-            });
+            // User ID-ni Model-dən götür
+            const userId = "@Model.AppUser.Id";
+            if (userId && userId !== "") {
+                connection.invoke("JoinUserGroup", userId);
+                console.log("Joined user group:", userId);
+            }
+        }).catch(function (err) {
+            console.error("SignalR connection failed:", err);
         });
-    });
-</script>
 
-<script>
-    $(function () {
-        $("#emailForm").submit(function (e) {
-            e.preventDefault();
+        // Order status update listener
+        connection.on("ReceiveOrderStatusUpdate", function (orderId, status, isCanceled) {
+            console.log(`Order ${orderId} status updated:`, { status, isCanceled });
 
-            let form = $(this);
-            let data = form.serialize();
+            // User profilində order status update et
+            updateUserOrderStatus(orderId, status, isCanceled);
 
-            $.ajax({
-                type: "POST",
-                url: form.attr("action"),
-                data: data,
-                success: function (res) {
-                    $("#emailResult").html(`<div class="alert alert-success">${res.message}</div>`);
-
-                    if (res.redirectToLogin) {
-                        setTimeout(() => {
-                            window.location.href = "/Account/Login";
-                        }, 2000);
-                    }
-                },
-                error: function (xhr) {
-                    const msg = xhr.responseJSON?.message ?? "An error occurred.";
-                    $("#emailResult").html(`<div class="alert alert-danger">${msg}</div>`);
-                }
-            });
+            // Toast notification göstər
+            showOrderNotification(orderId, status, isCanceled);
         });
-    });
-</script>
 
-@section scripts {
-    <script src="~/assets/js/my-account/my-account.js"></script>
+        function updateUserOrderStatus(orderId, status, isCanceled) {
+            // User profile page-də order status update et
+            const statusElement = document.querySelector(`#order-status-${orderId} span`);
+            if (statusElement) {
+                if (isCanceled) {
+                    statusElement.className = 'badge bg-danger';
+                    statusElement.textContent = 'Is canceled';
+                } else if (status === true) {
+                    statusElement.className = 'badge bg-success';
+                    statusElement.textContent = 'Delivered';
+                } else if (status === false) {
+                    statusElement.className = 'badge bg-secondary';
+                    statusElement.textContent = 'Is ordered';
+                } else {
+                    statusElement.className = 'badge bg-warning text-dark';
+                    statusElement.textContent = 'On the way';
+                }
+            }
+        }
+
+        function showOrderNotification(orderId, status, isCanceled) {
+            let message;
+            let type = 'success';
+
+            if (isCanceled) {
+                message = `Your order #${orderId} has been canceled`;
+                type = 'error';
+            } else if (status === true) {
+                message = `Your order #${orderId} has been delivered! 🎉`;
+            } else if (status === false) {
+                message = `Your order #${orderId} is confirmed`;
+            } else {
+                message = `Your order #${orderId} is on the way 🚚`;
+            }
+
+            // Toast notification göstər
+            showToast(message, type);
+        }
+
+        function showToast(message, type = 'success') {
+            // Əvvəlki toast-ları sil
+            const existingToasts = document.querySelectorAll('.toast-notification');
+            existingToasts.forEach(toast => toast.remove());
+
+            // Toast notification yaradın
+            const toast = document.createElement('div');
+            toast.className = `alert alert-${type === 'error' ? 'danger' : 'success'} toast-notification toast-slide-in`;
+
+            toast.innerHTML = `
+                <div class="d-flex justify-content-between align-items-start">
+                    <div>
+                        <strong>${type === 'error' ? 'Order Update' : 'Good News!'}</strong><br>
+                        ${message}
+                    </div>
+                    <button type="button" class="btn-close" onclick="this.closest('.toast-notification').remove()"></button>
+                </div>
+            `;
+
+            document.body.appendChild(toast);
+
+            // 5 saniyə sonra avtomatik silinsin
+            setTimeout(() => {
+                if (toast.parentElement) {
+                    toast.remove();
+                }
+            }, 5000);
+        }
+
+        // Email və Username update formları
+        document.getElementById('emailForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            const formData = new FormData(this);
+
+            try {
+                const response = await fetch(this.action, {
+                    method: 'POST',
+                    body: formData
+                });
+                const result = await response.json();
+                document.getElementById('emailResult').innerHTML = `<div class="alert alert-info">${result.message}</div>`;
+            } catch (error) {
+                document.getElementById('emailResult').innerHTML = `<div class="alert alert-danger">Error updating email</div>`;
+            }
+        });
+
+        document.getElementById('usernameForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            const formData = new FormData(this);
+
+            try {
+                const response = await fetch(this.action, {
+                    method: 'POST',
+                    body: formData
+                });
+                const result = await response.json();
+                document.getElementById('usernameResult').innerHTML = `<div class="alert alert-info">${result.message}</div>`;
+            } catch (error) {
+                document.getElementById('usernameResult').innerHTML = `<div class="alert alert-danger">Error updating username</div>`;
+            }
+        });
+    </script>
 }
-
-<script>
-    $(document).ready(function () {
-        $('.myaccount-tab-list a[data-bs-toggle="tab"]').on('click', function (e) {
-            e.preventDefault();
-
-            const target = $(this).attr('href');
-
-            // Bütün tab-ları gizlət və hədəfi göstər
-            $('.tab-pane').removeClass('active show');
-            $(target).addClass('active show');
-
-            // Tab menyusunda aktiv sinfi yenilə
-            $('.myaccount-tab-list a').removeClass('active');
-            $(this).addClass('active');
-
-            // Tab content hissəsini səhifənin ortasına gətir
-            const targetOffset = $(target).offset().top;
-            const windowHeight = $(window).height();
-            const scrollPosition = targetOffset - (windowHeight / 2) + ($(target).outerHeight() / 2);
-
-            $('html, body').animate({
-                scrollTop: scrollPosition
-            }, 400);
-        });
-    });
-</script>

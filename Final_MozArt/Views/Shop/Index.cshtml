@@ -177,6 +177,21 @@
     </section>
 </main>
 
+<style>
+    .product-thumb.has-hover .image-hover {
+        opacity: 0;
+        position: absolute;
+        top: 0;
+        left: 0;
+        transition: opacity 0.3s ease-in-out;
+    }
+
+    .product-thumb.has-hover:hover .image-hover {
+        opacity: 1;
+    }
+
+</style>
+
 <script type="text/javascript">
     window.allProducts = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model.Products));
 </script>
@@ -185,6 +200,7 @@
     <script src="~/assets/js/shop/shop.js"></script>
 }   <script src="~/assets/js/shop/sorts.js"></script>
   
+
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
@@ -210,34 +226,42 @@
 
             setTimeout(initializeIsotope, 100);
 
-            function createProductHTML(product) {
-                return `
-                    <div class="grid-item col featured product-item">
-                        <div class="product">
-                            <div class="product-thumb">
-                                <a href="/Shop/Detail/${product.Id}" class="image">
-                                    <img src="/assets/img/product-details/${product.Image}" alt="Product Image">
-                                    <img class="image-hover" src="/assets/img/product-details/${product.Hower || product.Image}" alt="Product Image">
-                                </a>
-                            </div>
-                            <div class="product-info">
-                                <h6 class="title">
-                                    <a href="/Shop/Detail/${product.Id}">${product.Name}</a>
-                                </h6>
-                                <span class="price">$${product.Price}</span>
-                                <div class="product-buttons">
-                                    <a href="/Shop/Detail/${product.Id}" class="product-button hintT-top" data-hint="View">
-                                        <i class="fas fa-search"></i>
-                                    </a>
-                                    <a href="/Shop/Detail/${product.Id}" class="product-button hintT-top" data-hint="Add to Cart">
-                                        <i class="fas fa-shopping-cart"></i>
-                                    </a>
-                                </div>
-                            </div>
+            
+                function createProductHTML(product) {
+        const hasHover = product.Hower && product.Hower.trim() !== "";
+        const hoverClass = hasHover ? "has-hover" : "";
+        const hoverImageTag = hasHover
+            ? `<img class="image-hover" src="/assets/img/product-details/${product.Hower}" alt="Product Hover Image">`
+            : "";
+
+        return `
+            <div class="grid-item col featured product-item">
+                <div class="product">
+                    <div class="product-thumb ${hoverClass}">
+                        <a href="/Shop/Detail/${product.Id}" class="image">
+                            <img src="/assets/img/product-details/${product.Image}" alt="Product Image">
+                            ${hoverImageTag}
+                        </a>
+                    </div>
+                    <div class="product-info">
+                        <h6 class="title">
+                            <a href="/Shop/Detail/${product.Id}">${product.Name}</a>
+                        </h6>
+                        <span class="price">$${product.Price}</span>
+                        <div class="product-buttons">
+                            <a href="/Shop/Detail/${product.Id}" class="product-button hintT-top" data-hint="View">
+                                <i class="fas fa-search"></i>
+                            </a>
+                            <a href="/Shop/Detail/${product.Id}" class="product-button hintT-top" data-hint="Add to Cart">
+                                <i class="fas fa-shopping-cart"></i>
+                            </a>
                         </div>
                     </div>
-                `;
-            }
+                </div>
+            </div>
+        `;
+    }
+
 
             function loadMoreProducts() {
                 const startIndex = currentPage * productsPerPage;

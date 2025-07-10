@@ -638,7 +638,6 @@ wwwroot\assets\img\home\eb4b76b1-60cf-42ae-a66d-b183fd574b6f-Screenshot 2024-04-
 wwwroot\assets\img\home\eb878598-5312-46ac-9cc4-0648303c456b-brand-5.webp
 wwwroot\assets\img\home\f5fb166d-b2db-4b9e-ab2f-c5e2d241ded6-brand-8.webp
 wwwroot\assets\img\home\f6164e4b-bf31-477d-9e5c-1d2e41537268-Screenshot 2024-04-28 194703.png
-wwwroot\assets\img\home\f90b0735-116b-4a7c-8726-1745034ee946-slider-5-n.png
 wwwroot\assets\img\home\fd504563-dd72-488b-8fd8-b54b2c78d876_3D pot 1-2.webp
 wwwroot\assets\img\home\instagram-1.webp
 wwwroot\assets\img\home\instagram-2.webp
@@ -674,6 +673,7 @@ wwwroot\assets\img\home\web-img-white.png
 wwwroot\assets\img\login\login-register-1.jpeg
 wwwroot\assets\img\login\page-title.webp
 wwwroot\assets\img\new-password\page-title.webp
+wwwroot\assets\img\product-details\02f8f4e6-68f2-4733-a923-738f98e5dd43_imgi_19_Img7_3.jpg
 wwwroot\assets\img\product-details\1194bd23-56db-47d8-b894-b3e1d3486267_product-3-2.webp
 wwwroot\assets\img\product-details\16f4eb88-b037-4a09-8998-2bc87c582ee3_motocycle  1-1.webp
 wwwroot\assets\img\product-details\4da4a792-963c-4ae1-a7ab-96e5aee7dd4d_blender 1-1.webp
@@ -681,13 +681,18 @@ wwwroot\assets\img\product-details\4ea199c9-8e31-4a53-9964-434b819efcd6_product-
 wwwroot\assets\img\product-details\4f656547-08c5-4685-bde2-b2e823ddd060_4db1aa24-1488-4577-a429-a42108c16bf3-instagram-3.webp
 wwwroot\assets\img\product-details\5708a1c6-64f3-4d86-a54f-f3e5910ad98e_product-9-1.webp
 wwwroot\assets\img\product-details\5eb8f583-ee18-4bf7-88b4-dfbcbcb40f78_abstract pot 1-2.webp
+wwwroot\assets\img\product-details\5f9965d0-6f65-4a51-8422-e9667fc500c9_imgi_25_Img9_3.jpg
 wwwroot\assets\img\product-details\614191d5-cd85-4aad-b202-c4050969ea27_brand-7.webp
+wwwroot\assets\img\product-details\62ce19ac-82ec-4641-aa01-6daf600fc522_imgi_30_Shop-04_51b9e579-af23-47.jpg
+wwwroot\assets\img\product-details\63295f11-8a0b-4866-8904-7dc0e46bdb07_imgi_21_Img7_2.jpg
 wwwroot\assets\img\product-details\66414241-eabb-4835-a425-5a42bc26ab4e_product-6-2.webp
+wwwroot\assets\img\product-details\6e1fdaf4-a2b4-41d8-8ec7-26f93ab82b3e_8735f46051e5e8bef07d230e8bb6a5fd.jpg
 wwwroot\assets\img\product-details\7da7d8d1-0839-4591-9570-5ca9976df287_product-8-2.webp
 wwwroot\assets\img\product-details\83f38da8-b467-48b2-aa4a-68cbc1161af4_mug 1-2.webp
 wwwroot\assets\img\product-details\8459f917-b53c-49eb-879a-f5be6f7a5135_product-9-2.webp
 wwwroot\assets\img\product-details\8626c9fc-c957-40eb-8060-5300c1d50f23_product-5-2.webp
 wwwroot\assets\img\product-details\897e5903-4dc9-486f-83d8-860becfff0ae_product-6-1.webp
+wwwroot\assets\img\product-details\93dbd5c8-4e40-46c6-8a26-9a81c37a8437_bc13823a37375283ce4b0a257af54337.jpg
 wwwroot\assets\img\product-details\96f3ce24-c315-443c-ab07-786a72a23a2d_product-4-1.webp
 wwwroot\assets\img\product-details\98c69eac-273b-481a-97dd-20754aa875ef_brand-8.webp
 wwwroot\assets\img\product-details\99d770fd-8135-4b37-8678-7f0ff7183053_product-10-1.webp
@@ -696,6 +701,8 @@ wwwroot\assets\img\product-details\9f4c3273-3cc9-4dca-bc89-c1b16d09d416_product-
 wwwroot\assets\img\product-details\a54b856e-2ac8-4bfc-bc4a-829e5fbdab47_product-5-1.webp
 wwwroot\assets\img\product-details\a9825685-a39d-4d7f-8ca4-808a0673f7b0_fox 1-1.webp
 wwwroot\assets\img\product-details\ac37f6c1-7913-4b20-9462-727d34606b61_mug 1-1.webp
+wwwroot\assets\img\product-details\acb08869-5081-4322-b91f-3712b4647c35_c718dd61a4cb20cdba2d6fed9ec48b7d.jpg
+wwwroot\assets\img\product-details\ae150be6-37f5-492c-b9b3-902ddb2f6709_11b905446d5a0ab510c2c57719c53a41.jpg
 wwwroot\assets\img\product-details\b4a799d4-d741-4719-8b8b-97c705a457ef_3c2e122c-d499-4255-939e-9e3efe87198c_blog-1 - Copy.webp
 wwwroot\assets\img\product-details\brand-1.webp
 wwwroot\assets\img\product-details\brand-2.webp
@@ -705,14 +712,22 @@ wwwroot\assets\img\product-details\brand-5.webp
 wwwroot\assets\img\product-details\brand-6.webp
 wwwroot\assets\img\product-details\brand-7.webp
 wwwroot\assets\img\product-details\brand-8.webp
+wwwroot\assets\img\product-details\c4818376-9168-43f5-94b7-786e99174f79_imgi_24_Img9_1.jpg
 wwwroot\assets\img\product-details\c9f91b1c-ec24-4df9-a4dd-4107784b5dbf_blender 1-1.webp
 wwwroot\assets\img\product-details\d24e410e-8303-475b-8bac-d3e8b4a28e11_product-7-2.webp
+wwwroot\assets\img\product-details\d7db64fd-89a5-48db-8ac8-2bad177a03c6_25d7483bde1c628271c54b5d95d15421.jpg
 wwwroot\assets\img\product-details\d7ee3af2-925f-4036-9380-356e4960ae1e_category-img-3.webp
 wwwroot\assets\img\product-details\e23202fd-6eff-482a-9f33-2c25fcde09a2_product-2-2.webp
 wwwroot\assets\img\product-details\e2b9ffdb-ce0d-4a2f-89dc-62c02fa63a70_product-10-2.webp
+wwwroot\assets\img\product-details\e5466518-0e59-47f3-9235-f36bf3bbedd4_54e079359d847bb0bbe273d0828ac6bc.jpg
+wwwroot\assets\img\product-details\e54a15f7-6aa8-45e2-8b31-3593a984c567_de672a9182d5623601d64f7aba3d179c.jpg
+wwwroot\assets\img\product-details\e59937c7-3fc4-4845-9811-59f2608263e6_imgi_18_shop-03.jpg
 wwwroot\assets\img\product-details\ea73d254-b7fa-4a6a-83b8-82113b4dc665_product-3-1.webp
+wwwroot\assets\img\product-details\eae283ad-ad2c-4340-b5b3-4e3cdca85557_imgi_23_shop-07.jpg
+wwwroot\assets\img\product-details\eef0dfef-7078-40c2-b3a7-43928adf2a8d_imgi_31_Shop-02_c49e2744-3196-4c.jpg
 wwwroot\assets\img\product-details\f1921265-878b-4015-b8af-4242eab77f2f_4dc95ca6-60ea-4140-82f2-768da0f6380d-category-img-1.webp
 wwwroot\assets\img\product-details\f73b4592-09b3-4ffb-b689-82712b30ff8a_product-3-2.webp
+wwwroot\assets\img\product-details\f8f87acc-ad01-4760-bc22-6adfc6c7c177_26a911cfa54d3cba1b76d8ba8be456ed.jpg
 wwwroot\assets\img\product-details\f991ff3c-a92b-410c-bcff-42a2c564a254_product-2-1.webp
 wwwroot\assets\img\product-details\fb530cb0-7546-4dea-a973-663693794688_product-7-1.webp
 wwwroot\assets\img\product-details\page-title.webp
