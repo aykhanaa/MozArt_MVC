@@ -674,12 +674,14 @@ wwwroot\assets\img\login\login-register-1.jpeg
 wwwroot\assets\img\login\page-title.webp
 wwwroot\assets\img\new-password\page-title.webp
 wwwroot\assets\img\product-details\02f8f4e6-68f2-4733-a923-738f98e5dd43_imgi_19_Img7_3.jpg
+wwwroot\assets\img\product-details\076fafe1-a1b0-427f-9b83-76563a56ba50_comment-3.webp
 wwwroot\assets\img\product-details\1194bd23-56db-47d8-b894-b3e1d3486267_product-3-2.webp
 wwwroot\assets\img\product-details\16f4eb88-b037-4a09-8998-2bc87c582ee3_motocycle  1-1.webp
 wwwroot\assets\img\product-details\4da4a792-963c-4ae1-a7ab-96e5aee7dd4d_blender 1-1.webp
 wwwroot\assets\img\product-details\4ea199c9-8e31-4a53-9964-434b819efcd6_product-8-1.webp
 wwwroot\assets\img\product-details\4f656547-08c5-4685-bde2-b2e823ddd060_4db1aa24-1488-4577-a429-a42108c16bf3-instagram-3.webp
 wwwroot\assets\img\product-details\5708a1c6-64f3-4d86-a54f-f3e5910ad98e_product-9-1.webp
+wwwroot\assets\img\product-details\570f921f-953e-43f7-9827-e9370619e679_blog-3.webp
 wwwroot\assets\img\product-details\5eb8f583-ee18-4bf7-88b4-dfbcbcb40f78_abstract pot 1-2.webp
 wwwroot\assets\img\product-details\5f9965d0-6f65-4a51-8422-e9667fc500c9_imgi_25_Img9_3.jpg
 wwwroot\assets\img\product-details\614191d5-cd85-4aad-b202-c4050969ea27_brand-7.webp
@@ -687,6 +689,7 @@ wwwroot\assets\img\product-details\62ce19ac-82ec-4641-aa01-6daf600fc522_imgi_30_
 wwwroot\assets\img\product-details\63295f11-8a0b-4866-8904-7dc0e46bdb07_imgi_21_Img7_2.jpg
 wwwroot\assets\img\product-details\66414241-eabb-4835-a425-5a42bc26ab4e_product-6-2.webp
 wwwroot\assets\img\product-details\6e1fdaf4-a2b4-41d8-8ec7-26f93ab82b3e_8735f46051e5e8bef07d230e8bb6a5fd.jpg
+wwwroot\assets\img\product-details\7afcf342-03ff-4753-ad2f-b4b1cec5233c_comment-4.webp
 wwwroot\assets\img\product-details\7da7d8d1-0839-4591-9570-5ca9976df287_product-8-2.webp
 wwwroot\assets\img\product-details\83f38da8-b467-48b2-aa4a-68cbc1161af4_mug 1-2.webp
 wwwroot\assets\img\product-details\8459f917-b53c-49eb-879a-f5be6f7a5135_product-9-2.webp
@@ -704,6 +707,8 @@ wwwroot\assets\img\product-details\ac37f6c1-7913-4b20-9462-727d34606b61_mug 1-1.
 wwwroot\assets\img\product-details\acb08869-5081-4322-b91f-3712b4647c35_c718dd61a4cb20cdba2d6fed9ec48b7d.jpg
 wwwroot\assets\img\product-details\ae150be6-37f5-492c-b9b3-902ddb2f6709_11b905446d5a0ab510c2c57719c53a41.jpg
 wwwroot\assets\img\product-details\b4a799d4-d741-4719-8b8b-97c705a457ef_3c2e122c-d499-4255-939e-9e3efe87198c_blog-1 - Copy.webp
+wwwroot\assets\img\product-details\b60a8cb0-2aaf-4d10-b53b-ad692e979c0c_comment-1.webp
+wwwroot\assets\img\product-details\b70b9c21-ce68-4f18-86b9-5b3d2d200a2f_blog-3.webp
 wwwroot\assets\img\product-details\brand-1.webp
 wwwroot\assets\img\product-details\brand-2.webp
 wwwroot\assets\img\product-details\brand-3.webp

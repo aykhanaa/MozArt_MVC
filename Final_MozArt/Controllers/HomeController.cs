@@ -88,10 +88,5 @@ namespace Final_MozArt.Controllers
 
             return View("Index", model);
         }
-
-
-
-
-
     }
 }

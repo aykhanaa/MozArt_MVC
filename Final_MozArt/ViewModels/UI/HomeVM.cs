@@ -16,6 +16,6 @@ namespace Final_MozArt.ViewModels.UI
         public IEnumerable<ProductVM> Products { get; set; }
         public IEnumerable<ContactMessageVM> ApprovedMessages { get; set; }
         public Dictionary<string, string> Setting { get; set; }
-
+        public bool HasResults { get; set; }
     }
 }

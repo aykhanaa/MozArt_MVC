@@ -91,7 +91,6 @@
                                         <table class="table">
                                             <thead>
                                                 <tr>
-                                                    <th>Order</th>
                                                     <th>Date</th>
                                                     <th>Total</th>
                                                     <th>Status</th>
@@ -104,7 +103,6 @@
                                                     foreach (var order in Model.Orders)
                                                     {
                                                         <tr data-order-id="@order.Id">
-                                                            <td>@order.Id</td>
                                                             <td>@order.CreatedDate.ToString("MMM dd, yyyy")</td>
                                                             <td>$@order.TotalPrice.ToString("F2")</td>
                                                             <td>

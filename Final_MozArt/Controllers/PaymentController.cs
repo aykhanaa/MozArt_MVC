@@ -220,7 +220,7 @@ namespace Final_MozArt.Controllers
               <head>
               <meta charset='UTF-8'>
               <meta name='viewport' content='width=device-width, initial-scale=1.0'>
-              <title>Ödəniş Təsdiqi</title>
+              <title>Payment Confirmation</title>
               <style>
             body {{
                 font-family: Arial, sans-serif;
@@ -269,18 +269,19 @@ namespace Final_MozArt.Controllers
     <body>
         <div class='email-container'>
             <div class='email-header'>
-                <h1>Ödəniş Təsdiqi</h1>
+                <h1>Payment Confirmation</h1>
             </div>
             <div class='email-body'>
-                <h2>Salam {user.UserName},</h2>
-                <p>Sizin ödənişiniz uğurla tamamlandı. Alınan məhsullar aşağıdakı kimidir:</p>
+                <h2>Hi {user.UserName},</h2>
+                <p>
+                 Your payment has been completed successfully. The products purchased are as follows::</p>
                 <div class='product-details'>
                     <table>
                         <thead>
                             <tr>
-                                <th>Məhsul</th>
-                                <th>Sayı</th>
-                                <th>Cəmi</th>
+                                <th>Product</th>
+                                <th>Count</th>
+                                <th>Total</th>
                             </tr>
                         </thead>
                         <tbody>";
@@ -299,10 +300,10 @@ namespace Final_MozArt.Controllers
                         </tbody>
                     </table>
                 </div>
-                <p>Bizə güvəndiyiniz üçün təşəkkür edirik!</p>
+                <p>Thank you for trusting us!</p>
             </div>
             <div class='email-footer'>
-                <p>&copy; 2025 Final MozArt. Bütün hüquqlar qorunur.</p>
+                <p>&copy; 2025 MozArt. All rights reserved.</p>
             </div>
         </div>
     </body>

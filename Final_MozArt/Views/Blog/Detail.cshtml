@@ -54,7 +54,7 @@
                         </div>
 
 
-                        <div class="related-blog">
+@*                         <div class="related-blog">
                             <div class="block-title pb-0 border-bottom-0">
                                 <h2 class="title">Related Blog</h2>
                             </div>
@@ -88,7 +88,7 @@
                                     </div>
                                 }
                             </div>
-                        </div>
+                        </div> *@
                          <div class="    ">
                             <div class="block-title pb-0 border-bottom-0">
                                 <h2 class="title">Comments</h2>
@@ -146,7 +146,41 @@
 
                                 <ul class="comment-list" id="commentList">
                                 </ul>
+                                <div class="related-blog">
+                                    <div class="block-title pb-0 border-bottom-0">
+                                        <h2 class="title">Related Blog</h2>
+                                    </div>
+                                    <div class="row learts-mb-n40">
+                                        @foreach (var blog in Model.Blogs
+                                                                                .Where(m => m.BlogCategoryId == Model.Blog.BlogCategoryId && m.Id != Model.Blog.Id)
+                                                                                .OrderByDescending(m => m.CreateDate)
+                                                                                .Take(2))
 
+                                        {
+                                            <div class="col-md-6 col-12 learts-mb-40">
+                                                <div class="blog">
+                                                    <div class="image">
+                                                        <a asp-controller="Blog" asp-action="Detail" asp-route-id="@blog.Id">
+                                                            <img src="~/assets/img/blog/@blog.Image" alt="Blog Image">
+                                                        </a>
+                                                    </div>
+                                                    <div class="content">
+                                                        <ul class="meta">
+                                                            <li>
+                                                                <i class="far fa-calendar"></i><a>@blog.CreateDate.ToString("dd/MM/yyyy")</a>
+                                                            </li>
+                                                        </ul>
+                                                        <h5 class="title mb-0">
+                                                            <a asp-controller="Blog" asp-action="Detail" asp-route-id="@blog.Id">
+                                                                @blog.Title
+                                                            </a>
+                                                        </h5>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        }
+                                    </div>
+                                </div>
                                 <script>
                                     const isAuthenticated = @User.Identity.IsAuthenticated.ToString().ToLower();  // true or false
                                     const YOUR_BLOG_ID = @Model.Blog.Id;

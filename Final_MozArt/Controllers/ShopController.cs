@@ -61,7 +61,8 @@ namespace Final_MozArt.Controllers
 
                 if (products == null || products.Count == 0)
                 {
-                    return RedirectToAction("Index", "NotFound");
+                    //return RedirectToAction("Index", "NotFound");
+                    ViewBag.SearchMessage = "Product not found";
                 }
             }
             else if (!string.IsNullOrWhiteSpace(sortKey))

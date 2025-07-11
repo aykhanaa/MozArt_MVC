@@ -49,6 +49,18 @@
         <div class="product-size section-fluid learts-mt-70">
             <div class="container">
                 <div class="row learts-mb-n50">
+                    @if (ViewBag.SearchMessage != null)
+                    {
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="alert alert-warning text-center py-2" style="background-color: #fff8dc; color: #ddc11d; border: 1px solid #ddc11d;">
+                                        <strong>@ViewBag.SearchMessage</strong>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    }
               @if (Model.Products != null && Model.Products.Any())
                {
                     <div class="col-lg-9 col-12 learts-mb-50 order-lg-2">
@@ -58,7 +70,7 @@
                             @{
                                 var productsToShow = Model.Products.Take(8).ToList();
                             }
-
+                              
                             @foreach (var item in productsToShow)
                             {
                                     <div class="grid-item col featured product-item">
